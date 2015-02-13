@@ -45,11 +45,11 @@ H5P.GoalsPage = (function ($) {
 
     var goalsTemplate =
         '<div class="goals-title">{{title}}</div>' +
-        '<div class="goals-description">{{description}}</div>'+
-        '<div class="goals-define">'+
-          '<a href="#" class="goals-predefined">{{chooseGoalText}}</a>'+
-          '<a href="#" class="goals-create">{{defineGoalText}}</a>'+
-        '</div>'+
+        '<div class="goals-description">{{description}}</div>' +
+        '<div class="goals-define">' +
+          '<a href="#" class="goals-search">{{chooseGoalText}}</a>' +
+          '<a href="#" class="goals-create">{{defineGoalText}}</a>' +
+        '</div>' +
         '<div class="goals-view"></div>';
 
     self.$inner.append(Mustache.render(goalsTemplate, self.params));
@@ -58,15 +58,15 @@ H5P.GoalsPage = (function ($) {
     var ndlaData = new NdlaGoals();
 
     //TODO: will be implemented in a later case.
-    // Create predefined goal using GREP API (grep.ndla.no)
-    $('.goals-predefined', self.$inner).click(function (event) {
-/*      ndlaData.setDataCurriculum('uuid:2be0f347-d834-4e20-89a0-6f13bf10c0f9').getData();
-      ndlaData.setDataAllCurricula().getData();*/
+    // Create predefined goal using GREP API
+    $('.goals-search', self.$inner).click(function (event) {
+      //ndlaData.setDataCurriculum('uuid:2be0f347-d834-4e20-89a0-6f13bf10c0f9').getData();
+      ndlaData.setDataAllCurricula().getData();
       event.preventDefault();
     });
 
     // Create new goal on click
-    $('.goals-create', self.$inner).click( function (event) {
+    $('.goals-create', self.$inner).click(function (event) {
       var $newGoal = self.createNewGoal().appendTo($('.goals-view', self.$inner));
       $('.created-goal', $newGoal).focus();
       var newGoal = new Goal(self.params.defineGoalPlaceholder, self.goalId);
@@ -143,13 +143,13 @@ H5P.GoalsPage = (function ($) {
    */
   NdlaGoals.prototype.setDataCurriculum = function (uuid) {
     var slicedUuid = uuid;
-    if (uuid.substring(0,4) == "uuid") {
+    if (uuid.substring(0, 4) === "uuid") {
       slicedUuid = uuid.slice(4);
     }
 
     this.service_data = {
       "method" : "get.curriculum",
-      "laereplan_id" : "uuid:"+slicedUuid,
+      "laereplan_id" : "uuid:" + slicedUuid,
       "format" : "json",
       "language" : "nb"
     };
@@ -160,7 +160,7 @@ H5P.GoalsPage = (function ($) {
   NdlaGoals.prototype.getData = function () {
     var self = this;
     var jsonData;
-    $.ajax({
+/*    $.ajax({
       url: "http://relate.ndla.no/services/json",
       dataType: "jsonp",
       data: self.service_data,
@@ -179,13 +179,19 @@ H5P.GoalsPage = (function ($) {
       error: function(xhr, status, errorThrown) {
         alert("Cannot connect to the Internet.");
       }
-    });
+    });*/
 
     // Test av mycurriculum test
-/*    $.getJSON('http://mycurriculum.test.ndlap3.seria.net/v1/users/ndla/education-groups.json', function (data) {
+/*    $.getJSON('http://mycurriculum.test.ndlap3.seria.net/v1/users/ndla/education-groups', function (data) {
       console.log(data);
       jsonData = data;
     });*/
+    $.ajax({
+      url:'http://mycurriculum.test.ndlap3.seria.net/v1/users/ndla/education-groups/ndla',
+      success: function(data) {
+        console.log(data);
+      }
+    });
 
     return jsonData;
   };
@@ -196,7 +202,7 @@ H5P.GoalsPage = (function ($) {
     this.text = defineGoalPlaceholder;
   }
 
-  Goal.prototype.goalId = function() {
+  Goal.prototype.goalId = function () {
     return this.uniqueId;
   };
 
