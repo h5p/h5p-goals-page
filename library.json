@@ -16,6 +16,12 @@
   "preloadedJs": [
     {
       "path": "goals-page.js"
+    },
+    {
+      "path": "goal-instance.js"
+    },
+    {
+      "path": "grep-api.js"
     }
   ],
   "preloadedDependencies": [

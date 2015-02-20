@@ -63,6 +63,12 @@
     "default": "Remove goal"
   },
   {
+    "name": "filterGoalsPlaceholder",
+    "label": "Placeholder for filter on words \"Input\" field",
+    "type": "text",
+    "default": "Filter on words..."
+  },
+  {
     "name": "helpText",
     "label": "Fill in additional help information",
     "type": "text",

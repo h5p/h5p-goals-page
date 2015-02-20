@@ -20,13 +20,14 @@ H5P.GoalsPage = (function ($) {
 
     // Set default behavior.
     this.params = $.extend({}, {
-      title: '',
+      title: 'Goals',
       description: '',
       chooseGoalText: 'Choose goal from list',
       defineGoalText: 'Create a new goal',
       defineGoalTitle: 'Create a new goal',
       defineGoalPlaceholder: 'Write here...',
       removeGoalTitle: 'Remove goal',
+      filterGoalsPlaceholder: "Filter on words...",
       helpText: 'Help text'
     }, params);
   }
@@ -47,21 +48,22 @@ H5P.GoalsPage = (function ($) {
         '<div class="goals-title">{{title}}</div>' +
         '<div class="goals-description">{{description}}</div>' +
         '<div class="goals-define">' +
-          '<a href="#" class="goals-search">{{chooseGoalText}}</a>' +
-          '<a href="#" class="goals-create">{{defineGoalText}}</a>' +
+          '<div class="goals-search">{{chooseGoalText}}</div>' +
+          '<div class="goals-create">{{defineGoalText}}</div>' +
         '</div>' +
         '<div class="goals-view"></div>';
 
     self.$inner.append(Mustache.render(goalsTemplate, self.params));
 
 
-    var ndlaData = new NdlaGoals();
+    var grepAPI = new H5P.GoalsPage.GrepAPI(self.$inner, self.params.filterGoalsPlaceholder);
 
     //TODO: will be implemented in a later case.
     // Create predefined goal using GREP API
     $('.goals-search', self.$inner).click(function (event) {
       //ndlaData.setDataCurriculum('uuid:2be0f347-d834-4e20-89a0-6f13bf10c0f9').getData();
-      ndlaData.setDataAllCurricula().getData();
+      grepAPI.getData();
+
       event.preventDefault();
     });
 
@@ -69,7 +71,7 @@ H5P.GoalsPage = (function ($) {
     $('.goals-create', self.$inner).click(function (event) {
       var $newGoal = self.createNewGoal().appendTo($('.goals-view', self.$inner));
       $('.created-goal', $newGoal).focus();
-      var newGoal = new Goal(self.params.defineGoalPlaceholder, self.goalId);
+      var newGoal = new H5P.GoalsPage.GoalInstance(self.params.defineGoalPlaceholder, self.goalId);
       self.goalList.push(newGoal);
       self.goalId += 1;
       event.preventDefault();
@@ -112,120 +114,22 @@ H5P.GoalsPage = (function ($) {
     }).appendTo($goalContainer);
 
     return $goalContainer;
-
-  };
-
-  GoalsPage.prototype.getGoals = function () {
-    return this.goalList;
-  };
-
-  //TODO: Make NDLA external file, and only create button if external file is loaded.
-  function NdlaGoals() {
-    // default to all curricula
-    this.setDataAllCurricula();
-  }
-
-  NdlaGoals.prototype.setDataAllCurricula = function () {
-    this.service_data = {
-      "method" : "get.curricula",
-      "format" : "json",
-      "language" : "nb"
-    };
-
-    return this;
   };
 
   /**
-   * Set the data that will be retrieved to specified uuid
-   *
-   * @param {String} uuid uuid of curriculum
-   * @returns {NdlaGoals} NdlaGoals Returns this for chaining.
+   * Get page title
+   * @returns {String} Page title
    */
-  NdlaGoals.prototype.setDataCurriculum = function (uuid) {
-    var slicedUuid = uuid;
-    if (uuid.substring(0, 4) === "uuid") {
-      slicedUuid = uuid.slice(4);
-    }
-
-    this.service_data = {
-      "method" : "get.curriculum",
-      "laereplan_id" : "uuid:" + slicedUuid,
-      "format" : "json",
-      "language" : "nb"
-    };
-
-    return this;
+  GoalsPage.prototype.getTitle = function () {
+    return this.params.title;
   };
 
-  NdlaGoals.prototype.getData = function () {
-    var self = this;
-    var jsonData;
-/*    $.ajax({
-      url: "http://relate.ndla.no/services/json",
-      dataType: "jsonp",
-      data: self.service_data,
-      jsonp: "callback",
-      success: function(data){
-
-        if (typeof(data["#error"]) !== 'undefined' && data["#error"] == false) {
-          console.log(data["#data"]);
-          jsonData = data["#data"];
-          // yourfunction(data["#data"]);
-        } else {
-          // display error message
-          throw new Error("Could not retrieve grep.ndla.no data");
-        }
-      },
-      error: function(xhr, status, errorThrown) {
-        alert("Cannot connect to the Internet.");
-      }
-    });*/
-
-    // Test av mycurriculum test
-/*    $.getJSON('http://mycurriculum.test.ndlap3.seria.net/v1/users/ndla/education-groups', function (data) {
-      console.log(data);
-      jsonData = data;
-    });*/
-    $.ajax({
-      url:'http://mycurriculum.test.ndlap3.seria.net/v1/users/ndla/education-groups/ndla',
-      success: function(data) {
-        console.log(data);
-      }
-    });
-
-    return jsonData;
-  };
-
-  function Goal(defineGoalPlaceholder, uniqueId) {
-    this.uniqueId = uniqueId;
-    this.answer = -1;
-    this.text = defineGoalPlaceholder;
-  }
-
-  Goal.prototype.goalId = function () {
-    return this.uniqueId;
-  };
-
-  Goal.prototype.goalAnswer = function (answer) {
-    // Get answer value if no arguments
-    if (answer === undefined) {
-      return this.answer;
-    }
-
-    // Set answer value
-    this.answer = answer;
-    return this;
-  };
-
-  Goal.prototype.goalText = function (text) {
-    // Get text value if no arguments
-    if (text === undefined) {
-      return this.text;
-    }
-
-    // Set text value
-    this.text = text;
-    return this;
+  /**
+   * Get goal list
+   * @returns {Array} Goal list
+   */
+  GoalsPage.prototype.getGoals = function () {
+    return this.goalList;
   };
 
   return GoalsPage;
