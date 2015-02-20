@@ -22,6 +22,9 @@
     },
     {
       "path": "grep-api.js"
+    },
+    {
+      "path": "grep-dialog-box.js"
     }
   ],
   "preloadedDependencies": [

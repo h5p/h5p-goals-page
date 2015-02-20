@@ -99,3 +99,17 @@
 .h5p-goals-page .h5p-bottom-bar-text {
   display: inline-block;
 }
+
+/* ---------------------------------- Grep Dialog Box ---------------------------------- */
+
+.h5p-goals-page .h5p-curriculum-popup-exit:after {
+  font-family: "H5PFontAwesome4";
+  content: "\f00d";
+}
+
+.h5p-curriculum-popup-exit {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  cursor: pointer;
+}

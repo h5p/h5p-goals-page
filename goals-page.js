@@ -62,7 +62,7 @@ H5P.GoalsPage = (function ($) {
     // Create predefined goal using GREP API
     $('.goals-search', self.$inner).click(function (event) {
       //ndlaData.setDataCurriculum('uuid:2be0f347-d834-4e20-89a0-6f13bf10c0f9').getData();
-      grepAPI.getData();
+      var dialogInstance = new H5P.GoalsPage.GrepDialogBox('test').attach(self.$inner);
 
       event.preventDefault();
     });
@@ -133,4 +133,4 @@ H5P.GoalsPage = (function ($) {
   };
 
   return GoalsPage;
-})(H5P.jQuery);
+}(H5P.jQuery));
