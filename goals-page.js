@@ -28,6 +28,8 @@ H5P.GoalsPage = (function ($) {
       defineGoalPlaceholder: 'Write here...',
       removeGoalTitle: 'Remove goal',
       filterGoalsPlaceholder: "Filter on words...",
+      commaSeparatedCurriculumList: "",
+      helpTextLabel: 'Read more',
       helpText: 'Help text'
     }, params);
   }
@@ -39,13 +41,19 @@ H5P.GoalsPage = (function ($) {
    */
   GoalsPage.prototype.attach = function ($container) {
     var self = this;
-    this.$inner = $container.addClass(MAIN_CONTAINER);
+    this.$inner = $('<div>', {
+      'class': MAIN_CONTAINER
+    }).appendTo($container);
 
     self.goalList = [];
     self.goalId = 0;
+    self.filteredIdList = [];
 
     var goalsTemplate =
-        '<div class="goals-title">{{title}}</div>' +
+        '<div class="goals-header">' +
+        ' <div role="button" tabindex="1" class="goals-help-text">{{helpTextLabel}}</div>' +
+        ' <div class="goals-title">{{title}}</div>' +
+        '</div>' +
         '<div class="goals-description">{{description}}</div>' +
         '<div class="goals-define">' +
           '<div class="goals-search">{{chooseGoalText}}</div>' +
@@ -53,28 +61,68 @@ H5P.GoalsPage = (function ($) {
         '</div>' +
         '<div class="goals-view"></div>';
 
+    /*global Mustache */
     self.$inner.append(Mustache.render(goalsTemplate, self.params));
+    self.$goalsView = $('.goals-view', self.$inner);
 
+    self.createHelpTextButton();
 
-    var grepAPI = new H5P.GoalsPage.GrepAPI(self.$inner, self.params.filterGoalsPlaceholder);
-
-    //TODO: will be implemented in a later case.
     // Create predefined goal using GREP API
-    $('.goals-search', self.$inner).click(function (event) {
-      //ndlaData.setDataCurriculum('uuid:2be0f347-d834-4e20-89a0-6f13bf10c0f9').getData();
-      var dialogInstance = new H5P.GoalsPage.GrepDialogBox('test').attach(self.$inner);
-
-      event.preventDefault();
+    $('.goals-search', self.$inner).click(function () {
+      self.createGrepDialogBox(self.filteredIdList);
     });
 
     // Create new goal on click
-    $('.goals-create', self.$inner).click(function (event) {
-      var $newGoal = self.createNewGoal().appendTo($('.goals-view', self.$inner));
+    $('.goals-create', self.$inner).click(function () {
+      var $newGoal = self.createNewGoal().appendTo(self.$goalsView);
       $('.created-goal', $newGoal).focus();
       var newGoal = new H5P.GoalsPage.GoalInstance(self.params.defineGoalPlaceholder, self.goalId);
       self.goalList.push(newGoal);
       self.goalId += 1;
-      event.preventDefault();
+    });
+  };
+
+  /**
+   * Create help text functionality for reading more about the task
+   */
+  GoalsPage.prototype.createHelpTextButton = function () {
+    var self = this;
+
+    if (this.params.helpText !== undefined && this.params.helpText.length) {
+      $('.goals-help-text', this.$inner).click(function () {
+        var $helpTextDialog = new H5P.JoubelUI.createHelpTextDialog(self.params.title, self.params.helpText);
+        $helpTextDialog.appendTo(self.$inner.parent().parent().parent());
+      });
+    } else {
+      $('.goals-help-text', this.$inner).remove();
+    }
+  };
+
+  GoalsPage.prototype.getFilteredIdList = function () {
+    var filterIdList = [];
+    if (this.params.commaSeparatedCurriculumList !== undefined
+        && this.params.commaSeparatedCurriculumList.length) {
+      filterIdList = this.params.commaSeparatedCurriculumList.split(',');
+      filterIdList.forEach(function (filterId, filterIndex) {
+        filterIdList[filterIndex] = filterId.trim();
+      });
+    }
+    return filterIdList;
+  };
+
+  GoalsPage.prototype.createGrepDialogBox = function (filteredIdString) {
+    var self = this;
+    var filteredIdList = self.getFilteredIdList(filteredIdString);
+
+    var dialogInstance = new H5P.GoalsPage.GrepDialogBox(filteredIdList);
+    dialogInstance.attach(self.$inner);
+    dialogInstance.getFinishedButton().on('dialogFinished', function (event, data) {
+      data.forEach(function (competenceAim) {
+        self.createNewGoal(competenceAim).appendTo(self.$goalsView);
+        var newGoal = new H5P.GoalsPage.GoalInstance(competenceAim, self.goalId);
+        self.goalList.push(newGoal);
+        self.goalId += 1;
+      });
     });
   };
 
@@ -83,8 +131,13 @@ H5P.GoalsPage = (function ($) {
    *
    * @returns {jQuery} $goalContainer New goal
    */
-  GoalsPage.prototype.createNewGoal = function () {
+  GoalsPage.prototype.createNewGoal = function (predefinedGoalText) {
     var self = this;
+
+    var initialText = '';
+    if (predefinedGoalText !== undefined && predefinedGoalText.length) {
+      initialText = predefinedGoalText;
+    }
 
     // Goal container
     var $goalContainer = $('<div/>', {
@@ -95,7 +148,8 @@ H5P.GoalsPage = (function ($) {
     $('<div/>', {
       'class': 'created-goal',
       'contentEditable': 'true',
-      'spellcheck': 'false'
+      'spellcheck': 'false',
+      'text': initialText
     }).focusout(function () {
       if ($(this).text() === '') {
         $(this).text(self.params.defineGoalPlaceholder);

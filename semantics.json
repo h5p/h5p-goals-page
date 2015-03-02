@@ -4,8 +4,7 @@
     "label": "Title",
     "type": "text",
     "description": "Title for the goals page.",
-    "default": "Goals",
-    "optional": true
+    "default": "Goals"
   },
   {
     "name": "description",
@@ -50,6 +49,13 @@
     "default": "Create a new goal"
   },
   {
+    "name": "definedGoalLabel",
+    "label": "Label for a user defined goal",
+    "type": "text",
+    "description": "Text that will be displayed as label on a user created goal.",
+    "default": "User defined goal"
+  },
+  {
     "name": "defineGoalPlaceholder",
     "label": "Define goal placeholder",
     "type": "text",
@@ -67,6 +73,20 @@
     "label": "Placeholder for filter on words \"Input\" field",
     "type": "text",
     "default": "Filter on words..."
+  },
+  {
+    "name": "commaSeparatedCurriculumList",
+    "label": "Filter on curriculum ID(s):",
+    "type": "text",
+    "description": "If you wish to only display certain curriculums you can add them here by ID, example for displaying only carpentry and media graphics curricula : TMF3-01, MGR3-01",
+    "optional": true
+  },
+  {
+    "name": "helpTextLabel",
+    "label": "Label for help text",
+    "type": "text",
+    "description": "Label for showing additional helpful information to the user.",
+    "default": "Read more"
   },
   {
     "name": "helpText",
