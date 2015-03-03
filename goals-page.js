@@ -8,6 +8,10 @@ H5P.GoalsPage = (function ($) {
   // CSS Classes:
   var MAIN_CONTAINER = 'h5p-goals-page';
 
+  // Goal states
+  var GOAL_USER_CREATED = 0;
+  var GOAL_PREDEFINED = 1;
+
   /**
    * Initialize module.
    * @param {Object} params Behavior settings
@@ -24,9 +28,11 @@ H5P.GoalsPage = (function ($) {
       description: '',
       chooseGoalText: 'Choose goal from list',
       defineGoalText: 'Create a new goal',
-      defineGoalTitle: 'Create a new goal',
       defineGoalPlaceholder: 'Write here...',
-      removeGoalTitle: 'Remove goal',
+      goalsAddedText: 'goals added:',
+      finishGoalText: 'Finish',
+      editGoalText: 'Edit',
+      removeGoalText: 'Remove goal',
       filterGoalsPlaceholder: "Filter on words...",
       commaSeparatedCurriculumList: "",
       helpTextLabel: 'Read more',
@@ -59,6 +65,7 @@ H5P.GoalsPage = (function ($) {
           '<div class="goals-search">{{chooseGoalText}}</div>' +
           '<div class="goals-create">{{defineGoalText}}</div>' +
         '</div>' +
+        '<div class="goals-counter"></div>' +
         '<div class="goals-view"></div>';
 
     /*global Mustache */
@@ -70,16 +77,54 @@ H5P.GoalsPage = (function ($) {
     // Create predefined goal using GREP API
     $('.goals-search', self.$inner).click(function () {
       self.createGrepDialogBox(self.filteredIdList);
-    });
+    }).addClass('joubel-simple-rounded-button');
 
     // Create new goal on click
     $('.goals-create', self.$inner).click(function () {
-      var $newGoal = self.createNewGoal().appendTo(self.$goalsView);
-      $('.created-goal', $newGoal).focus();
-      var newGoal = new H5P.GoalsPage.GoalInstance(self.params.defineGoalPlaceholder, self.goalId);
-      self.goalList.push(newGoal);
-      self.goalId += 1;
-    });
+      self.addGoal();
+    }).addClass('joubel-simple-rounded-button');
+  };
+
+  /**
+   * Adds a new goal to the page
+   */
+  GoalsPage.prototype.addGoal = function () {
+    var self = this;
+    var $newGoal = self.createNewGoal().appendTo(self.$goalsView);
+    $('.created-goal', $newGoal).focus();
+    var newGoal = new H5P.GoalsPage.GoalInstance(self.params.defineGoalPlaceholder, self.goalId, GOAL_USER_CREATED);
+    $newGoal.removeClass()
+      .addClass('created-goal-container')
+      .addClass('goal-type-' + newGoal.getGoalInstanceType())
+      .addClass('focused');
+    self.goalList.push(newGoal);
+    self.goalId += 1;
+    self.updateGoalsCounter();
+  };
+
+  /**
+   * Remove chosen goal from the page
+   * @param {jQuery} $goalContainer
+   */
+  GoalsPage.prototype.removeGoal = function ($goalContainer) {
+    this.goalList.splice($goalContainer.index(), 1);
+    $goalContainer.remove();
+    this.updateGoalsCounter();
+  };
+
+  /**
+   * Updates goal counter on page with amount of chosen goals.
+   */
+  GoalsPage.prototype.updateGoalsCounter = function () {
+    var self = this;
+    var $goalCounterContainer = $('.goals-counter', self.$inner);
+    $goalCounterContainer.children().remove();
+    if (self.goalList.length) {
+      $('<span>', {
+        'class': 'goals-counter-text',
+        'html': self.goalList.length + ' ' + self.params.goalsAddedText
+      }).appendTo($goalCounterContainer);
+    }
   };
 
   /**
@@ -98,6 +143,10 @@ H5P.GoalsPage = (function ($) {
     }
   };
 
+  /**
+   * Get lists with filtered ids
+   * @returns {Array} filterIdList
+   */
   GoalsPage.prototype.getFilteredIdList = function () {
     var filterIdList = [];
     if (this.params.commaSeparatedCurriculumList !== undefined
@@ -110,6 +159,10 @@ H5P.GoalsPage = (function ($) {
     return filterIdList;
   };
 
+  /**
+   * Create grep dialog box
+   * @param {String} filteredIdString
+   */
   GoalsPage.prototype.createGrepDialogBox = function (filteredIdString) {
     var self = this;
     var filteredIdList = self.getFilteredIdList(filteredIdString);
@@ -119,10 +172,11 @@ H5P.GoalsPage = (function ($) {
     dialogInstance.getFinishedButton().on('dialogFinished', function (event, data) {
       data.forEach(function (competenceAim) {
         self.createNewGoal(competenceAim).appendTo(self.$goalsView);
-        var newGoal = new H5P.GoalsPage.GoalInstance(competenceAim, self.goalId);
+        var newGoal = new H5P.GoalsPage.GoalInstance(competenceAim, self.goalId, GOAL_PREDEFINED);
         self.goalList.push(newGoal);
         self.goalId += 1;
       });
+      self.updateGoalsCounter();
     });
   };
 
@@ -134,40 +188,140 @@ H5P.GoalsPage = (function ($) {
   GoalsPage.prototype.createNewGoal = function (predefinedGoalText) {
     var self = this;
 
-    var initialText = '';
-    if (predefinedGoalText !== undefined && predefinedGoalText.length) {
-      initialText = predefinedGoalText;
-    }
-
     // Goal container
     var $goalContainer = $('<div/>', {
       'class': 'created-goal-container'
     });
 
+    // Custom input footer
+    var $inputFooter = $('<div>', {
+      'class': 'h5p-created-goal-footer'
+    });
+
+    // Removes custom footer elements
+    function removeFooter() {
+      if ($inputFooter !== undefined) {
+        $inputFooter.children().remove();
+        $inputFooter.remove();
+      }
+    }
+
+    // Creates custom editor footer
+    function createEditFooter($goalContainer) {
+      $inputFooter.appendTo($goalContainer);
+      self.createRemoveGoalButton(self.params.removeGoalText, $goalContainer).appendTo($inputFooter);
+      self.createFinishedGoalButton(self.params.finishGoalText).appendTo($inputFooter);
+    }
+
+    // Creates custom hover footer
+    function createHoverFooter($goalContainer, $inputGoal) {
+      $inputFooter.appendTo($goalContainer);
+      self.createRemoveGoalButton(self.params.removeGoalText, $goalContainer).appendTo($inputFooter);
+      self.createEditGoalButton(self.params.editGoalText, $inputGoal, removeFooter).appendTo($inputFooter);
+    }
+
+    var initialText = '';
+    if (predefinedGoalText !== undefined && predefinedGoalText.length) {
+      initialText = predefinedGoalText;
+    }
+
     // Input paragraph area
-    $('<div/>', {
+    var $goalInput = $('<div>', {
       'class': 'created-goal',
-      'contentEditable': 'true',
       'spellcheck': 'false',
+      'contenteditable': true,
       'text': initialText
+    }).focus(function () {
+      createEditFooter($goalContainer);
+      $goalContainer.addClass('focused');
     }).focusout(function () {
+      $goalContainer.removeClass('focused');
+      console.log("focus out");
+      // Need to timeout before removing footer when deleting the footer
+      setTimeout(removeFooter, 150);
+
       if ($(this).text() === '') {
         $(this).text(self.params.defineGoalPlaceholder);
       }
+
+      $(this).prop('contenteditable', false);
+
       self.goalList[$goalContainer.index()].goalText($(this).text());
     }).appendTo($goalContainer);
 
-    // Remove button
-    $('<div/>', {
-      'class': 'created-goal-remove',
-      'role': 'button',
-      'title': self.params.removeGoalTitle
-    }).click(function () {
-      self.goalList.splice($goalContainer.index(), 1);
-      $goalContainer.remove();
-    }).appendTo($goalContainer);
+    $goalContainer.mouseenter(function () {
+      if (!$goalInput.is(':focus')) {
+        console.log("mouse enter");
+        createHoverFooter($goalContainer, $goalInput);
+      }
+    }).mouseleave(function () {
+      if (!$goalInput.is(':focus')) {
+        console.log("mouse leave");
+        removeFooter();
+      }
+    });
 
     return $goalContainer;
+  };
+
+  /**
+   * Creates a button for enabling editing the given goal
+   * @param {String} text String to display on the button
+   * @returns {jQuery} $editGoalButton The button
+   */
+  GoalsPage.prototype.createEditGoalButton = function (text, $inputGoal, removeFooterFunction) {
+    var $editGoalButton = $('<div>', {
+      'class': 'h5p-created-goal-done',
+      'role': 'button',
+      'tabindex': 1,
+      'text': text,
+      'title': text
+    }).click(function () {
+      //Make goal editable and set focus to it
+      removeFooterFunction();
+      $inputGoal.prop('contenteditable', true);
+      $inputGoal.focus();
+    });
+
+    return $editGoalButton;
+  };
+
+  /**
+   * Creates a button for enabling editing the given goal
+   * @param {String} text String to display on the button
+   * @returns {jQuery} $editGoalButton The button
+   */
+  GoalsPage.prototype.createFinishedGoalButton = function (text) {
+    var $editGoalButton = $('<div>', {
+      'class': 'h5p-created-goal-done',
+      'role': 'button',
+      'tabindex': 1,
+      'text': text,
+      'title': text
+    });
+
+    return $editGoalButton;
+  };
+
+  /**
+   * Creates a button for removing the given container
+   * @param {String} text String to display on the button
+   * @param {jQuery} $removeContainer Container that will be removed upon click
+   * @returns {jQuery} $removeGoalButton The button
+   */
+  GoalsPage.prototype.createRemoveGoalButton = function (text, $removeContainer) {
+    var self = this;
+    var $removeGoalButton = $('<div>', {
+      'class': 'h5p-created-goal-remove',
+      'role': 'button',
+      'tabindex': 1,
+      'text': text,
+      'title': text
+    }).click(function () {
+      self.removeGoal($removeContainer);
+    });
+
+    return $removeGoalButton;
   };
 
   /**

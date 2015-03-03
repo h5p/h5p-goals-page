@@ -31,21 +31,14 @@
     "name": "chooseGoalText",
     "label": "Predefined goal link text",
     "type": "text",
-    "description": "Text that will be displayed on the link for selecting a predefined goal.",
+    "description": "Text that will be displayed on the button for selecting a predefined goal.",
     "default": "Choose goal from list"
   },
   {
     "name": "defineGoalText",
     "label": "Define goal link text",
     "type": "text",
-    "description": "Text that will be displayed on the link for creating a new goal.",
-    "default": "Create a new goal"
-  },
-  {
-    "name": "defineGoalTitle",
-    "label": "Define goal title",
-    "type": "text",
-    "description": "Text that will be displayed as title when creating a new goal.",
+    "description": "Text that will be displayed on the button for creating a new goal.",
     "default": "Create a new goal"
   },
   {
@@ -63,10 +56,29 @@
     "default": "Write here..."
   },
   {
-    "name": "removeGoalTitle",
-    "label": "Title for \"Remove goal\"-button",
+    "name": "goalsAddedText",
+    "label": "Text indicating how many goals has been added",
     "type": "text",
-    "default": "Remove goal"
+    "default": "goals added:",
+    "description": "This text will follow after the amount of goals that is currently created, example: '5 goals added:' where 'goals added:' is this text."
+  },
+  {
+    "name": "finishGoalText",
+    "label": "Text for \"Finish goal\"-button",
+    "type": "text",
+    "default": "Finish"
+  },
+  {
+    "name": "editGoalText",
+    "label": "Text for \"Edit goal\"-button",
+    "type": "text",
+    "default": "Edit"
+  },
+  {
+    "name": "removeGoalText",
+    "label": "Text for \"Remove goal\"-button",
+    "type": "text",
+    "default": "Remove"
   },
   {
     "name": "filterGoalsPlaceholder",
