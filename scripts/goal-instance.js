@@ -31,13 +31,13 @@ H5P.GoalsPage.GoalInstance = (function () {
    * Get goal id
    * @returns {Number} uniqueId A unique identifier for the goal
    */
-  GoalInstance.prototype.goalId = function () {
+  GoalInstance.prototype.getUniqueId = function () {
     return this.uniqueId;
   };
 
   /**
    * Set or get goal answer/assessment depending on provided parameter
-   * @param {String} answer If defined the goal will be set to this value.
+   * @param {Number} answer If defined the goal will be set to this value.
    * @returns {*} Returns answer with no parameters, and return this when setting parameter for chaining
    */
   GoalInstance.prototype.goalAnswer = function (answer) {

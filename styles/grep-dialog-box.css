@@ -1,0 +1,148 @@
+/* --------------------------- Main Containers ---------------------------------*/
+
+.h5p-goals-page .h5p-curriculum-popup-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  z-index: 2;
+}
+
+.h5p-goals-page .h5p-curriculum-popup-background {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: #555555;
+  opacity: 0.75;
+}
+
+.h5p-goals-page .h5p-curriculum-popup {
+  position: relative;
+  margin: auto;
+  max-width: 800px;
+  margin-top: 1.5em;
+  height: calc(100% - 3em);
+  background: #EEE;
+
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+
+  -webkit-flex-flow: column;
+  -ms-flex-flow: column;
+  flex-flow: column;
+}
+
+.h5p-goals-page .h5p-curriculum-popup > * {
+  padding: 0.5em 1em;
+}
+
+/* ------------------------------------ Header ----------------------------------------- */
+
+.h5p-goals-page .h5p-curriculum-header {
+  height: 3em;
+  background-color: #FAFAFA;
+  border-bottom: 1px solid #ccc;
+}
+
+.h5p-goals-page .h5p-curriculum-header-text {
+  padding: 1em 0.5em;
+}
+
+/* Remove dialog box */
+.h5p-goals-page .h5p-curriculum-header .h5p-curriculum-popup-exit:after {
+  font-family: "H5PFontAwesome4";
+  content: "\f00d";
+  font-size: 1.5em;
+}
+
+.h5p-goals-page .h5p-curriculum-popup-exit {
+  position: absolute;
+  top: 0.6em;
+  right: 1em;
+  cursor: pointer;
+}
+
+/* ----------------------------- Search Container -------------------------*/
+
+/* Search area */
+.h5p-goals-page .h5p-curriculum-search-container {
+  width: 100%;
+}
+
+.h5p-goals-page .h5p-curriculum-search-box {
+  width: calc(100% - 2em);
+  padding: 0.5em;
+  border: 1px solid #ccc;
+  border-top: 2px solid #ccc;
+}
+
+/* ------------------------- Dialog list view ----------------------------- */
+
+
+.h5p-goals-page .h5p-view-list-container .h5p-view-list-entry {
+  border: 1px solid black;
+  cursor: pointer;
+  width: 90%;
+}
+
+.h5p-curriculum-view {
+  -webkit-box-flex: 2;
+  -webkit-flex: 2;
+  -ms-flex: 2;
+  flex: 2;
+  overflow: auto;
+}
+
+/* -------------------- Different dialog list elements ---------------------*/
+
+.h5p-goals-page .h5p-view-list-container .h5p-view-list-entry.h5p-curriculum-instance {
+  background-color: #fffadb;
+}
+
+.h5p-goals-page .h5p-view-list-container .h5p-view-list-entry.h5p-competence-aim-set-instance {
+  background-color: #ffc2f9;
+}
+
+.h5p-goals-page .h5p-view-list-container .h5p-view-list-entry.h5p-competence-aim-instance {
+  background-color: #cdecff;
+}
+
+.h5p-goals-page .h5p-view-list-container .h5p-view-list-entry.h5p-competence-aim-instance.selected {
+  background-color: #3fff38;
+}
+
+/* ---------------------- Bottom bar ----------------------------------*/
+
+.h5p-goals-page .h5p-bottom-bar {
+  position: relative;
+}
+
+.h5p-goals-page .h5p-bottom-bar-button {
+  display: inline-block;
+  float: right;
+  cursor: pointer;
+}
+
+.h5p-goals-page .h5p-bottom-bar-text {
+  display: inline-block;
+}
+
+/* Throbber */
+.h5p-goals-page .h5p-curriculum-popup .h5p-throbber-container {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+
+  height: 100%;
+}

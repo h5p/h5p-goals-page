@@ -18,12 +18,13 @@ H5P.GoalsPage.GrepDialogBox = (function ($) {
    * @param {Array} competenceSetArray Array containing available competence set
    * @returns {Object} GrepDialogBox GrepDialogBox instance
    */
-  function GrepDialogBox(filterIdList, filterGoalsPlaceholder) {
+  function GrepDialogBox(header, filterIdList, filterGoalsPlaceholder) {
     this.$ = $;
     this.isCreated = false;
     this.hasBottomBar = false;
     this.selectedCompetenceAims = [];
     this.filteredIdList = filterIdList;
+    this.header = header;
 
     // l10n
     this.filterGoalsPlaceholder = filterGoalsPlaceholder;
@@ -47,11 +48,21 @@ H5P.GoalsPage.GrepDialogBox = (function ($) {
    * @returns {H5P.GoalsPage.GrepDialogBox}
    */
   GrepDialogBox.prototype.createDialogView = function () {
-    this.$curriculumDialog = $('<div>', {
-      'class': 'h5p-curriculum-popup'
+    this.$curriculumDialogContainer = $('<div>', {
+      'class': 'h5p-curriculum-popup-container'
     });
 
+    // Create a semi-transparent background for the popup
+    $('<div>', {
+      'class': 'h5p-curriculum-popup-background'
+    }).appendTo(this.$curriculumDialogContainer);
+
+    this.$curriculumDialog = $('<div>', {
+      'class': 'h5p-curriculum-popup'
+    }).appendTo(this.$curriculumDialogContainer);
+
     this.createHeader().appendTo(this.$curriculumDialog);
+    this.createSearchBox().appendTo(this.$curriculumDialog);
 
     this.$curriculumView = $('<div>', {
       'class': 'h5p-curriculum-view'
@@ -59,7 +70,7 @@ H5P.GoalsPage.GrepDialogBox = (function ($) {
 
     this.isCreated = true;
 
-    this.$curriculumDialog.appendTo(this.$wrapper);
+    this.$curriculumDialogContainer.appendTo(this.$wrapper);
 
     return this;
   };
@@ -72,7 +83,10 @@ H5P.GoalsPage.GrepDialogBox = (function ($) {
       'class': 'h5p-curriculum-header'
     });
 
-    this.createSearchBox().appendTo($header);
+    $('<div>', {
+      'class': 'h5p-curriculum-header-text',
+      'html': this.header
+    }).appendTo($header);
     this.createExit().appendTo($header);
 
     return $header;
@@ -97,7 +111,7 @@ H5P.GoalsPage.GrepDialogBox = (function ($) {
    * Removes the dialog box
    */
   GrepDialogBox.prototype.removeDialogBox = function () {
-    this.$curriculumDialog.remove();
+    this.$curriculumDialogContainer.remove();
   };
 
   /**
@@ -220,7 +234,7 @@ H5P.GoalsPage.GrepDialogBox = (function ($) {
         'tabindex': '1'
       }).click(function () {
         $(this).trigger('dialogFinished', [self.selectedCompetenceAims]);
-        self.$curriculumDialog.remove();
+        self.removeDialogBox();
       }).appendTo(self.$bottomBar);
     }
   };
@@ -238,8 +252,6 @@ H5P.GoalsPage.GrepDialogBox = (function ($) {
 
     if (self.selectedCompetenceAims.length <= 0) {
       self.$bottomBarText.html('0 elements chosen');
-/*      self.$bottomBar.remove();
-      self.hasBottomBar = false;*/
     } else {
       var elementString = ' elements';
       if (self.selectedCompetenceAims.length === 1) {

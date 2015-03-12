@@ -1,0 +1,141 @@
+.h5p-goals-page {
+  padding: 0.5em 1em;
+}
+
+.h5p-goals-page .goals-help-text {
+  float: right;
+  color: #85B1E3;
+  cursor: pointer;
+  font-size: 0.8em;
+}
+
+/* Goal container */
+.h5p-goals-page .created-goal-container {
+  position: relative;
+  border-bottom: 2px solid #D6D6D6;
+  background-color: #FFF;
+  padding: 0.75em;
+  margin-bottom: 1em;
+}
+
+.h5p-goals-page .created-goal-container.goal-type-0 {
+  background-color: #95D641;
+}
+
+.h5p-goals-page .created-goal-container.goal-type-1 {
+  background-color: #3FC3FF;
+}
+
+.h5p-goals-page .created-goal-container.goal-type-2 {
+  background-color: #1CE8B5;
+}
+
+.h5p-goals-page .created-goal-container.focused {
+  background-color: #FFFFFF;
+}
+
+/* -------------------------------------------------- Sub classes -------------------------------------- */
+
+.h5p-goals-page .goals-title {
+  border-bottom: 1px solid #E5E5E5;
+  padding: 0.25em 0;
+}
+
+.h5p-goals-page .goals-define {
+  margin: 1em 0em;
+}
+
+.h5p-goals-page .goals-description {
+  padding-top: 0.5em;
+}
+
+.h5p-goals-page .goals-counter .goals-counter-text {
+  color: #999;
+}
+
+.h5p-goals-page .goals-view {
+  padding-top: 1em;
+}
+
+/* -------------------------------------------------- Goal list containers --------------------------- */
+
+.h5p-goals-page .created-goal-container .created-goal {
+  display: block; /* fallback */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.h5p-goals-page .created-goal-container .created-goal.truncate {
+  -webkit-line-clamp: 2;
+}
+
+.h5p-goals-page .created-goal-container:hover .created-goal {
+  padding-bottom: 0.5em;
+  -webkit-line-clamp: initial;
+}
+
+.h5p-goals-page .created-goal-container .created-goal:focus {
+  border: 0;
+  outline: 0;
+  -webkit-line-clamp: normal;
+  height: initial;
+}
+
+.h5p-goals-page .created-goal-container .h5p-created-goal-footer {
+  width: 100%;
+  height: 2em;
+}
+
+.h5p-goals-page .created-goal-container .h5p-created-goal-footer .h5p-created-goal-done,
+.h5p-goals-page .created-goal-container .h5p-created-goal-footer .h5p-created-goal-edit,
+.h5p-goals-page .created-goal-container .h5p-created-goal-footer .h5p-created-goal-remove {
+  display: inline-block;
+  float: right;
+  cursor: pointer;
+  margin: 0.5em 1em 0.5em 0em;
+
+  transition: all .2s ease-in-out;
+}
+
+.h5p-goals-page .created-goal-container .h5p-created-goal-footer .h5p-created-goal-done:before,
+.h5p-goals-page .created-goal-container .h5p-created-goal-footer .h5p-created-goal-edit:before,
+.h5p-goals-page .created-goal-container .h5p-created-goal-footer .h5p-created-goal-remove:before {
+  font-family: 'H5PFontAwesome4';
+  content: '\f00c';
+  margin-right: 0.5em;
+}
+
+.h5p-goals-page .created-goal-container .h5p-created-goal-footer .h5p-created-goal-remove:before {
+  content: '\f00d';
+}
+
+.h5p-goals-page .created-goal-container .h5p-created-goal-footer .h5p-created-goal-edit:before {
+  content: '\f044';
+}
+
+.h5p-goals-page .created-goal-container .h5p-created-goal-footer .h5p-created-goal-done:hover,
+.h5p-goals-page .created-goal-container .h5p-created-goal-footer .h5p-created-goal-edit:hover,
+.h5p-goals-page .created-goal-container .h5p-created-goal-footer .h5p-created-goal-remove:hover {
+  transform: scale(1.05);
+}
+
+/* ------------------------------ Buttons -------------------------------------------------- */
+/* Rounded button css in 'h5p-joubel-ui' library */
+
+.h5p-goals-page .goals-define .goals-create:before {
+  font-family: "H5PFontAwesome4";
+  content: "\f040";
+  margin-right: 0.75em;
+}
+
+.h5p-goals-page .goals-define .goals-search {
+  float: left;
+  margin-right: 1em;
+}
+
+.h5p-goals-page .goals-define .goals-search:before {
+  font-family: "H5PFontAwesome4";
+  content: "\f07c";
+  margin-right: 0.75em;
+}

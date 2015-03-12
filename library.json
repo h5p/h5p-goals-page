@@ -10,21 +10,24 @@
   "machineName": "H5P.GoalsPage",
   "preloadedCss": [
     {
-      "path": "goals-page.css"
+      "path": "styles/goals-page.css"
+    },
+    {
+      "path": "styles/grep-dialog-box.css"
     }
   ],
   "preloadedJs": [
     {
-      "path": "goals-page.js"
+      "path": "scripts/goals-page.js"
     },
     {
-      "path": "goal-instance.js"
+      "path": "scripts/goal-instance.js"
     },
     {
-      "path": "grep-api.js"
+      "path": "scripts/grep-api.js"
     },
     {
-      "path": "grep-dialog-box.js"
+      "path": "scripts/grep-dialog-box.js"
     }
   ],
   "preloadedDependencies": [
