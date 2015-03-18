@@ -11,6 +11,7 @@ H5P.GoalsPage = (function ($) {
   // Goal states
   var GOAL_USER_CREATED = 0;
   var GOAL_PREDEFINED = 1;
+  var GOAL_PREDEFINED_SPECIFICATION = 2;
 
   /**
    * Initialize module.
@@ -28,10 +29,12 @@ H5P.GoalsPage = (function ($) {
       description: '',
       chooseGoalText: 'Choose goal from list',
       defineGoalText: 'Create a new goal',
+      definedGoalLabel: 'User defined goal',
       defineGoalPlaceholder: 'Write here...',
       goalsAddedText: 'goals added:',
       finishGoalText: 'Finish',
       editGoalText: 'Edit',
+      specifyGoalText: 'Specification',
       removeGoalText: 'Remove',
       filterGoalsPlaceholder: "Filter on words...",
       commaSeparatedCurriculumList: "",
@@ -53,7 +56,6 @@ H5P.GoalsPage = (function ($) {
 
     self.goalList = [];
     self.goalId = 0;
-    self.filteredIdList = [];
 
     var goalsTemplate =
         '<div class="goals-header">' +
@@ -84,7 +86,7 @@ H5P.GoalsPage = (function ($) {
     H5P.JoubelUI.createSimpleRoundedButton(self.params.chooseGoalText)
       .addClass('goals-search')
       .click(function () {
-        self.createGrepDialogBox(self.filteredIdList);
+        self.createGrepDialogBox(self.params.commaSeparatedCurriculumList);
       }).appendTo($goalButtonsContainer);
 
     // Create new goal on click
@@ -103,34 +105,83 @@ H5P.GoalsPage = (function ($) {
     var self = this;
     var goalText = self.params.defineGoalPlaceholder;
     var goalType = GOAL_USER_CREATED;
-    var $newGoal = self.createNewGoal(competenceAim).appendTo(self.$goalsView);
+    var goalTypeDescription = self.params.definedGoalLabel;
 
     // Use predefined goal
     if (competenceAim !== undefined) {
-      goalText = competenceAim;
+      goalText = competenceAim.text;
       goalType = GOAL_PREDEFINED;
+      goalTypeDescription = competenceAim.curriculum;
     }
+    var newGoal = new H5P.GoalsPage.GoalInstance(goalText, self.goalId, goalType, goalTypeDescription);
+    self.goalList.push(newGoal);
+    self.goalId += 1;
 
-    var newGoal = new H5P.GoalsPage.GoalInstance(goalText, self.goalId, goalType);
+    // Create goal element and append it to view
+    self.createGoalElementFromGoalInstance(newGoal).prependTo(self.$goalsView);
+
+    self.updateGoalsCounter();
+  };
+
+  /**
+   * Creates goal element from goal instance
+   * @param {H5P.GoalsPage.GoalInstance} newGoal Goal instance object to create element from
+   * @return {jQuery} $newGoal Goal element
+   */
+  GoalsPage.prototype.createGoalElementFromGoalInstance = function (newGoal) {
+    var $newGoal = this.createNewGoal(newGoal).appendTo(this.$goalsView);
+    var $newGoalInput = $('.created-goal', $newGoal);
     $newGoal.removeClass()
       .addClass('created-goal-container')
       .addClass('goal-type-' + newGoal.getGoalInstanceType());
 
     // Set focus if new user defined goal
-    if (competenceAim === undefined) {
-      var $newGoalInput = $('.created-goal', $newGoal);
+    if (newGoal.getGoalInstanceType() === GOAL_USER_CREATED
+      || newGoal.getGoalInstanceType() === GOAL_PREDEFINED_SPECIFICATION) {
       $newGoal.addClass('focused');
-      $newGoalInput.text(self.params.defineGoalPlaceholder);
-      $newGoalInput.prop('contenteditable', true);
-      $newGoalInput.focus();
+      //$newGoalInput.text(this.params.defineGoalPlaceholder);
+      // Set timeout to prevent input instantly losing focus
+      setTimeout(function () {
+        $newGoalInput.prop('contenteditable', true);
+        $newGoalInput.focus();
+      }, 0);
     } else {
       // Truncate goal if it is not receiving focus
-      $newGoal.addClass('truncate');
+      $newGoalInput.addClass('truncate');
     }
 
-    self.goalList.push(newGoal);
+    return $newGoal;
+  };
+
+  /**
+   * Creates a goal specification inside goal container
+   * @param {H5P.GoalsPage.GoalInstance} goalSpecification Goal specification instance
+   * @param {jQuery} $parentGoalContainer Parent of goal specification
+   * @returns {jQuery} $goalSpecification Goal specification element
+   */
+  GoalsPage.prototype.createGoalSpecificationElement = function(goalSpecification, $parentGoalContainer) {
+    // Creates a goal specification and adds it to goal container
+    var $goalSpecificationElement = this.createGoalElementFromGoalInstance(goalSpecification)
+      .addClass('h5p-created-goal-specification')
+      .insertBefore($('.h5p-created-goal-footer', $parentGoalContainer));
+    this.addCustomHoverEffects($goalSpecificationElement);
+
+    return $goalSpecificationElement;
+  };
+
+  /**
+   * Adds specification to goal
+   * @param {H5P.GoalsPage.GoalInstance} goalInstance Specified goal instance
+   * @return {H5P.GoalsPage.GoalInstance} goalInstance Specification of goal instance
+   */
+  GoalsPage.prototype.addSpecificationToGoal = function(goalInstance) {
+    var self = this;
+    var goalSpecification = goalInstance
+      .addSpecification(self.params.defineGoalPlaceholder, self.goalId, this.params.specifyGoalText);
     self.goalId += 1;
-    self.updateGoalsCounter();
+    self.goalList.push(goalSpecification);
+
+    return goalSpecification;
   };
 
   /**
@@ -138,9 +189,53 @@ H5P.GoalsPage = (function ($) {
    * @param {jQuery} $goalContainer
    */
   GoalsPage.prototype.removeGoal = function ($goalContainer) {
-    this.goalList.splice($goalContainer.index(), 1);
+    var goalInstance = this.getGoalInstanceFromUniqueId($goalContainer.data('uniqueId'));
+    // Handle cases where goal container is a specification or a parent
+    this.removeSpecification(goalInstance);
+    this.removeChildSpecifications(goalInstance);
+
+    if (this.goalList.indexOf(goalInstance) > -1) {
+      this.goalList.splice(this.goalList.indexOf(goalInstance), 1);
+    }
     $goalContainer.remove();
     this.updateGoalsCounter();
+  };
+
+  /**
+   * Remove goal specification from parent goal
+   * @param {H5P.GoalsPage.GoalInstance} goalInstance Specification goal instance
+   */
+  GoalsPage.prototype.removeSpecification = function (goalInstance) {
+    // Only handle cases where goal instance is a specification
+    if (goalInstance.getGoalInstanceType() === GOAL_PREDEFINED_SPECIFICATION) {
+      // Find parent and remove specification from it
+      var goalParent = goalInstance.getParent();
+      goalParent.removeSpecification(goalInstance);
+      if (goalParent.getSpecifications().length) {
+        var $goalElement = this.getGoalElementFromGoalInstance(goalParent);
+        $goalElement.removeClass('has-specification');
+      }
+    }
+  };
+
+  /**
+   * Remove all specifications linked to this goal
+   * @param {H5P.GoalsPage.GoalInstance} goalInstance Parent goal instance
+   */
+  GoalsPage.prototype.removeChildSpecifications = function (goalInstance) {
+    var self = this;
+    if (goalInstance.getGoalInstanceType() === GOAL_PREDEFINED) {
+      // Remove children from goal list
+      var specificationChildren = goalInstance.getSpecifications();
+      if (specificationChildren !== undefined && specificationChildren.length) {
+        specificationChildren.forEach(function (goalSpecificationInstance) {
+          // Remove specification if it is in goal list
+          if (self.goalList.indexOf(specificationChildren) > -1) {
+            self.goalList.splice(this.goalList.indexOf(goalSpecificationInstance), 1);
+          }
+        })
+      }
+    }
   };
 
   /**
@@ -156,6 +251,37 @@ H5P.GoalsPage = (function ($) {
         'html': self.goalList.length + ' ' + self.params.goalsAddedText
       }).appendTo($goalCounterContainer);
     }
+  };
+
+  /**
+   * Returns the goal instance matching provided id
+   * @param {Number} goalInstanceUniqueId Id matching unique id of target goal
+   * @returns {H5P.GoalsPage.GoalInstance|Number} Returns matching goal instance or -1 if not found
+   */
+  GoalsPage.prototype.getGoalInstanceFromUniqueId = function (goalInstanceUniqueId) {
+    var foundInstance = -1;
+    this.goalList.forEach(function (goalInstance) {
+      if (goalInstance.getUniqueId() === goalInstanceUniqueId) {
+        foundInstance = goalInstance;
+      }
+    });
+
+    return foundInstance;
+  };
+
+  /**
+   * Get goal element from goal instance
+   * @return {jQuery|Number} Return goal element or -1 if not found
+   */
+  GoalsPage.prototype.getGoalElementFromGoalInstance = function (goalInstance) {
+    var $goalElement = -1;
+    this.$goalsView.children().each(function () {
+      if ($(this).data('uniqueId') === goalInstance.getUniqueId()) {
+        $goalElement = $(this);
+      }
+    });
+
+    return $goalElement;
   };
 
   /**
@@ -208,21 +334,18 @@ H5P.GoalsPage = (function ($) {
 
   /**
    * Create a new goal container
-   *
-   * @returns {jQuery} $goalContainer New goal
+   * @param {H5P.GoalsPage.GoalInstance} goalInstance Goal instance object to create the goal from
+   * @returns {jQuery} $goalContainer New goal element
    */
-  GoalsPage.prototype.createNewGoal = function (predefinedGoalText) {
+  GoalsPage.prototype.createNewGoal = function (goalInstance) {
     var self = this;
 
     // Goal container
     var $goalContainer = $('<div/>', {
       'class': 'created-goal-container'
-    });
+    }).data('uniqueId', goalInstance.getUniqueId());
 
-    var initialText = '';
-    if (predefinedGoalText !== undefined && predefinedGoalText.length) {
-      initialText = predefinedGoalText;
-    }
+    var initialText = goalInstance.goalText();
 
     // Input paragraph area
     $('<div>', {
@@ -232,76 +355,85 @@ H5P.GoalsPage = (function ($) {
       'text': initialText
     }).appendTo($goalContainer);
 
+    self.createGoalContainerFooter($goalContainer, goalInstance)
+      .appendTo($goalContainer);
+
     self.addCustomHoverEffects($goalContainer);
 
     return $goalContainer;
   };
 
+
+  GoalsPage.prototype.createGoalContainerFooter = function ($goalContainer, goalInstance) {
+    // Custom input footer
+    var $goalContainerFooter = $('<div>', {
+      'class': 'h5p-created-goal-footer'
+    });
+    var $goalInputArea = $('.created-goal', $goalContainer);
+
+    // Create buttons when editing
+    var $inputFooter = $('<div>', {
+      'class': 'h5p-created-goal-input-footer'
+    }).appendTo($goalContainerFooter);
+    this.createRemoveGoalButton(this.params.removeGoalText, $goalContainer).appendTo($inputFooter);
+    this.createFinishedGoalButton(this.params.finishGoalText, $goalContainer).appendTo($inputFooter);
+
+    // Create footer when hovering
+    var $hoverFooter = $('<div>', {
+      'class': 'h5p-created-goal-hover-footer'
+    }).appendTo($goalContainerFooter);
+
+    $('<div>', {
+      'class': 'footer-description',
+      'html': goalInstance.getGoalTypeDescription()
+    }).appendTo($hoverFooter);
+
+    if (goalInstance !== undefined && goalInstance.getGoalInstanceType() === GOAL_PREDEFINED) {
+      this.createRemoveGoalButton(this.params.removeGoalText, $goalContainer).appendTo($hoverFooter);
+      this.createSpecifyGoalButton(this.params.specifyGoalText, $goalContainer).appendTo($hoverFooter);
+    } else {
+      this.createRemoveGoalButton(this.params.removeGoalText, $goalContainer).appendTo($hoverFooter);
+      this.createEditGoalButton(this.params.editGoalText, $goalInputArea).appendTo($hoverFooter);
+    }
+
+    return $goalContainerFooter;
+  };
+
   /**
-   * Adds custom hover effects to provided goal container
+   * Adds custom hover effects to goal container
    * @param {jQuery} $goalContainer Element that will get custom hover effects
    */
   GoalsPage.prototype.addCustomHoverEffects = function ($goalContainer) {
     var self = this;
-
-    // Custom input footer
-    var $inputFooter = $('<div>', {
-      'class': 'h5p-created-goal-footer'
-    });
-
-    // Removes custom footer elements
-    function removeFooter() {
-      if ($inputFooter !== undefined) {
-        $inputFooter.children().remove();
-        $inputFooter.remove();
-      }
-    }
-
-    // Creates custom editor footer
-    function createEditFooter($goalContainer) {
-      $inputFooter.appendTo($goalContainer);
-      self.createRemoveGoalButton(self.params.removeGoalText, $goalContainer).appendTo($inputFooter);
-      self.createFinishedGoalButton(self.params.finishGoalText).appendTo($inputFooter);
-    }
-
-    // Creates custom hover footer
-    function createHoverFooter($goalContainer, $goalInputArea) {
-      $inputFooter.appendTo($goalContainer);
-      self.createRemoveGoalButton(self.params.removeGoalText, $goalContainer).appendTo($inputFooter);
-      self.createEditGoalButton(self.params.editGoalText, $goalInputArea, removeFooter).appendTo($inputFooter);
-    }
-
     var $goalInputArea = $('.created-goal', $goalContainer);
 
     // Add custom footer tools when input area is focused
     $goalInputArea.focus(function () {
       $(this).removeClass('truncate');
-      createEditFooter($goalContainer);
       $goalContainer.addClass('focused');
     }).focusout(function () {
-      $(this).addClass('truncate');
-      $goalContainer.removeClass('focused');
-      // Need to timeout before removing footer in case we are deleting the footer
-      setTimeout(removeFooter, 150);
+      // Delay focus out function slightly in case goal is removed
+      setTimeout(function () {
+        $goalInputArea.addClass('truncate');
+        $goalContainer.removeClass('focused');
+        $goalInputArea.prop('contenteditable', false);
+      }, 150);
+
+      // Set standard text if textfield is empty
       if ($(this).text() === '') {
         $(this).text(self.params.defineGoalPlaceholder);
       }
-      $(this).prop('contenteditable', false);
-      self.goalList[$goalContainer.index()].goalText($(this).text());
+
+      self.getGoalInstanceFromUniqueId($goalContainer.data('uniqueId'))
+        .goalText($(this).text());
     });
 
     // Add custom hover effects for the goal container
     $goalContainer.mouseenter(function () {
-      if (!$goalInputArea.is(':focus')) {
-        createHoverFooter($goalContainer, $goalInputArea);
-      } else {
-        $goalInputArea.removeClass('truncate');
-      }
+      $goalInputArea.removeClass('truncate');
     }).mouseleave(function () {
       if (!$goalInputArea.is(':focus')) {
-        removeFooter();
-      } else {
-        $(this).addClass('truncate');
+        $goalInputArea.addClass('truncate');
       }
     });
   };
@@ -311,7 +443,7 @@ H5P.GoalsPage = (function ($) {
    * @param {String} text String to display on the button
    * @returns {jQuery} $editGoalButton The button
    */
-  GoalsPage.prototype.createEditGoalButton = function (text, $inputGoal, removeFooterFunction) {
+  GoalsPage.prototype.createEditGoalButton = function (text, $inputGoal) {
     var $editGoalButton = $('<div>', {
       'class': 'h5p-created-goal-edit',
       'role': 'button',
@@ -320,7 +452,6 @@ H5P.GoalsPage = (function ($) {
       'title': text
     }).click(function () {
       //Make goal editable and set focus to it
-      removeFooterFunction();
       $inputGoal.prop('contenteditable', true);
       $inputGoal.focus();
     });
@@ -329,20 +460,48 @@ H5P.GoalsPage = (function ($) {
   };
 
   /**
+   * Creates a button for creating a specification of the given goal
+   * @param {String} text String to display on the button
+   * @param [jQuery} $goalContainer Goal container element the new specification will be added to
+   * @returns {jQuery} $specifyGoalButton The button
+   */
+  GoalsPage.prototype.createSpecifyGoalButton = function (text, $goalContainer) {
+    var self = this;
+    var $specifyGoalButton = $('<div>', {
+      'class': 'h5p-created-goal-specify',
+      'role': 'button',
+      'tabindex': 1,
+      'text': text,
+      'title': text
+    }).click(function () {
+      //Make a goal specification and set focus to it
+      var goalInstance = self.getGoalInstanceFromUniqueId($goalContainer.data('uniqueId'));
+      var goalSpecification = self.addSpecificationToGoal(goalInstance);
+      var $goalSpecificationElement = self.createGoalSpecificationElement(goalSpecification, $goalContainer);
+      $goalContainer.addClass('has-specification');
+      var $goalSpecificationInput = $('.created-goal', $goalSpecificationElement);
+    });
+
+    return $specifyGoalButton;
+  };
+
+  /**
    * Creates a button for enabling editing the given goal
    * @param {String} text String to display on the button
    * @returns {jQuery} $editGoalButton The button
    */
-  GoalsPage.prototype.createFinishedGoalButton = function (text) {
-    var $editGoalButton = $('<div>', {
+  GoalsPage.prototype.createFinishedGoalButton = function (text, $goalContainer) {
+    var $finishedGoalButton = $('<div>', {
       'class': 'h5p-created-goal-done',
       'role': 'button',
       'tabindex': 1,
       'text': text,
       'title': text
+    }).click(function () {
+      $('.created-goal', $goalContainer).prop('contenteditable', false);
     });
 
-    return $editGoalButton;
+    return $finishedGoalButton;
   };
 
   /**

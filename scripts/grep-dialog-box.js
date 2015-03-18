@@ -332,14 +332,17 @@ H5P.GoalsPage.GrepDialogBox = (function ($) {
    */
   GrepDialogBox.prototype.addCompetenceAim = function (selectedCompetenceAim, selectedElement) {
     var self = this;
-    if (self.selectedCompetenceAims.indexOf(selectedCompetenceAim) === -1) {
-      self.selectedCompetenceAims.push(selectedCompetenceAim);
+    var competenceAimExists = false;
+    self.selectedCompetenceAims.forEach(function (selectedAim) {
+      if (selectedAim.text === selectedCompetenceAim) {
+        competenceAimExists = true;
+      }
+    });
+    if (!competenceAimExists) {
+      var selectedCompetenceAimObject = {text: selectedCompetenceAim, curriculum: 'test'};
+      self.selectedCompetenceAims.push(selectedCompetenceAimObject);
       // Add selected class
       selectedElement.addClass('selected');
-    } else {
-      self.selectedCompetenceAims.splice(self.selectedCompetenceAims.indexOf(selectedCompetenceAim), 1);
-      // Remove selected class
-      selectedElement.removeClass('selected');
     }
 
     this.updateBottomBar();
@@ -349,9 +352,18 @@ H5P.GoalsPage.GrepDialogBox = (function ($) {
    * Removes competence aim from selected competence aims list and updates bottom bar
    * @param {String} selectedCompetenceAim Textual representation of comeptence aim
    */
-  GrepDialogBox.prototype.removeCompetenceAim = function (selectedCompetenceAim) {
-    if (this.selectedCompetenceAims.indexOf(selectedCompetenceAim) > -1) {
-      this.selectedCompetenceAims.slice(this.selectedCompetenceAims.indexOf(selectedCompetenceAim), 1);
+  GrepDialogBox.prototype.removeCompetenceAim = function (selectedCompetenceAim, selectedElement) {
+    var self = this;
+    debugger;
+    var competenceAimIndex = -1;
+    self.selectedCompetenceAims.forEach(function (selectedAim, selectedAimIndex) {
+      if (selectedAim.text === selectedCompetenceAim) {
+        competenceAimIndex = selectedAimIndex;
+      }
+    });
+    if (competenceAimIndex > -1) {
+      this.selectedCompetenceAims.slice(competenceAimIndex, 1);
+      selectedElement.removeClass('selected');
     }
     this.updateBottomBar();
   };
@@ -375,15 +387,24 @@ H5P.GoalsPage.GrepDialogBox = (function ($) {
     var parentObject = parent;
     var childIndex = parentIndex + 1;
     var childObject = this.curriculumNames[childIndex];
+    var competenceAimExists = false;
+
+    // Check if a it is a competence aim and already is selected
+    if (parentObject.type === COMPETENCE_AIM) {
+      this.selectedCompetenceAims.forEach(function (selectedAim) {
+        if (selectedAim === parentObject) {
+          competenceAimExists = true;
+        }
+      });
+    }
 
     if (childObject !== undefined
         && parentObject.type < childObject.type
         && parentObject.type !== COMPETENCE_AIM) {
       this.collapseListItem(parent);
-    } else if (parentObject.type === COMPETENCE_AIM
-        && this.selectedCompetenceAims.indexOf(parentObject) > -1) {
-      // Remove competence aim from selection
-      this.removeCompetenceAim(parentObject);
+    } else if (competenceAimExists) {
+      // Remove competence aim if it already exists
+      this.removeCompetenceAim(parentObject, parentElement);
     } else {
       this.processSelection(parent, parentElement);
     }

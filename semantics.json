@@ -75,6 +75,12 @@
     "default": "Edit"
   },
   {
+    "name": "specifyGoalText",
+    "label": "Text for \"Specify goal\"-button",
+    "type": "text",
+    "default": "Specification"
+  },
+  {
     "name": "removeGoalText",
     "label": "Text for \"Remove goal\"-button",
     "type": "text",
