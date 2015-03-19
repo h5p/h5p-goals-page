@@ -211,7 +211,7 @@ H5P.GoalsPage = (function ($) {
       // Find parent and remove specification from it
       var goalParent = goalInstance.getParent();
       goalParent.removeSpecification(goalInstance);
-      if (goalParent.getSpecifications().length) {
+      if (!goalParent.getSpecifications().length) {
         var $goalElement = this.getGoalElementFromGoalInstance(goalParent);
         $goalElement.removeClass('has-specification');
       }
@@ -230,10 +230,16 @@ H5P.GoalsPage = (function ($) {
       if (specificationChildren !== undefined && specificationChildren.length) {
         specificationChildren.forEach(function (goalSpecificationInstance) {
           // Remove specification if it is in goal list
-          if (self.goalList.indexOf(specificationChildren) > -1) {
-            self.goalList.splice(this.goalList.indexOf(goalSpecificationInstance), 1);
+          var removeSpecificationIndex = -1;
+          self.goalList.forEach(function (goalListEntry, goalListEntryIndex) {
+            if (goalListEntry.getUniqueId() === goalSpecificationInstance.getUniqueId()) {
+              removeSpecificationIndex = goalListEntryIndex;
+            }
+          });
+          if (removeSpecificationIndex > -1) {
+            self.goalList.splice(removeSpecificationIndex, 1);
           }
-        })
+        });
       }
     }
   };
