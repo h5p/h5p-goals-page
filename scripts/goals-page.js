@@ -161,9 +161,11 @@ H5P.GoalsPage = (function ($) {
    */
   GoalsPage.prototype.createGoalSpecificationElement = function(goalSpecification, $parentGoalContainer) {
     // Creates a goal specification and adds it to goal container
+    var $insertionPoint = $('.h5p-created-goal-footer', $parentGoalContainer)
+      .not($('.h5p-created-goal-specification .h5p-created-goal-footer', $parentGoalContainer));
     var $goalSpecificationElement = this.createGoalElementFromGoalInstance(goalSpecification)
       .addClass('h5p-created-goal-specification')
-      .insertBefore($('.h5p-created-goal-footer', $parentGoalContainer));
+      .insertBefore($insertionPoint);
     this.addCustomHoverEffects($goalSpecificationElement);
 
     return $goalSpecificationElement;
