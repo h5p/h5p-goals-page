@@ -52,6 +52,12 @@
   overflow: hidden;
 }
 
+/* Set initial height of input field when empty, so it is editable */
+.h5p-goals-page .created-goal-container .created-goal:empty {
+  display: inline-block;
+  min-height: 0.5em;
+}
+
 .h5p-goals-page .created-goal-container .created-goal.truncate {
   -webkit-line-clamp: 2;
 }

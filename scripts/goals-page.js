@@ -90,8 +90,10 @@ H5P.GoalsPage = (function ($) {
       self.resize();
     });
 
-    // Initialize responsive view initially
-    this.resize();
+    // Initialize responsive view when view is rendered
+    setTimeout(function () {
+      self.resize();
+    }, 0);
   };
 
   /**
@@ -436,6 +438,11 @@ H5P.GoalsPage = (function ($) {
 
     // Add custom footer tools when input area is focused
     $goalInputArea.focus(function () {
+      //Remove placeholder
+      if ($(this).text() === self.params.defineGoalPlaceholder) {
+        $(this).text('');
+      }
+
       setTimeout(function () {
         // Set focused on parent if this is a child
         if ($goalContainer.hasClass('h5p-created-goal-specification')) {
@@ -594,10 +601,9 @@ H5P.GoalsPage = (function ($) {
   };
 
   /**
-   * Responsive resize
+   * Responsive resize of goals view
    */
   GoalsPage.prototype.resize = function () {
-    console.log(this.$goalsView.width());
     // Remove footer description
     if (this.$goalsView.width() < 560) {
       this.$goalsView.addClass('no-footer-description');
