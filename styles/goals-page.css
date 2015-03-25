@@ -52,7 +52,7 @@
   overflow: hidden;
 }
 
-.h5p-goals-page .created-goal-container.truncate .created-goal {
+.h5p-goals-page .created-goal-container .created-goal.truncate {
   -webkit-line-clamp: 2;
 }
 

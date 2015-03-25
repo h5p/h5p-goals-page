@@ -110,9 +110,9 @@ H5P.GoalsPage = (function ($) {
 
     // Use predefined goal
     if (competenceAim !== undefined) {
-      goalText = competenceAim.text;
+      goalText = competenceAim.value;
       goalType = GOAL_PREDEFINED;
-      goalTypeDescription = competenceAim.curriculum;
+      goalTypeDescription = competenceAim.curriculum.value;
     }
     var newGoal = new H5P.GoalsPage.GoalInstance(goalText, self.goalId, goalType, goalTypeDescription);
     self.goalList.push(newGoal);

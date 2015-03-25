@@ -356,13 +356,13 @@ H5P.GoalsPage.GrepDialogBox = (function ($, JoubelUI) {
    */
   GrepDialogBox.prototype.addCompetenceAim = function (selectedCompetenceAim, selectedElement) {
     var self = this;
-    if (self.selectedCompetenceAims.indexOf(selectedCompetenceAim.value) === -1) {
-      self.selectedCompetenceAims.push(selectedCompetenceAim.value);
+    if (self.selectedCompetenceAims.indexOf(selectedCompetenceAim) === -1) {
+      self.selectedCompetenceAims.push(selectedCompetenceAim);
       // Add selected class
       selectedElement.addClass('selected');
       selectedCompetenceAim.selected = true;
     } else {
-      self.selectedCompetenceAims.splice(self.selectedCompetenceAims.indexOf(selectedCompetenceAim.value), 1);
+      self.selectedCompetenceAims.splice(self.selectedCompetenceAims.indexOf(selectedCompetenceAim), 1);
       // Remove selected class
       selectedElement.removeClass('selected');
       selectedCompetenceAim.selected = false;
@@ -494,6 +494,7 @@ H5P.GoalsPage.GrepDialogBox = (function ($, JoubelUI) {
               type: curriculumName.type + 1,
               value: instanceName,
               parent: curriculumName,
+              curriculum: curriculumName.parent,
               selected: false
             });
           });
