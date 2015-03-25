@@ -59,8 +59,8 @@
     "name": "goalsAddedText",
     "label": "Text indicating how many goals has been added",
     "type": "text",
-    "default": "goals added:",
-    "description": "This text will follow after the amount of goals that is currently created, example: '5 goals added:' where 'goals added:' is this text."
+    "default": "goals added",
+    "description": "This text will follow after the amount of goals that is currently created, example: '5 goals added' where 'goals added:' is this text."
   },
   {
     "name": "finishGoalText",
@@ -85,6 +85,12 @@
     "label": "Text for \"Remove goal\"-button",
     "type": "text",
     "default": "Remove"
+  },
+  {
+    "name": "grepDialogDone",
+    "label": "Text for \"Done\"-button in grep dialog",
+    "type": "text",
+    "default": "Done"
   },
   {
     "name": "filterGoalsPlaceholder",

@@ -7,7 +7,7 @@ H5P.GoalsPage = H5P.GoalsPage || {};
  * @class
  * @external {jQuery} $ H5P.jQuery
  */
-H5P.GoalsPage.GrepDialogBox = (function ($) {
+H5P.GoalsPage.GrepDialogBox = (function ($, JoubelUI) {
   var CURRICULUM = 0;
   var COMPETENCE_AIM_SET = 1;
   var COMPETENCE_AIM = 2;
@@ -18,16 +18,15 @@ H5P.GoalsPage.GrepDialogBox = (function ($) {
    * @param {Array} competenceSetArray Array containing available competence set
    * @returns {Object} GrepDialogBox GrepDialogBox instance
    */
-  function GrepDialogBox(header, filterIdList, filterGoalsPlaceholder) {
+  function GrepDialogBox(params, filterIdList) {
     this.$ = $;
     this.isCreated = false;
     this.hasBottomBar = false;
     this.selectedCompetenceAims = [];
     this.filteredIdList = filterIdList;
-    this.header = header;
 
     // l10n
-    this.filterGoalsPlaceholder = filterGoalsPlaceholder;
+    this.params = params;
   }
 
   /**
@@ -85,7 +84,7 @@ H5P.GoalsPage.GrepDialogBox = (function ($) {
 
     $('<div>', {
       'class': 'h5p-curriculum-header-text',
-      'html': this.header
+      'html': this.params.header
     }).appendTo($header);
     this.createExit().appendTo($header);
 
@@ -186,7 +185,7 @@ H5P.GoalsPage.GrepDialogBox = (function ($) {
 
     // Extract curriculum instances from curriculums array
     this.curriculumNames = dataNamesList;
-    this.updateViewList(this.$curriculumView, dataNamesList);
+    this.updateViewList(this.$curriculumView, dataNamesList, this.$searchInput.val());
 
 
     return this;
@@ -207,7 +206,7 @@ H5P.GoalsPage.GrepDialogBox = (function ($) {
     // Populate wrapper
     dataList.forEach(function (data, dataIndex) {
       var dataName = self.grepApi.getLanguageNeutral(data);
-      dataNamesList.push({idx: dataIndex, value: dataName, type: dataType, child: data.link});
+      dataNamesList.push({idx: dataIndex, value: dataName, type: dataType, child: data.link, selected: false});
     });
 
     return dataNamesList;
@@ -225,17 +224,16 @@ H5P.GoalsPage.GrepDialogBox = (function ($) {
 
       self.$bottomBarText = $('<div>', {
         'class': 'h5p-bottom-bar-text',
-        'html': '1 element chosen'
+        'html': '1 ' + self.params.goalsAddedText
       }).appendTo(self.$bottomBar);
 
-      self.$bottomBarButton = $('<button>', {
-        'class': 'h5p-bottom-bar-button',
-        'html': 'Done',
-        'tabindex': '1'
-      }).click(function () {
-        $(this).trigger('dialogFinished', [self.selectedCompetenceAims]);
-        self.removeDialogBox();
-      }).appendTo(self.$bottomBar);
+      self.$bottomBarButton = JoubelUI
+        .createSimpleRoundedButton(self.params.grepDialogDone)
+        .addClass('h5p-bottom-bar-button')
+        .click(function () {
+          $(this).trigger('dialogFinished', [self.selectedCompetenceAims]);
+          self.removeDialogBox();
+        }).appendTo(self.$bottomBar);
     }
   };
 
@@ -251,13 +249,9 @@ H5P.GoalsPage.GrepDialogBox = (function ($) {
     }
 
     if (self.selectedCompetenceAims.length <= 0) {
-      self.$bottomBarText.html('0 elements chosen');
+      self.$bottomBarText.html('0 ' + self.params.goalsAddedText);
     } else {
-      var elementString = ' elements';
-      if (self.selectedCompetenceAims.length === 1) {
-        elementString = ' element';
-      }
-      self.$bottomBarText.html(self.selectedCompetenceAims.length + elementString + ' chosen');
+      self.$bottomBarText.html(self.selectedCompetenceAims.length + ' ' + self.params.goalsAddedText);
     }
   };
 
@@ -292,6 +286,11 @@ H5P.GoalsPage.GrepDialogBox = (function ($) {
 
     // Populate wrapper
     dataList.forEach(function (curriculumNameInstance) {
+      // Do not create children of unselected ancestors
+      if (!self.isAncestorSelected(curriculumNameInstance)) {
+        return;
+      }
+
       var classString = '';
       switch (curriculumNameInstance.type) {
       case CURRICULUM:
@@ -307,6 +306,11 @@ H5P.GoalsPage.GrepDialogBox = (function ($) {
         classString = 'h5p-view-list-entry';
       }
 
+      // Add/remove selected class
+      if (curriculumNameInstance.selected) {
+        classString += ' selected';
+      }
+
       $('<div>', {
         'class': classString,
         'text': curriculumNameInstance.value
@@ -319,6 +323,26 @@ H5P.GoalsPage.GrepDialogBox = (function ($) {
   };
 
   /**
+   * Recursive function that checks if all ancestors of a child is selected
+   * @param {Object} child Object checking its' ancestors
+   * @returns {boolean} Returns true if all ancestors are selected
+   */
+  GrepDialogBox.prototype.isAncestorSelected = function (child) {
+    // A child with no parents is "selected"
+    if (child.parent === undefined) {
+      return true;
+    }
+
+    // A child with a selected parents must check that parents' ancestor
+    if (child.parent !== undefined && child.parent.selected) {
+      return this.isAncestorSelected(child.parent);
+    }
+
+    // If an ancestor is not selected return false
+    return false;
+  };
+
+  /**
    * Returns the button for finishing the dialog box
    * @returns {jQuery} this.$bottomBarButton Finish button
    */
@@ -328,21 +352,20 @@ H5P.GoalsPage.GrepDialogBox = (function ($) {
 
   /**
    * Adds competence aim to list of selected competence aims and updates bottom bar accordingly
-   * @param {String} selectedCompetenceAim Textual representation of competence aim
+   * @param {Object} selectedCompetenceAim Selected competence aim
    */
   GrepDialogBox.prototype.addCompetenceAim = function (selectedCompetenceAim, selectedElement) {
     var self = this;
-    var competenceAimExists = false;
-    self.selectedCompetenceAims.forEach(function (selectedAim) {
-      if (selectedAim.text === selectedCompetenceAim) {
-        competenceAimExists = true;
-      }
-    });
-    if (!competenceAimExists) {
-      var selectedCompetenceAimObject = {text: selectedCompetenceAim, curriculum: 'test'};
-      self.selectedCompetenceAims.push(selectedCompetenceAimObject);
+    if (self.selectedCompetenceAims.indexOf(selectedCompetenceAim.value) === -1) {
+      self.selectedCompetenceAims.push(selectedCompetenceAim.value);
       // Add selected class
       selectedElement.addClass('selected');
+      selectedCompetenceAim.selected = true;
+    } else {
+      self.selectedCompetenceAims.splice(self.selectedCompetenceAims.indexOf(selectedCompetenceAim.value), 1);
+      // Remove selected class
+      selectedElement.removeClass('selected');
+      selectedCompetenceAim.selected = false;
     }
 
     this.updateBottomBar();
@@ -352,19 +375,11 @@ H5P.GoalsPage.GrepDialogBox = (function ($) {
    * Removes competence aim from selected competence aims list and updates bottom bar
    * @param {String} selectedCompetenceAim Textual representation of comeptence aim
    */
-  GrepDialogBox.prototype.removeCompetenceAim = function (selectedCompetenceAim, selectedElement) {
-    var self = this;
-    debugger;
-    var competenceAimIndex = -1;
-    self.selectedCompetenceAims.forEach(function (selectedAim, selectedAimIndex) {
-      if (selectedAim.text === selectedCompetenceAim) {
-        competenceAimIndex = selectedAimIndex;
-      }
-    });
-    if (competenceAimIndex > -1) {
-      this.selectedCompetenceAims.slice(competenceAimIndex, 1);
-      selectedElement.removeClass('selected');
+  GrepDialogBox.prototype.removeCompetenceAim = function (selectedCompetenceAim) {
+    if (this.selectedCompetenceAims.indexOf(selectedCompetenceAim) > -1) {
+      this.selectedCompetenceAims.slice(this.selectedCompetenceAims.indexOf(selectedCompetenceAim), 1);
     }
+    selectedCompetenceAim.selected = false;
     this.updateBottomBar();
   };
 
@@ -373,38 +388,48 @@ H5P.GoalsPage.GrepDialogBox = (function ($) {
    * @param {Object} selectedItem Selected item
    */
   GrepDialogBox.prototype.processSelection = function (selectedItem, selectedElement) {
+    // select item
+    selectedItem.selected = true;
+
+    // Expand children if they exist
+    var parentIndex = this.curriculumNames.indexOf(selectedItem);
+    var childIndex = parentIndex + 1;
+    if (childIndex < this.curriculumNames.length && this.curriculumNames[childIndex].type > selectedItem.type) {
+      // Update view
+      this.updateViewList(this.$curriculumView, this.curriculumNames);
+      return;
+    }
+
+    // Otherwise get children
     if (selectedItem.type === CURRICULUM) {
       this.grepApi.getGrepData(this, selectedItem);
     } else if (selectedItem.type === COMPETENCE_AIM_SET) {
       this.updateDialogView(selectedItem.competenceAims, selectedItem.type);
     } else if (selectedItem.type === COMPETENCE_AIM) {
-      this.addCompetenceAim(selectedItem.value, selectedElement);
+      this.addCompetenceAim(selectedItem, selectedElement);
     }
   };
 
+  /**
+   * Handles list clicks and chooses action depending on what list element was clicked
+   * @param {Object} parent List object
+   * @param {jQuery} parentElement List element
+   */
   GrepDialogBox.prototype.handleListClick = function (parent, parentElement) {
     var parentIndex = this.curriculumNames.indexOf(parent);
     var parentObject = parent;
     var childIndex = parentIndex + 1;
     var childObject = this.curriculumNames[childIndex];
-    var competenceAimExists = false;
-
-    // Check if a it is a competence aim and already is selected
-    if (parentObject.type === COMPETENCE_AIM) {
-      this.selectedCompetenceAims.forEach(function (selectedAim) {
-        if (selectedAim === parentObject) {
-          competenceAimExists = true;
-        }
-      });
-    }
 
     if (childObject !== undefined
+        && parentObject.selected
         && parentObject.type < childObject.type
         && parentObject.type !== COMPETENCE_AIM) {
       this.collapseListItem(parent);
-    } else if (competenceAimExists) {
-      // Remove competence aim if it already exists
-      this.removeCompetenceAim(parentObject, parentElement);
+    } else if (parentObject.type === COMPETENCE_AIM
+        && this.selectedCompetenceAims.indexOf(parentObject) > -1) {
+      // Remove competence aim from selection
+      this.removeCompetenceAim(parentObject);
     } else {
       this.processSelection(parent, parentElement);
     }
@@ -412,21 +437,10 @@ H5P.GoalsPage.GrepDialogBox = (function ($) {
 
   /**
    * Collapses a listitem and its' children
-   * @param {Object} parent Listitem
+   * @param {Object} parent List item object
    */
   GrepDialogBox.prototype.collapseListItem = function (parent) {
-    var parentIndex = this.curriculumNames.indexOf(parent);
-    var childIndex = parentIndex + 1;
-    var removeCounter = 0;
-
-    if (parentIndex >= 0) {
-      while (childIndex < this.curriculumNames.length
-          && this.curriculumNames[childIndex].type > this.curriculumNames[parentIndex].type) {
-        removeCounter += 1;
-        childIndex += 1;
-      }
-      this.curriculumNames.splice(parentIndex + 1, removeCounter);
-    }
+    parent.selected = false;
     this.updateViewList(this.$curriculumView, this.curriculumNames, this.$searchInput.val());
   };
 
@@ -454,7 +468,8 @@ H5P.GoalsPage.GrepDialogBox = (function ($) {
             type: curriculumName.type + 1,
             value: instanceName,
             parent: curriculumName,
-            competenceAims: competenceAimSetInstance.competenceAims
+            competenceAims: competenceAimSetInstance.competenceAims,
+            selected: false
           });
         });
       }
@@ -478,7 +493,8 @@ H5P.GoalsPage.GrepDialogBox = (function ($) {
               idx: instanceIndex,
               type: curriculumName.type + 1,
               value: instanceName,
-              parent: curriculumName
+              parent: curriculumName,
+              selected: false
             });
           });
         }
@@ -520,7 +536,7 @@ H5P.GoalsPage.GrepDialogBox = (function ($) {
     this.$searchInput = $('<input>', {
       'type': 'text',
       'class': 'h5p-curriculum-search-box',
-      'placeholder': this.filterGoalsPlaceholder
+      'placeholder': this.params.filterGoalsPlaceholder
     }).keyup(function () {
       // Filter curriculum names on key up
       var input = $(this).val();
@@ -532,4 +548,4 @@ H5P.GoalsPage.GrepDialogBox = (function ($) {
 
   return GrepDialogBox;
 
-}(H5P.jQuery));
+}(H5P.jQuery, H5P.JoubelUI));
