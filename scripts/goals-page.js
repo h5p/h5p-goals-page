@@ -29,10 +29,11 @@ H5P.GoalsPage = (function ($) {
       chooseGoalText: 'Choose goal from list',
       defineGoalText: 'Create a new goal',
       defineGoalPlaceholder: 'Write here...',
-      goalsAddedText: 'goals added:',
+      goalsAddedText: 'goals added',
       finishGoalText: 'Finish',
       editGoalText: 'Edit',
       removeGoalText: 'Remove',
+      grepDialogDone: 'Done',
       filterGoalsPlaceholder: "Filter on words...",
       commaSeparatedCurriculumList: "",
       helpTextLabel: 'Read more',
@@ -197,8 +198,8 @@ H5P.GoalsPage = (function ($) {
   GoalsPage.prototype.createGrepDialogBox = function (filteredIdString) {
     var self = this;
     var filteredIdList = self.getFilteredIdList(filteredIdString);
-    var dialogInstance = new H5P.GoalsPage.GrepDialogBox(this.params.chooseGoalText, filteredIdList, this.params.filterGoalsPlaceholder);
-    dialogInstance.attach(self.$inner);
+    var dialogInstance = new H5P.GoalsPage.GrepDialogBox(this.params, filteredIdList);
+    dialogInstance.attach(self.$inner.parent().parent().parent());
     dialogInstance.getFinishedButton().on('dialogFinished', function (event, data) {
       data.forEach(function (competenceAim) {
         self.addGoal(competenceAim);
@@ -380,6 +381,10 @@ H5P.GoalsPage = (function ($) {
    */
   GoalsPage.prototype.getGoals = function () {
     return this.goalList;
+  };
+
+  GoalsPage.prototype.resize = function () {
+
   };
 
   return GoalsPage;
