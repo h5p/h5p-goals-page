@@ -74,6 +74,24 @@ H5P.GoalsPage = (function ($) {
 
     self.createHelpTextButton();
     self.createGoalsButtons();
+
+    // Initialize resize functionality
+    self.initResizeFunctionality();
+  };
+
+  /**
+   * Initialize listener for resize functionality
+   */
+  GoalsPage.prototype.initResizeFunctionality = function () {
+    var self = this;
+
+    // Listen for resize event on window
+    $(window).resize(function () {
+      self.resize();
+    });
+
+    // Initialize responsive view initially
+    this.resize();
   };
 
   /**
@@ -467,13 +485,17 @@ H5P.GoalsPage = (function ($) {
       'class': 'h5p-created-goal-edit',
       'role': 'button',
       'tabindex': 1,
-      'text': text,
       'title': text
     }).click(function () {
       //Make goal editable and set focus to it
       $inputGoal.prop('contenteditable', true);
       $inputGoal.focus();
     });
+
+    $('<span>', {
+      'text': text,
+      'class': 'h5p-created-goal-edit-text'
+    }).appendTo($editGoalButton);
 
     return $editGoalButton;
   };
@@ -490,7 +512,6 @@ H5P.GoalsPage = (function ($) {
       'class': 'h5p-created-goal-specify',
       'role': 'button',
       'tabindex': 1,
-      'text': text,
       'title': text
     }).click(function () {
       //Make a goal specification and set focus to it
@@ -498,8 +519,12 @@ H5P.GoalsPage = (function ($) {
       var goalSpecification = self.addSpecificationToGoal(goalInstance);
       var $goalSpecificationElement = self.createGoalSpecificationElement(goalSpecification, $goalContainer);
       $goalContainer.addClass('has-specification');
-      var $goalSpecificationInput = $('.created-goal', $goalSpecificationElement);
     });
+
+    $('<span>', {
+      'text': text,
+      'class': 'h5p-created-goal-specify-text'
+    }).appendTo($specifyGoalButton);
 
     return $specifyGoalButton;
   };
@@ -514,11 +539,15 @@ H5P.GoalsPage = (function ($) {
       'class': 'h5p-created-goal-done',
       'role': 'button',
       'tabindex': 1,
-      'text': text,
       'title': text
     }).click(function () {
       $('.created-goal', $goalContainer).prop('contenteditable', false);
     });
+
+    $('<span>', {
+      'text': text,
+      'class': 'h5p-created-goal-done-text'
+    }).appendTo($finishedGoalButton);
 
     return $finishedGoalButton;
   };
@@ -535,11 +564,15 @@ H5P.GoalsPage = (function ($) {
       'class': 'h5p-created-goal-remove',
       'role': 'button',
       'tabindex': 1,
-      'text': text,
       'title': text
     }).click(function () {
       self.removeGoal($removeContainer);
     });
+
+    $('<span>', {
+      'text': text,
+      'class': 'h5p-created-goal-remove-text'
+    }).appendTo($removeGoalButton);
 
     return $removeGoalButton;
   };
@@ -560,8 +593,24 @@ H5P.GoalsPage = (function ($) {
     return this.goalList;
   };
 
+  /**
+   * Responsive resize
+   */
   GoalsPage.prototype.resize = function () {
+    console.log(this.$goalsView.width());
+    // Remove footer description
+    if (this.$goalsView.width() < 560) {
+      this.$goalsView.addClass('no-footer-description');
+    } else {
+      this.$goalsView.removeClass('no-footer-description');
+    }
 
+    // Remove button labels
+    if (this.$goalsView.width() < 310) {
+      this.$goalsView.addClass('no-footer-labels');
+    } else {
+      this.$goalsView.removeClass('no-footer-labels');
+    }
   };
 
   return GoalsPage;
