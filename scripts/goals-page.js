@@ -417,13 +417,23 @@ H5P.GoalsPage = (function ($) {
 
     // Add custom footer tools when input area is focused
     $goalInputArea.focus(function () {
-      $(this).removeClass('truncate');
-      $goalContainer.addClass('focused');
+      setTimeout(function () {
+        // Set focused on parent if this is a child
+        if ($goalContainer.hasClass('h5p-created-goal-specification')) {
+          $goalContainer.parent().addClass('child-focused');
+        }
+        $(this).removeClass('truncate');
+        $goalContainer.addClass('focused');
+      }, 150);
     }).focusout(function () {
       // Delay focus out function slightly in case goal is removed
       setTimeout(function () {
         $goalInputArea.addClass('truncate');
         $goalContainer.removeClass('focused');
+        // Remove focused on parent if this is a child
+        if ($goalContainer.hasClass('h5p-created-goal-specification')) {
+          $goalContainer.parent().removeClass('child-focused');
+        }
         $goalInputArea.prop('contenteditable', false);
       }, 150);
 

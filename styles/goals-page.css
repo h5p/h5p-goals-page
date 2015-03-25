@@ -7,6 +7,7 @@
   color: #85B1E3;
   cursor: pointer;
   font-size: 0.8em;
+  line-height: 3.5em;
 }
 
 /* Goal container */
@@ -22,7 +23,8 @@
 
 .h5p-goals-page .goals-title {
   border-bottom: 1px solid #E5E5E5;
-  padding: 0.25em 0;
+  padding: 0.5em 0;
+  font-size: 18px;
 }
 
 .h5p-goals-page .goals-define {
@@ -44,11 +46,8 @@
 /* ------------------- Goal container truncation ------------------------- */
 
 .h5p-goals-page .created-goal-container .created-goal {
-  display: block;
+  display: inline-block;
   display: -webkit-box;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: flex;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
@@ -83,16 +82,6 @@
   background-color: #fff;
 }
 
-/* Text colors */
-.h5p-goals-page .created-goal-container.goal-type-0 .h5p-created-goal-footer,
-.h5p-goals-page .created-goal-container.goal-type-2 .h5p-created-goal-footer {
-  color: #82888e;
-}
-
-.h5p-goals-page .created-goal-container.goal-type-1 .h5p-created-goal-footer {
-  color: #69747f;
-}
-
 /* ----------------------------------- Goal specification --------------------------- */
 /* Remove bottom margin for specification, since it is provided by parent */
 .h5p-goals-page .created-goal-container.has-specification .h5p-created-goal-specification {
@@ -100,8 +89,8 @@
   opacity: 0;
   margin: 0;
   padding: 0;
-  transition: max-height 0.5s ease, opacity 0.3s ease, margin 0.5s, padding 0.5s;
-  transition-delay: 0.3s;
+  border-bottom: 0;
+  transition: max-height 0.5s linear, opacity 0.5s linear, margin 0.6s ease-in, padding 0.6s ease-in;
 }
 
 /* Hide specification container initially */
@@ -109,8 +98,7 @@
   max-height: 0;
   opacity: 0;
   padding: 0;
-  transition: max-height 0.5s ease, opacity 0.3s ease, margin 0.5s, padding 0.5s;
-  transition-delay: 0.3s;
+  transition: max-height 0.5s linear, opacity 0.5s linear, margin 0.6s ease-in, padding 0.6s ease-in;
 }
 
 /* ------------------------------ Goal container footer ------------------------------ */
@@ -119,9 +107,7 @@
 .h5p-goals-page .created-goal-container .h5p-created-goal-footer {
   max-height: 0;
   opacity: 0;
-  transition: max-height 0.5s ease, opacity 0.3s ease, margin 0.5s, padding 0.5s;
-  transition-delay: 0.3s;
-  width: 100%;
+  transition: max-height 0.5s linear, opacity 0.5s linear, margin 0.6s ease-in, padding 0.6s ease-in;  width: 100%;
   height: 2em;
 }
 
@@ -133,7 +119,7 @@
   max-height: 0;
   opacity: 0;
   margin: 0;
-  transition: max-height 0.5s ease, opacity 0s ease, margin 0.5s, padding 0.5s;
+  transition: all 0s;
 }
 
 /* Hide specification initially */
@@ -141,13 +127,12 @@
   max-height: 0;
   opacity: 0;
   padding: 0;
-  transition: max-height 0.5s ease, opacity 0.3s ease, padding 0.5s;
-  transition-delay: 0.3s;
+  transition: max-height 0.5s linear, opacity 0.5s linear, margin 0.6s ease-in, padding 0.6s ease-in;
 }
 
 /* --------------------- Goal container hovered ------------------------------ */
 
-/* Show hover footer on hover */
+/* Show hover footer and specifications on hover */
 .h5p-goals-page .created-goal-container:hover .h5p-created-goal-footer,
 .h5p-goals-page .created-goal-container:hover .h5p-created-goal-hover-footer,
 .h5p-goals-page .created-goal-container:hover .h5p-created-goal-hover-footer *,
@@ -155,29 +140,24 @@
 .h5p-goals-page .created-goal-container:hover .h5p-created-goal-specification .created-goal {
   max-height: 10em;
   opacity: 1;
-  transition: max-height 0.3s ease, opacity 0.3s ease, margin 0s, padding 0s;
-  transition-delay: 0.3s;
+  transition: max-height 0.7s ease-in, opacity 0.5s ease-in, margin 0.1s ease-out, padding 0.1s ease-out;
+}
+
+.h5p-goals-page .created-goal-container:hover .h5p-created-goal-hover-footer * {
+  transition: opacity 0.2s ease-out;
 }
 
 /* Padding for specification */
 .h5p-goals-page .created-goal-container.has-specification:hover .h5p-created-goal-specification {
   padding: 0.75em;
-  transition: padding 0s;
-  transition-delay: 0.3s;
+  margin-top: 0.75em;
+  transition: padding 0.1s ease-out, margin 0.1s ease-out;
 }
 
 /* Button margins */
 .h5p-goals-page .created-goal-container:hover .h5p-created-goal-hover-footer * {
-  transition: margin 0s;
-  transition-delay: 0.3s;
+  transition: margin 0.1s ease-out;
   margin: 0.5em 1em 0.5em 0;
-}
-
-/* Extra padding between goal and specification */
-.h5p-goals-page .created-goal-container.has-specification:hover .created-goal {
-  transition: padding 0s;
-  transition-delay: 0.3s;
-  padding-bottom: 0.5em;
 }
 
 /* -------------------- Goal container focused ------------------------------ */
@@ -189,8 +169,11 @@
 .h5p-goals-page .created-goal-container.focused .h5p-created-goal-input-footer * {
   max-height: 10em;
   opacity: 1;
-  transition: max-height 0.3s ease, opacity 0.5s ease, margin 0s, padding 0s;
-  transition-delay: 0.3s;
+  transition: max-height 0.7s ease-in, opacity 0.5s ease-in, margin 0.1s ease-out, padding 0.1s ease-out;
+}
+
+.h5p-goals-page .created-goal-container.focused .h5p-created-goal-input-footer * {
+  transition: opacity 0.2s ease-out;
 }
 
 /* Hide hover footer on focus */
@@ -201,28 +184,53 @@
   max-height: 0;
   opacity: 0;
   margin: 0;
-  transition: max-height 0.5s ease, opacity 0s ease, margin 0.5s, padding 0.5s;
+  transition: all 0s;
+}
+
+/* Buttons margins */
+.h5p-goals-page .created-goal-container.focused .h5p-created-goal-input-footer * {
+  transition: margin 0.1s ease-out;
+  margin: 0.5em 1em 0.5em 0;
 }
 
 /* Show specification padding */
 .h5p-goals-page .created-goal-container .h5p-created-goal-specification.focused {
   padding: 0.75em;
-  transition: padding 0s;
-  transition-delay: 0.3s;
+  margin-top: 0.75em;
+  transition: padding 0.1s ease-out, margin 0.1s ease-out;
 }
 
-/* Buttons margins */
-.h5p-goals-page .created-goal-container.focused .h5p-created-goal-input-footer * {
-  transition: margin 0s;
-  transition-delay: 0.3s;
+/* ------------------- Specification container focused ------------------------- */
+
+/* Show hover footer on hover */
+.h5p-goals-page .created-goal-container.child-focused .h5p-created-goal-footer,
+.h5p-goals-page .created-goal-container.child-focused .h5p-created-goal-hover-footer,
+.h5p-goals-page .created-goal-container.child-focused .h5p-created-goal-hover-footer *,
+.h5p-goals-page .created-goal-container.child-focused .h5p-created-goal-specification,
+.h5p-goals-page .created-goal-container.child-focused .h5p-created-goal-specification .created-goal {
+  max-height: 10em;
+  opacity: 1;
+  transition: max-height 0.7s ease-in, opacity 0.8s ease-in, margin 0.1s ease-in, padding 0.1s ease-in;
+}
+
+/* Padding for specification */
+.h5p-goals-page .created-goal-container.has-specification.child-focused .h5p-created-goal-specification {
+  padding: 0.75em;
+  margin-top: 0.75em;
+  transition: padding 0.1s ease-out, margin 0.1s ease-out;
+}
+
+/* Hide hover footer for focused item */
+.h5p-goals-page .created-goal-container.child-focused .h5p-created-goal-specification.focused .h5p-created-goal-hover-footer {
+  max-height: 0;
+  opacity: 0;
+  transition: max-height 0.5s linear, opacity 0.5s linear, margin 0.6s ease-in, padding 0.6s ease-in;
+}
+
+/* Button margins */
+.h5p-goals-page .created-goal-container.child-focused .h5p-created-goal-hover-footer * {
+  transition: margin 0.1s ease-out;
   margin: 0.5em 1em 0.5em 0;
-}
-
-/* Extra padding between goal and specification */
-.h5p-goals-page .created-goal-container.has-specification.focused .created-goal {
-  transition: padding 0s;
-  transition-delay: 0.3s;
-  padding-bottom: 0.5em;
 }
 
 /* ------------------------------ Goal footer elements ------------------------------ */
@@ -231,6 +239,14 @@
 .h5p-goals-page .created-goal-container .h5p-created-goal-footer .h5p-created-goal-hover-footer .footer-description {
   display: inline-block;
   float: left;
+}
+
+/* Text colors */
+.h5p-goals-page .created-goal-container.goal-type-0 .h5p-created-goal-footer,
+.h5p-goals-page .created-goal-container.goal-type-1 .h5p-created-goal-footer,
+.h5p-goals-page .created-goal-container.goal-type-2 .h5p-created-goal-footer {
+  color: #38393a;
+  opacity: 0.75;
 }
 
 .h5p-goals-page .created-goal-container .h5p-created-goal-footer .h5p-created-goal-done,
@@ -268,8 +284,7 @@
 .h5p-goals-page .created-goal-container .h5p-created-goal-footer .h5p-created-goal-edit:hover,
 .h5p-goals-page .created-goal-container .h5p-created-goal-footer .h5p-created-goal-specify:hover,
 .h5p-goals-page .created-goal-container .h5p-created-goal-footer .h5p-created-goal-remove:hover {
-  transform: scale(1.05);
-  color: #38393a;
+  opacity: 1;
 }
 
 /* ------------------------------ Buttons -------------------------------------------------- */
