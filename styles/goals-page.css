@@ -144,7 +144,7 @@
 .h5p-goals-page .created-goal-container:hover .h5p-created-goal-hover-footer *,
 .h5p-goals-page .created-goal-container:hover .h5p-created-goal-specification,
 .h5p-goals-page .created-goal-container:hover .h5p-created-goal-specification .created-goal {
-  max-height: 10em;
+  max-height: 50em;
   opacity: 1;
   transition: max-height 0.7s ease-in, opacity 0.5s ease-in, margin 0.1s ease-out, padding 0.1s ease-out;
 }
@@ -173,7 +173,7 @@
 .h5p-goals-page .created-goal-container.focused .h5p-created-goal-footer,
 .h5p-goals-page .created-goal-container.focused .h5p-created-goal-input-footer,
 .h5p-goals-page .created-goal-container.focused .h5p-created-goal-input-footer * {
-  max-height: 10em;
+  max-height: 50em;
   opacity: 1;
   transition: max-height 0.7s ease-in, opacity 0.5s ease-in, margin 0.1s ease-out, padding 0.1s ease-out;
 }
@@ -214,7 +214,7 @@
 .h5p-goals-page .created-goal-container.child-focused .h5p-created-goal-hover-footer *,
 .h5p-goals-page .created-goal-container.child-focused .h5p-created-goal-specification,
 .h5p-goals-page .created-goal-container.child-focused .h5p-created-goal-specification .created-goal {
-  max-height: 10em;
+  max-height: 50em;
   opacity: 1;
   transition: max-height 0.7s ease-in, opacity 0.8s ease-in, margin 0.1s ease-in, padding 0.1s ease-in;
 }

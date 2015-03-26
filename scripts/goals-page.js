@@ -199,8 +199,15 @@ H5P.GoalsPage = (function ($) {
    */
   GoalsPage.prototype.addSpecificationToGoal = function(goalInstance) {
     var self = this;
+
+    // Unset answer for goal
+    goalInstance.goalAnswer(-1);
+
+    // Add specification
     var goalSpecification = goalInstance
       .addSpecification(self.params.defineGoalPlaceholder, self.goalId, this.params.specifyGoalText);
+
+    // Add specification to goal list
     self.goalId += 1;
     self.goalList.push(goalSpecification);
 
