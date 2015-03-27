@@ -327,10 +327,22 @@ H5P.GoalsPage = (function ($) {
     var self = this;
 
     if (this.params.helpText !== undefined && this.params.helpText.length) {
-      $('.goals-help-text', this.$inner).click(function () {
+
+      // Create help button
+      $('.goals-help-text', this.$inner)
+        .click(function () {
         var $helpTextDialog = new H5P.JoubelUI.createHelpTextDialog(self.params.title, self.params.helpText);
         $helpTextDialog.appendTo(self.$inner.parent().parent().parent());
-      });
+      }).keydown(function (e) {
+          var keyPressed = e.which;
+          // 32 - space
+          if (keyPressed === 32) {
+            $(this).click();
+            e.preventDefault();
+          }
+          $(this).focus();
+        });
+
     } else {
       $('.goals-help-text', this.$inner).remove();
     }
