@@ -34,9 +34,12 @@ H5P.GoalsPage.GrepDialogBox = (function ($, JoubelUI) {
    * @param {jQuery} $wrapper
    */
   GrepDialogBox.prototype.attach = function ($wrapper) {
+    var self = this;
+
     this.$wrapper = $wrapper;
     // Get grep object
-    this.grepApi = new H5P.GoalsPage.GrepAPI();
+    this.grepApi = new H5P.GoalsPage.GrepAPI(self.removeDialogBox);
+
     this.createBottomBar();
     this.updateDialogView();
     this.grepApi.getGrepData(this, '', this.filteredIdList);

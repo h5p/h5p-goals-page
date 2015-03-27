@@ -12,10 +12,11 @@ H5P.GoalsPage.GrepAPI = (function ($) {
 
   /**
    * Initialize module.
+   * @param {Function} Callback that will be called on a failed ajax call
    * @param {String} targetGrepUrl Url used to get json from
    * @returns {Object} GrepAPI GrepAPI instance
    */
-  function GrepAPI(targetGrepUrl) {
+  function GrepAPI(failedCallback, targetGrepUrl) {
     this.$ = $(this);
     this.jsonData = [];
     if (this.grepUrl === undefined) {
@@ -23,6 +24,7 @@ H5P.GoalsPage.GrepAPI = (function ($) {
     } else {
       this.grepUrl = targetGrepUrl;
     }
+    this.failedCallback = failedCallback;
   }
 
   /**
@@ -49,6 +51,7 @@ H5P.GoalsPage.GrepAPI = (function ($) {
         grepDialogBox.updateDialogView(self.getDataList(selectedItem.type, filterIdList), selectedItem.type);
       },
       error: function () {
+        self.failedCallback();
         throw new Error("Cannot connect to the Internet.");
       }
     });
