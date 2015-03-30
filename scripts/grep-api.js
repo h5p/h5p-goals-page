@@ -8,15 +8,17 @@ H5P.GoalsPage = H5P.GoalsPage || {};
  */
 H5P.GoalsPage.GrepAPI = (function ($) {
   var COMPETENCE_AIM_SET = 0;
+
+  var ERROR_CONNECTION = 'Could not connect to the Internet.';
+
   var standardGrepUrl = 'http://mycurriculum.test.ndla.no/v1/users/ndla/curriculums';
 
   /**
    * Initialize module.
-   * @param {Function} Callback that will be called on a failed ajax call
    * @param {String} targetGrepUrl Url used to get json from
    * @returns {Object} GrepAPI GrepAPI instance
    */
-  function GrepAPI(failedCallback, targetGrepUrl) {
+  function GrepAPI(targetGrepUrl) {
     this.$ = $(this);
     this.jsonData = [];
     if (this.grepUrl === undefined) {
@@ -24,14 +26,13 @@ H5P.GoalsPage.GrepAPI = (function ($) {
     } else {
       this.grepUrl = targetGrepUrl;
     }
-    this.failedCallback = failedCallback;
   }
 
   /**
    * Fetches data from url and updates the dialog view of provided grep dialog box
    * @param {H5P.GoalsPage.GrepDialogBox} grepDialogBox Grep dialog box
-   * @param {Number} dataType Determines which data types to get, 0 = competence aim sets
-   * @param {String} jsonDataUrl Url for fetching json data
+   * @param {Object} selectedItem Selected item object
+   * @param {Array} filterIdList Array with ids that data will be filtered on
    * @returns {H5P.GoalsPage.GrepAPI}
    */
   GrepAPI.prototype.getGrepData = function (grepDialogBox, selectedItem, filterIdList) {
@@ -43,6 +44,41 @@ H5P.GoalsPage.GrepAPI = (function ($) {
 
     grepDialogBox.createLoadingScreen(selectedItem);
 
+    // Find IE version
+    function isIE () {
+      var myNav = navigator.userAgent.toLowerCase();
+      return (myNav.indexOf('msie') != -1) ? parseInt(myNav.split('msie')[1]) : false;
+    }
+
+    // is IE version less than 9
+    if (isIE() && isIE() <= 9) {
+      // Use XDomainRequest
+      if (window.XDomainRequest) {
+        var xdr = new XDomainRequest();
+
+        xdr.open("get", dataUrl);
+
+        xdr.onerror = function () {
+          //Error Occured
+          grepDialogBox.setErrorMessage(ERROR_CONNECTION);
+        };
+
+        // Success
+        xdr.onload = function(xdr) {
+          self.jsonString = xdr.target.responseText;
+          self.jsonData = JSON.parse(xdr.target.responseText);
+          grepDialogBox.updateDialogView(self.getDataList(selectedItem.type, filterIdList), selectedItem.type);
+        };
+
+        setTimeout(function () {
+          xdr.send();
+        }, 0);
+      }
+      return this;
+    }
+
+    $.support.cors = true;
+
     $.ajax({
       url: dataUrl,
       success: function (data) {
@@ -51,8 +87,7 @@ H5P.GoalsPage.GrepAPI = (function ($) {
         grepDialogBox.updateDialogView(self.getDataList(selectedItem.type, filterIdList), selectedItem.type);
       },
       error: function () {
-        self.failedCallback();
-        throw new Error("Cannot connect to the Internet.");
+        grepDialogBox.setErrorMessage(ERROR_CONNECTION);
       }
     });
 
@@ -82,7 +117,8 @@ H5P.GoalsPage.GrepAPI = (function ($) {
   /**
    * Gets a list of data from jsonData depending on data type
    * @param {Number} dataType 0 = competence aim sets
-   * @returns {Array} curriculumList Proper curriculums or competence aim sets
+   * @param {Array} filterIdList Array of ids to filter on
+   * @returns {Array} dataList Proper curriculums or competence aim sets
    */
   GrepAPI.prototype.getDataList = function (dataType, filterIdList) {
     var self = this;

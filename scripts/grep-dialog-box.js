@@ -14,8 +14,8 @@ H5P.GoalsPage.GrepDialogBox = (function ($, JoubelUI) {
 
   /**
    * Initialize module.
-   * @param {Object} $wrapper Wrapper
-   * @param {Array} competenceSetArray Array containing available competence set
+   * @param {Object} params Object containing parameters
+   * @param {Array} filterIdList Array containing ids to filter on
    * @returns {Object} GrepDialogBox GrepDialogBox instance
    */
   function GrepDialogBox(params, filterIdList) {
@@ -34,14 +34,17 @@ H5P.GoalsPage.GrepDialogBox = (function ($, JoubelUI) {
    * @param {jQuery} $wrapper
    */
   GrepDialogBox.prototype.attach = function ($wrapper) {
-    var self = this;
-
     this.$wrapper = $wrapper;
+    if (!this.isCreated) {
+      this.createDialogView();
+    }
+
     // Get grep object
-    this.grepApi = new H5P.GoalsPage.GrepAPI(self.removeDialogBox);
+    this.grepApi = new H5P.GoalsPage.GrepAPI();
 
     this.createBottomBar();
     this.updateDialogView();
+
     this.grepApi.getGrepData(this, '', this.filteredIdList);
   };
 
@@ -96,17 +99,14 @@ H5P.GoalsPage.GrepDialogBox = (function ($, JoubelUI) {
 
   /**
    * Creates an exit button for the dialog box
-   * @param $wrapper Creates button on this wrapper
    */
   GrepDialogBox.prototype.createExit = function () {
     var self = this;
-    var $exitButton = $('<div>', {
+    return $('<div>', {
       'class': 'h5p-curriculum-popup-exit'
     }).click(function () {
       self.removeDialogBox();
     });
-
-    return $exitButton;
   };
 
   /**
@@ -356,6 +356,7 @@ H5P.GoalsPage.GrepDialogBox = (function ($, JoubelUI) {
   /**
    * Adds competence aim to list of selected competence aims and updates bottom bar accordingly
    * @param {Object} selectedCompetenceAim Selected competence aim
+   * @param {jQuery} selectedElement Selected element corresponding to selected competence aim
    */
   GrepDialogBox.prototype.addCompetenceAim = function (selectedCompetenceAim, selectedElement) {
     var self = this;
@@ -376,7 +377,7 @@ H5P.GoalsPage.GrepDialogBox = (function ($, JoubelUI) {
 
   /**
    * Removes competence aim from selected competence aims list and updates bottom bar
-   * @param {String} selectedCompetenceAim Textual representation of comeptence aim
+   * @param {Object} selectedCompetenceAim Textual representation of comeptence aim
    */
   GrepDialogBox.prototype.removeCompetenceAim = function (selectedCompetenceAim) {
     if (this.selectedCompetenceAims.indexOf(selectedCompetenceAim) > -1) {
@@ -389,6 +390,7 @@ H5P.GoalsPage.GrepDialogBox = (function ($, JoubelUI) {
   /**
    * Process selected item in dialog box
    * @param {Object} selectedItem Selected item
+   * @param {jQuery} selectedElement Selected element corresponding to selected item
    */
   GrepDialogBox.prototype.processSelection = function (selectedItem, selectedElement) {
     // select item
@@ -450,7 +452,6 @@ H5P.GoalsPage.GrepDialogBox = (function ($, JoubelUI) {
 
   /**
    * Merges competence aim set into curriculum list
-   * @param {Array} curriculumList Original list containing curriculums
    * @param {Array} competenceAimSet Competence aims added to curriculum list
    * @returns {Array} mergedList Merged list
    */
@@ -527,13 +528,12 @@ H5P.GoalsPage.GrepDialogBox = (function ($, JoubelUI) {
 
   /**
    * Creates a search box inside wrapper
-   * @param {jQuery} $wrapper Search box appends to this wrapper
-   * @returns {H5P.GoalsPage.GrepAPI}
+   * @returns {jQuery} $searchContainer Search container
    */
   GrepDialogBox.prototype.createSearchBox = function () {
     var self = this;
 
-    var $searchContainter = $('<div>', {
+    var $searchContainer = $('<div>', {
       'class': 'h5p-curriculum-search-container'
     });
 
@@ -545,9 +545,18 @@ H5P.GoalsPage.GrepDialogBox = (function ($, JoubelUI) {
       // Filter curriculum names on key up
       var input = $(this).val();
       self.updateViewList(self.$curriculumView, self.curriculumNames, input);
-    }).appendTo($searchContainter);
+    }).appendTo($searchContainer);
 
-    return $searchContainter;
+    return $searchContainer;
+  };
+
+  /**
+   * Sets error message in grep dialog box
+   * @param {String} msg String explaining the error
+   */
+  GrepDialogBox.prototype.setErrorMessage = function (msg) {
+    this.$curriculumView.children().remove();
+    this.$curriculumView.html(msg);
   };
 
   return GrepDialogBox;
