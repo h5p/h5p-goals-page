@@ -59,14 +59,14 @@ H5P.GoalsPage = (function ($) {
     self.goalId = 0;
 
     var goalsTemplate =
-        '<div class="goals-header">' +
-        ' <div role="button" tabindex="1" class="goals-help-text">{{helpTextLabel}}</div>' +
-        ' <div class="goals-title">{{title}}</div>' +
-        '</div>' +
-        '<div class="goals-description">{{description}}</div>' +
-        '<div class="goals-define"></div>' +
-        '<div class="goals-counter"></div>' +
-        '<div class="goals-view"></div>';
+      '<div class="goals-header">' +
+      ' <div role="button" tabindex="1" class="goals-help-text">{{helpTextLabel}}</div>' +
+      ' <div class="goals-title">{{title}}</div>' +
+      '</div>' +
+      '<div class="goals-description">{{description}}</div>' +
+      '<div class="goals-define"></div>' +
+      '<div class="goals-counter"></div>' +
+      '<div class="goals-view"></div>';
 
     /*global Mustache */
     self.$inner.append(Mustache.render(goalsTemplate, self.params));
@@ -107,7 +107,7 @@ H5P.GoalsPage = (function ($) {
     H5P.JoubelUI.createSimpleRoundedButton(self.params.chooseGoalText)
       .addClass('goals-search')
       .click(function () {
-        self.createGrepDialogBox(self.params.commaSeparatedCurriculumList);
+        self.createGrepDialogBox();
       }).appendTo($goalButtonsContainer);
 
     // Create new goal on click
@@ -120,7 +120,7 @@ H5P.GoalsPage = (function ($) {
 
   /**
    * Adds a new goal to the page
-   * @param {string} competenceAim Optional competence aim which the goal will constructed from
+   * @param {Object} competenceAim Optional competence aim which the goal will constructed from
    */
   GoalsPage.prototype.addGoal = function (competenceAim) {
     var self = this;
@@ -158,7 +158,7 @@ H5P.GoalsPage = (function ($) {
 
     // Set focus if new user defined goal
     if (newGoal.getGoalInstanceType() === GOAL_USER_CREATED
-      || newGoal.getGoalInstanceType() === GOAL_PREDEFINED_SPECIFICATION) {
+        || newGoal.getGoalInstanceType() === GOAL_PREDEFINED_SPECIFICATION) {
       $newGoal.addClass('focused');
       //$newGoalInput.text(this.params.defineGoalPlaceholder);
       // Set timeout to prevent input instantly losing focus
@@ -176,11 +176,11 @@ H5P.GoalsPage = (function ($) {
 
   /**
    * Creates a goal specification inside goal container
-   * @param {H5P.GoalsPage.GoalInstance} goalSpecification Goal specification instance
+   * @param {GoalInstance} goalSpecification Goal specification instance
    * @param {jQuery} $parentGoalContainer Parent of goal specification
    * @returns {jQuery} $goalSpecification Goal specification element
    */
-  GoalsPage.prototype.createGoalSpecificationElement = function(goalSpecification, $parentGoalContainer) {
+  GoalsPage.prototype.createGoalSpecificationElement = function (goalSpecification, $parentGoalContainer) {
     // Creates a goal specification and adds it to goal container
     var $insertionPoint = $('.h5p-created-goal-footer', $parentGoalContainer)
       .not($('.h5p-created-goal-specification .h5p-created-goal-footer', $parentGoalContainer));
@@ -195,17 +195,16 @@ H5P.GoalsPage = (function ($) {
   /**
    * Adds specification to goal
    * @param {H5P.GoalsPage.GoalInstance} goalInstance Specified goal instance
-   * @return {H5P.GoalsPage.GoalInstance} goalInstance Specification of goal instance
+   * @return {GoalInstance} goalInstance Specification of goal instance
    */
-  GoalsPage.prototype.addSpecificationToGoal = function(goalInstance) {
+  GoalsPage.prototype.addSpecificationToGoal = function (goalInstance) {
     var self = this;
 
     // Unset answer for goal
     goalInstance.goalAnswer(-1);
 
     // Add specification
-    var goalSpecification = goalInstance
-      .addSpecification(self.params.defineGoalPlaceholder, self.goalId, this.params.specifyGoalText);
+    var goalSpecification = goalInstance.addSpecification(self.params.defineGoalPlaceholder, self.goalId, this.params.specifyGoalText);
 
     // Add specification to goal list
     self.goalId += 1;
@@ -329,19 +328,18 @@ H5P.GoalsPage = (function ($) {
     if (this.params.helpText !== undefined && this.params.helpText.length) {
 
       // Create help button
-      $('.goals-help-text', this.$inner)
-        .click(function () {
+      $('.goals-help-text', this.$inner).click(function () {
         var $helpTextDialog = new H5P.JoubelUI.createHelpTextDialog(self.params.title, self.params.helpText);
         $helpTextDialog.appendTo(self.$inner.parent().parent().parent());
       }).keydown(function (e) {
-          var keyPressed = e.which;
-          // 32 - space
-          if (keyPressed === 32) {
-            $(this).click();
-            e.preventDefault();
-          }
-          $(this).focus();
-        });
+        var keyPressed = e.which;
+        // 32 - space
+        if (keyPressed === 32) {
+          $(this).click();
+          e.preventDefault();
+        }
+        $(this).focus();
+      });
 
     } else {
       $('.goals-help-text', this.$inner).remove();
@@ -366,11 +364,10 @@ H5P.GoalsPage = (function ($) {
 
   /**
    * Create grep dialog box
-   * @param {String} filteredIdString
    */
-  GoalsPage.prototype.createGrepDialogBox = function (filteredIdString) {
+  GoalsPage.prototype.createGrepDialogBox = function () {
     var self = this;
-    var filteredIdList = self.getFilteredIdList(filteredIdString);
+    var filteredIdList = self.getFilteredIdList();
     var dialogInstance = new H5P.GoalsPage.GrepDialogBox(this.params, filteredIdList);
     dialogInstance.attach(self.$inner.parent().parent().parent());
     dialogInstance.getFinishedButton().on('dialogFinished', function (event, data) {
@@ -504,6 +501,7 @@ H5P.GoalsPage = (function ($) {
   /**
    * Creates a button for enabling editing the given goal
    * @param {String} text String to display on the button
+   * @param {jQuery} $inputGoal Input area for goal
    * @returns {jQuery} $editGoalButton The button
    */
   GoalsPage.prototype.createEditGoalButton = function (text, $inputGoal) {
@@ -529,7 +527,7 @@ H5P.GoalsPage = (function ($) {
   /**
    * Creates a button for creating a specification of the given goal
    * @param {String} text String to display on the button
-   * @param [jQuery} $goalContainer Goal container element the new specification will be added to
+   * @param {jQuery} $goalContainer Goal container element the new specification will be added to
    * @returns {jQuery} $specifyGoalButton The button
    */
   GoalsPage.prototype.createSpecifyGoalButton = function (text, $goalContainer) {
@@ -543,7 +541,7 @@ H5P.GoalsPage = (function ($) {
       //Make a goal specification and set focus to it
       var goalInstance = self.getGoalInstanceFromUniqueId($goalContainer.data('uniqueId'));
       var goalSpecification = self.addSpecificationToGoal(goalInstance);
-      var $goalSpecificationElement = self.createGoalSpecificationElement(goalSpecification, $goalContainer);
+      self.createGoalSpecificationElement(goalSpecification, $goalContainer);
       $goalContainer.addClass('has-specification');
     });
 
@@ -558,6 +556,7 @@ H5P.GoalsPage = (function ($) {
   /**
    * Creates a button for enabling editing the given goal
    * @param {String} text String to display on the button
+   * @param {jQuery} $goalContainer Goal container element
    * @returns {jQuery} $editGoalButton The button
    */
   GoalsPage.prototype.createFinishedGoalButton = function (text, $goalContainer) {

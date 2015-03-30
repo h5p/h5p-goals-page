@@ -45,15 +45,16 @@ H5P.GoalsPage.GrepAPI = (function ($) {
     grepDialogBox.createLoadingScreen(selectedItem);
 
     // Find IE version
-    function isIE () {
+    function isIE() {
       var myNav = navigator.userAgent.toLowerCase();
-      return (myNav.indexOf('msie') != -1) ? parseInt(myNav.split('msie')[1]) : false;
+      return (myNav.indexOf('msie') !== -1) ? parseInt(myNav.split('msie')[1], 10) : false;
     }
 
     // is IE version less than 9
     if (isIE() && isIE() <= 9) {
       // Use XDomainRequest
       if (window.XDomainRequest) {
+        /*global XDomainRequest */
         var xdr = new XDomainRequest();
 
         xdr.open("get", dataUrl);
@@ -64,7 +65,7 @@ H5P.GoalsPage.GrepAPI = (function ($) {
         };
 
         // Success
-        xdr.onload = function(xdr) {
+        xdr.onload = function (xdr) {
           self.jsonString = xdr.target.responseText;
           self.jsonData = JSON.parse(xdr.target.responseText);
           grepDialogBox.updateDialogView(self.getDataList(selectedItem.type, filterIdList), selectedItem.type);
@@ -96,7 +97,7 @@ H5P.GoalsPage.GrepAPI = (function ($) {
 
   /**
    * Get language neutral name
-   * @param {Array} names Array of names in different languages
+   * @param {Object} names Array of names in different languages
    * @returns {string} languageNeutralName Language neutral name
    */
   GrepAPI.prototype.getLanguageNeutral = function (names) {

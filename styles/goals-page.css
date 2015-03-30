@@ -50,6 +50,7 @@
   display: -webkit-box;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  padding-left: 1px;
 }
 
 /* Set initial height of input field when empty, so it is editable */

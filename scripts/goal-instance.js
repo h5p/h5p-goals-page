@@ -99,7 +99,9 @@ H5P.GoalsPage.GoalInstance = (function () {
   /**
    * Add a specification to this goal
    * @param {string} text Text for a specification of this goal
-   * @return {Object} goalSpecification Goal instance
+   * @param {number} goalId Goal id
+   * @param {string} goalTypeDescription Goal type description
+   * @return {GoalInstance} goalSpecification Goal instance
    */
   GoalInstance.prototype.addSpecification = function (text, goalId, goalTypeDescription) {
     // Create a new goal specification instance and add it to goal specification array
