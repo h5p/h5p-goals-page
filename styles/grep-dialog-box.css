@@ -87,6 +87,7 @@
 .h5p-curriculum-popup-container .h5p-view-list-container .h5p-view-list-entry {
   cursor: pointer;
   width: 100%;
+  color: #000;
 }
 
 .h5p-curriculum-view {
@@ -157,7 +158,7 @@
 }
 
 .h5p-curriculum-popup-container .h5p-view-list-container .h5p-view-list-entry.h5p-competence-aim-instance.selected {
-  background-color: #3fc3ff;
+  background-color: #a1b6cc;
 }
 
 .h5p-curriculum-popup-container .h5p-view-list-container .h5p-view-list-entry.h5p-competence-aim-instance.selected:before {
@@ -172,7 +173,7 @@
   left: 2.05em;
   top: 0.85em;
   font-size: 9px;
-  color: #3fc3ff;
+  color: #a1b6cc;
 }
 
 /* ---------------------- Bottom bar ----------------------------------*/
