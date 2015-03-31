@@ -622,15 +622,19 @@ H5P.GoalsPage = (function ($) {
    * Responsive resize of goals view
    */
   GoalsPage.prototype.resize = function () {
+    var staticNoFooterThreshold = 33;
+    var staticNoLabelsThreshold = 20;
+    var widthInEm = this.$goalsView.width() / parseInt(this.$inner.css('font-size'), 10);
+
     // Remove footer description
-    if (this.$goalsView.width() < 560) {
+    if (widthInEm < staticNoFooterThreshold) {
       this.$goalsView.addClass('no-footer-description');
     } else {
       this.$goalsView.removeClass('no-footer-description');
     }
 
     // Remove button labels
-    if (this.$goalsView.width() < 310) {
+    if (widthInEm < staticNoLabelsThreshold) {
       this.$goalsView.addClass('no-footer-labels');
     } else {
       this.$goalsView.removeClass('no-footer-labels');

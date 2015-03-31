@@ -287,6 +287,8 @@ H5P.GoalsPage.GrepDialogBox = (function ($, JoubelUI) {
       'class': 'h5p-view-list-container'
     });
 
+    var prevEntry = null;
+
     // Populate wrapper
     dataList.forEach(function (curriculumNameInstance) {
       // Do not create children of unselected ancestors
@@ -304,6 +306,11 @@ H5P.GoalsPage.GrepDialogBox = (function ($, JoubelUI) {
         break;
       case COMPETENCE_AIM:
         classString = 'h5p-view-list-entry h5p-competence-aim-instance';
+
+        // Check if first child
+        if (prevEntry.type !== COMPETENCE_AIM) {
+          classString += ' first';
+        }
         break;
       default:
         classString = 'h5p-view-list-entry';
@@ -313,6 +320,8 @@ H5P.GoalsPage.GrepDialogBox = (function ($, JoubelUI) {
       if (curriculumNameInstance.selected) {
         classString += ' selected';
       }
+
+      prevEntry = curriculumNameInstance;
 
       $('<div>', {
         'class': classString,
