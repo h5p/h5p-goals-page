@@ -142,6 +142,7 @@ H5P.GoalsPage = (function ($) {
     self.createGoalElementFromGoalInstance(newGoal).prependTo(self.$goalsView);
 
     self.updateGoalsCounter();
+    self.resize();
   };
 
   /**

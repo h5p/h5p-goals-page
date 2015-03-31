@@ -390,7 +390,7 @@ H5P.GoalsPage.GrepDialogBox = (function ($, JoubelUI) {
    */
   GrepDialogBox.prototype.removeCompetenceAim = function (selectedCompetenceAim) {
     if (this.selectedCompetenceAims.indexOf(selectedCompetenceAim) > -1) {
-      this.selectedCompetenceAims.slice(this.selectedCompetenceAims.indexOf(selectedCompetenceAim), 1);
+      this.selectedCompetenceAims.splice(this.selectedCompetenceAims.indexOf(selectedCompetenceAim), 1);
     }
     selectedCompetenceAim.selected = false;
     this.updateBottomBar();
@@ -444,6 +444,7 @@ H5P.GoalsPage.GrepDialogBox = (function ($, JoubelUI) {
         && this.selectedCompetenceAims.indexOf(parentObject) > -1) {
       // Remove competence aim from selection
       this.removeCompetenceAim(parentObject);
+      parentElement.removeClass('selected');
     } else {
       this.processSelection(parent, parentElement);
     }

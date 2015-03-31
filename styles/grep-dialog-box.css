@@ -162,8 +162,9 @@
 }
 
 .h5p-curriculum-popup-container .h5p-view-list-container .h5p-view-list-entry.h5p-competence-aim-instance.selected:before {
-  background-color: #397b99;
-  border: 1px solid #397b99;
+  background-color: #333;
+  border: 1px solid #333;
+  opacity: 0.5;
 }
 
 .h5p-curriculum-popup-container .h5p-view-list-container .h5p-view-list-entry.h5p-competence-aim-instance.selected:after {
