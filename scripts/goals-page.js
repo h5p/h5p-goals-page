@@ -31,7 +31,7 @@ H5P.GoalsPage = (function ($) {
       defineGoalText: 'Create a new goal',
       definedGoalLabel: 'User defined goal',
       defineGoalPlaceholder: 'Write here...',
-      goalsAddedText: 'goals added',
+      goalsAddedText: 'Number of goals added:',
       finishGoalText: 'Finish',
       editGoalText: 'Edit',
       specifyGoalText: 'Specification',
@@ -284,7 +284,7 @@ H5P.GoalsPage = (function ($) {
     if (self.goalList.length) {
       $('<span>', {
         'class': 'goals-counter-text',
-        'html': self.goalList.length + ' ' + self.params.goalsAddedText
+        'html': self.params.goalsAddedText + ' ' + self.goalList.length
       }).appendTo($goalCounterContainer);
     }
   };
