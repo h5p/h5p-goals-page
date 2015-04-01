@@ -22,12 +22,6 @@
     },
     {
       "path": "scripts/goal-instance.js"
-    },
-    {
-      "path": "scripts/grep-api.js"
-    },
-    {
-      "path": "scripts/grep-dialog-box.js"
     }
   ],
   "preloadedDependencies": [

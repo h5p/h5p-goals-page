@@ -369,7 +369,7 @@ H5P.GoalsPage = (function ($) {
   GoalsPage.prototype.createGrepDialogBox = function () {
     var self = this;
     var filteredIdList = self.getFilteredIdList();
-    var dialogInstance = new H5P.GoalsPage.GrepDialogBox(this.params, filteredIdList);
+    var dialogInstance = new H5P.JoubelUI.createGrepDialogBox(this.params, filteredIdList);
     dialogInstance.attach(self.$inner.parent().parent().parent());
     dialogInstance.getFinishedButton().on('dialogFinished', function (event, data) {
       data.forEach(function (competenceAim) {
@@ -470,6 +470,7 @@ H5P.GoalsPage = (function ($) {
       }, 150);
     }).focusout(function () {
       // Delay focus out function slightly in case goal is removed
+
       setTimeout(function () {
         $goalInputArea.addClass('truncate');
         $goalContainer.removeClass('focused');
@@ -493,7 +494,8 @@ H5P.GoalsPage = (function ($) {
     $goalContainer.mouseenter(function () {
       $goalInputArea.removeClass('truncate');
     }).mouseleave(function () {
-      if (!$goalInputArea.is(':focus')) {
+
+      if (!$goalInputArea.is(':focus') && !$(this).hasClass('child-focused')) {
         $goalInputArea.addClass('truncate');
       }
     });
