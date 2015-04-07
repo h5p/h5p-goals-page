@@ -110,7 +110,7 @@
     "label": "Label for help text",
     "type": "text",
     "description": "Label for showing additional helpful information to the user.",
-    "default": "Read more"
+    "default": "More information"
   },
   {
     "name": "helpText",
