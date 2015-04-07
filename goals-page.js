@@ -60,7 +60,7 @@ H5P.GoalsPage = (function ($) {
 
     var goalsTemplate =
       '<div class="goals-header">' +
-      ' <div role="button" tabindex="1" class="goals-help-text">{{{helpTextLabel}}}</div>' +
+      ' <div role="button" tabindex="0" class="goals-help-text">{{{helpTextLabel}}}</div>' +
       ' <div class="goals-title">{{{title}}}</div>' +
       '</div>' +
       '<div class="goals-description">{{{description}}}</div>' +
