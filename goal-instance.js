@@ -19,6 +19,7 @@ H5P.GoalsPage.GoalInstance = (function () {
   function GoalInstance(defineGoalPlaceholder, uniqueId, goalInstanceType, goalTypeDescription) {
     this.uniqueId = uniqueId;
     this.answer = -1;
+    this.textualAnswer = '';
     this.text = defineGoalPlaceholder;
     this.goalInstanceType = goalInstanceType;
     this.specificationChildren = [];
@@ -128,6 +129,22 @@ H5P.GoalsPage.GoalInstance = (function () {
    */
   GoalInstance.prototype.getSpecifications = function () {
     return this.specificationChildren;
+  };
+
+  /**
+   * Set textual answer in goal instance
+   * @param {String} textualAnswer Textual answer
+   */
+  GoalInstance.prototype.setTextualAnswer = function (textualAnswer) {
+    this.textualAnswer = textualAnswer;
+  };
+
+  /**
+   * Get textual answer from goal instance
+   * @returns {string} textualAnswer Textual answer
+   */
+  GoalInstance.prototype.getTextualAnswer = function () {
+    return this.textualAnswer;
   };
 
   return GoalInstance;
