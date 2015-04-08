@@ -59,8 +59,8 @@
     "name": "goalsAddedText",
     "label": "Text indicating how many goals has been added",
     "type": "text",
-    "default": "goals added",
-    "description": "This text will follow after the amount of goals that is currently created, example: '5 goals added' where 'goals added:' is this text."
+    "default": "Goals added:",
+    "description": "This text will follow after the amount of goals that is currently created, example: 'Goals added: 5' where 'Goals added:' is this text."
   },
   {
     "name": "finishGoalText",
@@ -102,7 +102,7 @@
     "name": "commaSeparatedCurriculumList",
     "label": "Filter on curriculum ID(s):",
     "type": "text",
-    "description": "If you wish to only display certain curriculums you can add them here by ID, example for displaying only carpentry and media graphics curricula : TMF3-01, MGR3-01",
+    "description": "If you wish to only display certain curriculums you can add them by ID, separated by comma. Example for displaying only carpentry and media graphics curricula : TMF3-01, MGR3-01",
     "optional": true
   },
   {
