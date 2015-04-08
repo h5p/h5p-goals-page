@@ -114,13 +114,17 @@ H5P.GoalsPage = (function ($) {
     H5P.JoubelUI.createSimpleRoundedButton(self.params.defineGoalText)
       .addClass('goals-create')
       .click(function () {
-        self.addGoal();
+        var $newGoal = self.addGoal();
+        var $goalInput = $('.created-goal', $newGoal);
+        $goalInput.prop('contenteditable', true);
+        $goalInput.focus();
       }).appendTo($goalButtonsContainer);
   };
 
   /**
    * Adds a new goal to the page
    * @param {Object} competenceAim Optional competence aim which the goal will constructed from
+   * @return {jQuery} $newGoal New goal element
    */
   GoalsPage.prototype.addGoal = function (competenceAim) {
     var self = this;
@@ -139,10 +143,12 @@ H5P.GoalsPage = (function ($) {
     self.goalId += 1;
 
     // Create goal element and append it to view
-    self.createGoalElementFromGoalInstance(newGoal).prependTo(self.$goalsView);
+    var $newGoal = self.createGoalElementFromGoalInstance(newGoal).prependTo(self.$goalsView);
 
     self.updateGoalsCounter();
     self.resize();
+
+    return $newGoal;
   };
 
   /**
@@ -544,8 +550,11 @@ H5P.GoalsPage = (function ($) {
       //Make a goal specification and set focus to it
       var goalInstance = self.getGoalInstanceFromUniqueId($goalContainer.data('uniqueId'));
       var goalSpecification = self.addSpecificationToGoal(goalInstance);
-      self.createGoalSpecificationElement(goalSpecification, $goalContainer);
+      var $goalSpecificationElement = self.createGoalSpecificationElement(goalSpecification, $goalContainer);
+      var $inputGoal = $('.created-goal', $goalSpecificationElement);
       $goalContainer.addClass('has-specification');
+      $inputGoal.prop('contenteditable', true);
+      $inputGoal.focus();
     });
 
     $('<span>', {
