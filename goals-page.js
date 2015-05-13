@@ -4,7 +4,7 @@ var H5P = H5P || {};
  * Goals Page module
  * @external {jQuery} $ H5P.jQuery
  */
-H5P.GoalsPage = (function ($) {
+H5P.GoalsPage = (function ($, GrepDialog) {
   // CSS Classes:
   var MAIN_CONTAINER = 'h5p-goals-page';
 
@@ -375,7 +375,7 @@ H5P.GoalsPage = (function ($) {
   GoalsPage.prototype.createGrepDialogBox = function () {
     var self = this;
     var filteredIdList = self.getFilteredIdList();
-    var dialogInstance = new H5P.JoubelUI.createGrepDialogBox(this.params, filteredIdList);
+    var dialogInstance = new GrepDialog(this.params, filteredIdList);
     dialogInstance.attach(self.$inner.parent().parent().parent());
     dialogInstance.getFinishedButton().on('dialogFinished', function (event, data) {
       data.forEach(function (competenceAim) {
@@ -654,4 +654,4 @@ H5P.GoalsPage = (function ($) {
   };
 
   return GoalsPage;
-}(H5P.jQuery));
+}(H5P.jQuery, H5P.GrepDialogBox));
