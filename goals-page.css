@@ -55,6 +55,7 @@
   overflow: hidden;
   padding-left: 1px;
   color: #000;
+  width: 100%;
 }
 
 /* Set initial height of input field when empty, so it is editable */
