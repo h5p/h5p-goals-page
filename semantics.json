@@ -28,13 +28,6 @@
     "optional": true
   },
   {
-    "name": "chooseGoalText",
-    "label": "Predefined goal link text",
-    "type": "text",
-    "description": "Text that will be displayed on the button for selecting a predefined goal.",
-    "default": "Choose goal from list"
-  },
-  {
     "name": "defineGoalText",
     "label": "Define goal link text",
     "type": "text",
@@ -85,25 +78,6 @@
     "label": "Text for \"Remove goal\"-button",
     "type": "text",
     "default": "Remove"
-  },
-  {
-    "name": "grepDialogDone",
-    "label": "Text for \"Done\"-button in grep dialog",
-    "type": "text",
-    "default": "Done"
-  },
-  {
-    "name": "filterGoalsPlaceholder",
-    "label": "Placeholder for filter on words \"Input\" field",
-    "type": "text",
-    "default": "Filter on words..."
-  },
-  {
-    "name": "commaSeparatedCurriculumList",
-    "label": "Filter on curriculum ID(s):",
-    "type": "text",
-    "description": "If you wish to only display certain curriculums you can add them by ID, separated by comma. Example for displaying only carpentry and media graphics curricula : TMF3-01, MGR3-01",
-    "optional": true
   },
   {
     "name": "helpTextLabel",

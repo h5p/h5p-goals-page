@@ -4,7 +4,7 @@ var H5P = H5P || {};
  * Goals Page module
  * @external {jQuery} $ H5P.jQuery
  */
-H5P.GoalsPage = (function ($, GrepDialog) {
+H5P.GoalsPage = (function ($) {
   // CSS Classes:
   var MAIN_CONTAINER = 'h5p-goals-page';
 
@@ -27,7 +27,6 @@ H5P.GoalsPage = (function ($, GrepDialog) {
     this.params = $.extend({}, {
       title: 'Goals',
       description: '',
-      chooseGoalText: 'Choose goal from list',
       defineGoalText: 'Create a new goal',
       definedGoalLabel: 'User defined goal',
       defineGoalPlaceholder: 'Write here...',
@@ -36,9 +35,6 @@ H5P.GoalsPage = (function ($, GrepDialog) {
       editGoalText: 'Edit',
       specifyGoalText: 'Specification',
       removeGoalText: 'Remove',
-      grepDialogDone: 'Done',
-      filterGoalsPlaceholder: "Filter on words...",
-      commaSeparatedCurriculumList: "",
       helpTextLabel: 'Read more',
       helpText: 'Help text'
     }, params);
@@ -103,13 +99,6 @@ H5P.GoalsPage = (function ($, GrepDialog) {
     var self = this;
     var $goalButtonsContainer = $('.goals-define', self.$inner);
 
-    // Create predefined goal using GREP API
-    H5P.JoubelUI.createSimpleRoundedButton(self.params.chooseGoalText)
-      .addClass('goals-search')
-      .click(function () {
-        self.createGrepDialogBox();
-      }).appendTo($goalButtonsContainer);
-
     // Create new goal on click
     H5P.JoubelUI.createSimpleRoundedButton(self.params.defineGoalText)
       .addClass('goals-create')
@@ -164,8 +153,8 @@ H5P.GoalsPage = (function ($, GrepDialog) {
       .addClass('goal-type-' + newGoal.getGoalInstanceType());
 
     // Set focus if new user defined goal
-    if (newGoal.getGoalInstanceType() === GOAL_USER_CREATED
-        || newGoal.getGoalInstanceType() === GOAL_PREDEFINED_SPECIFICATION) {
+    if (newGoal.getGoalInstanceType() === GOAL_USER_CREATED ||
+      newGoal.getGoalInstanceType() === GOAL_PREDEFINED_SPECIFICATION) {
       $newGoal.addClass('focused');
       //$newGoalInput.text(this.params.defineGoalPlaceholder);
       // Set timeout to prevent input instantly losing focus
@@ -351,37 +340,6 @@ H5P.GoalsPage = (function ($, GrepDialog) {
     } else {
       $('.goals-help-text', this.$inner).remove();
     }
-  };
-
-  /**
-   * Get lists with filtered ids
-   * @returns {Array} filterIdList
-   */
-  GoalsPage.prototype.getFilteredIdList = function () {
-    var filterIdList = [];
-    if (this.params.commaSeparatedCurriculumList !== undefined
-        && this.params.commaSeparatedCurriculumList.length) {
-      filterIdList = this.params.commaSeparatedCurriculumList.split(',');
-      filterIdList.forEach(function (filterId, filterIndex) {
-        filterIdList[filterIndex] = filterId.trim();
-      });
-    }
-    return filterIdList;
-  };
-
-  /**
-   * Create grep dialog box
-   */
-  GoalsPage.prototype.createGrepDialogBox = function () {
-    var self = this;
-    var filteredIdList = self.getFilteredIdList();
-    var dialogInstance = new GrepDialog(this.params, filteredIdList);
-    dialogInstance.attach(self.$inner.parent().parent().parent());
-    dialogInstance.getFinishedButton().on('dialogFinished', function (event, data) {
-      data.forEach(function (competenceAim) {
-        self.addGoal(competenceAim);
-      });
-    });
   };
 
   /**
@@ -654,4 +612,4 @@ H5P.GoalsPage = (function ($, GrepDialog) {
   };
 
   return GoalsPage;
-}(H5P.jQuery, H5P.GrepDialogBox));
+}(H5P.jQuery));
