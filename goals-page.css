@@ -4,7 +4,7 @@
 
 .h5p-goals-page .goals-help-text {
   float: right;
-  color: #20588F;
+  color: #1a73d9;
   cursor: pointer;
   font-size: 0.8em;
   line-height: 3.6em;
@@ -54,7 +54,7 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
   padding-left: 1px;
-  color: #000;
+  color: #fff;
   width: 100%;
 }
 
@@ -82,17 +82,24 @@
 /* ------------------------- Goal container colors ------------------------ */
 /* Background colors */
 .h5p-goals-page .created-goal-container.goal-type-0,
+.h5p-goals-page .created-goal-container.goal-type-1,
 .h5p-goals-page .created-goal-container.goal-type-2 {
-  background-color: #95D641;
-}
-
-.h5p-goals-page .created-goal-container.goal-type-1 {
-  background-color: #a1b6cc;
+  background-color: #1a73d9;
 }
 
 .h5p-goals-page .created-goal-container.focused {
-  background-color: #f5f5f5;
+  background-color: #eee;
+  color: #666;
 }
+
+.h5p-goals-page .created-goal-container.focused .created-goal,
+.h5p-goals-page .created-goal-container.focused .h5p-created-goal-footer .h5p-created-goal-hover-footer .footer-description,
+.h5p-goals-page .created-goal-container.goal-type-0.focused .h5p-created-goal-footer,
+.h5p-goals-page .created-goal-container.goal-type-1.focused .h5p-created-goal-footer,
+.h5p-goals-page .created-goal-container.goal-type-2.focused .h5p-created-goal-footer {
+  color: #666;
+}
+
 
 /* ----------------------------------- Goal specification --------------------------- */
 /* Remove bottom margin for specification, since it is provided by parent */
@@ -287,14 +294,14 @@
   text-overflow: ellipsis;
   font-style: italic;
   opacity: 0.75;
-  color: #555;
+  color: #fff;
 }
 
 /* Text colors */
 .h5p-goals-page .created-goal-container.goal-type-0 .h5p-created-goal-footer,
 .h5p-goals-page .created-goal-container.goal-type-1 .h5p-created-goal-footer,
 .h5p-goals-page .created-goal-container.goal-type-2 .h5p-created-goal-footer {
-  color: #000;
+  color: #fff;
   opacity: 0.75;
 }
 
