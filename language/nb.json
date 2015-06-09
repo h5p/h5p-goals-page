@@ -11,11 +11,6 @@
       "default": "Opprett målene du har valgt å jobbe med."
     },
     {
-      "label": "Tekst for \"Velg mål fra læreplan\"-knapp",
-      "description": "Tekst som vil vises på \"Velg må fra læreplan\"-knapp.",
-      "default": "Velg mål fra læreplan"
-    },
-    {
       "label": "Tekst for \"Skriv eget mål\"-knapp",
       "description": "Tekst som vil vises på \"Skriv eget mål\"-knapp.",
       "default": "Skriv eget mål"
@@ -50,18 +45,6 @@
     {
       "label": "Tekst for \"Slett mål\"-knapp",
       "default": "Slett"
-    },
-    {
-      "label": "Tekst for \"Legg til mål\"-knapp i grep visning",
-      "default": "Legg til"
-    },
-    {
-      "label": "Tekst for tomt søkefelt",
-      "default": "Søk i læreplaner..."
-    },
-    {
-      "label": "Filtrer læreplan(er) på ID",
-      "description": "Om du ønsker å bare vise noen læreplaner kan du skrive de her med ID, separert ved komma. Eksempel for å vise læreplan i tømrarfaget og i mediegrafikerfaget: TMF3-01, MGR3-01"
     },
     {
       "label": "Tekst for \"Hjelpetekst\"-knapp",
