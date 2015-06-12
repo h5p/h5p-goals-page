@@ -36,11 +36,6 @@
       "machineName": "H5P.JoubelUI",
       "majorVersion": 1,
       "minorVersion": 1
-    },
-    {
-      "machineName": "H5P.GrepDialog",
-      "majorVersion": 1,
-      "minorVersion": 0
     }
   ]
 }
