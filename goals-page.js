@@ -152,6 +152,14 @@ H5P.GoalsPage = (function ($) {
       .addClass('created-goal-container')
       .addClass('goal-type-' + newGoal.getGoalInstanceType());
 
+    // Make goal input editable on click
+    $newGoalInput.click(function () {
+      setTimeout(function () {
+        $newGoalInput.prop('contenteditable', true);
+        $newGoalInput.focus();
+      }, 0);
+    });
+
     // Set focus if new user defined goal
     if (newGoal.getGoalInstanceType() === GOAL_USER_CREATED ||
       newGoal.getGoalInstanceType() === GOAL_PREDEFINED_SPECIFICATION) {
