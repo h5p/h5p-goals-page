@@ -174,8 +174,9 @@ H5P.GoalsPage = (function ($) {
     });
 
     // Set focus if new user defined goal
-    if (newGoal.getGoalInstanceType() === GOAL_USER_CREATED ||
-      newGoal.getGoalInstanceType() === GOAL_PREDEFINED_SPECIFICATION) {
+    if (!newGoal.goalText().length &&
+        (newGoal.getGoalInstanceType() === GOAL_USER_CREATED ||
+        newGoal.getGoalInstanceType() === GOAL_PREDEFINED_SPECIFICATION)) {
       $newGoal.addClass('focused');
       //$newGoalInput.text(this.params.defineGoalPlaceholder);
       // Set timeout to prevent input instantly losing focus
