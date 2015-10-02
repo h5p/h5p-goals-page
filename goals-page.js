@@ -124,20 +124,8 @@ H5P.GoalsPage = (function ($) {
     // Use predefined goal
     if (competenceAim !== undefined) {
       goalText = competenceAim.value;
-      goalType = GOAL_PREDEFINED;
-      goalTypeDescription = competenceAim.curriculum.value;
-
-      // Set goal type
-      if (!isNaN(competenceAim.goalType)) {
-        goalType = competenceAim.goalType;
-      } else {
-        goalType = GOAL_PREDEFINED;
-      }
-
-      // Set goal type description
-      if (competenceAim.curriculum && competenceAim.curriculum.value) {
-        goalTypeDescription = competenceAim.curriculum.value;
-      }
+      goalType = !isNaN(competenceAim.goalType) ? competenceAim.goalType : GOAL_PREDEFINED;
+      goalTypeDescription = competenceAim.description;
     }
 
     var newGoal = new H5P.GoalsPage.GoalInstance(goalText, self.goalId, goalType, goalTypeDescription);
