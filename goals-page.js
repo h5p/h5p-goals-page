@@ -126,7 +126,20 @@ H5P.GoalsPage = (function ($) {
       goalText = competenceAim.value;
       goalType = GOAL_PREDEFINED;
       goalTypeDescription = competenceAim.curriculum.value;
+
+      // Set goal type
+      if (!isNaN(competenceAim.goalType)) {
+        goalType = competenceAim.goalType;
+      } else {
+        goalType = GOAL_PREDEFINED;
+      }
+
+      // Set goal type description
+      if (competenceAim.curriculum && competenceAim.curriculum.value) {
+        goalTypeDescription = competenceAim.curriculum.value;
+      }
     }
+
     var newGoal = new H5P.GoalsPage.GoalInstance(goalText, self.goalId, goalType, goalTypeDescription);
     self.goalList.push(newGoal);
     self.goalId += 1;
@@ -152,9 +165,18 @@ H5P.GoalsPage = (function ($) {
       .addClass('created-goal-container')
       .addClass('goal-type-' + newGoal.getGoalInstanceType());
 
+    // Make goal input editable on click
+    $newGoalInput.click(function () {
+      setTimeout(function () {
+        $newGoalInput.prop('contenteditable', true);
+        $newGoalInput.focus();
+      }, 0);
+    });
+
     // Set focus if new user defined goal
-    if (newGoal.getGoalInstanceType() === GOAL_USER_CREATED ||
-      newGoal.getGoalInstanceType() === GOAL_PREDEFINED_SPECIFICATION) {
+    if (!newGoal.goalText().length &&
+        (newGoal.getGoalInstanceType() === GOAL_USER_CREATED ||
+        newGoal.getGoalInstanceType() === GOAL_PREDEFINED_SPECIFICATION)) {
       $newGoal.addClass('focused');
       //$newGoalInput.text(this.params.defineGoalPlaceholder);
       // Set timeout to prevent input instantly losing focus
