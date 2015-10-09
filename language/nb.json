@@ -48,7 +48,7 @@
     },
     {
       "label": "Tekst for \"Hjelpetekst\"-knapp",
-      "description": "Tekst som vil vises på \"HjelpeTekst\"-knapp som vil vises tilleggs-infomasjon til brukeren.",
+      "description": "Tekst som vil vises på \"HjelpeTekst\"-knapp som vil vises tilleggsinformasjon til brukeren.",
       "default": "Mer informasjon"
     },
     {
