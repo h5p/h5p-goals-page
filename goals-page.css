@@ -92,89 +92,12 @@
   color: #666;
 }
 
-.h5p-goals-page .created-goal-container.focused .created-goal,
-.h5p-goals-page .created-goal-container.focused .h5p-created-goal-footer .h5p-created-goal-hover-footer .footer-description,
-.h5p-goals-page .created-goal-container.goal-type-0.focused .h5p-created-goal-footer,
-.h5p-goals-page .created-goal-container.goal-type-1.focused .h5p-created-goal-footer,
-.h5p-goals-page .created-goal-container.goal-type-2.focused .h5p-created-goal-footer {
+.h5p-goals-page .created-goal-container.focused .created-goal {
   color: #666;
-}
-
-
-/* ----------------------------------- Goal specification --------------------------- */
-/* Remove bottom margin for specification, since it is provided by parent */
-.h5p-goals-page .created-goal-container.has-specification .h5p-created-goal-specification {
-  max-height: 0;
-  opacity: 0;
-  margin: 0;
-  padding: 0;
-  border-bottom: 0;
-  transition: max-height 0.5s linear, opacity 0.5s linear, margin 0.6s ease-in, padding 0.6s ease-in;
-}
-
-/* Hide specification container initially */
-.h5p-goals-page .created-goal-container.has-specification .h5p-created-goal-specification .created-goal {
-  max-height: 0;
-  opacity: 0;
-  padding: 0;
-  left-padding: 1px;
-  transition: max-height 0.5s linear, opacity 0.5s linear, margin 0.6s ease-in, padding 0.6s ease-in;
-}
-
-/* ------------------------------ Goal container footer ------------------------------ */
-
-/* Hide footer initially */
-.h5p-goals-page .created-goal-container .h5p-created-goal-footer {
-  max-height: 0;
-  opacity: 0;
-  transition: max-height 0.5s linear, opacity 0.5s linear, margin 0.6s ease-in, padding 0.6s ease-in;
-  width: 100%;
-  height: 2em;
-}
-
-/* Hide input footers and their elements initially*/
-.h5p-goals-page .created-goal-container .h5p-created-goal-hover-footer,
-.h5p-goals-page .created-goal-container .h5p-created-goal-hover-footer *,
-.h5p-goals-page .created-goal-container .h5p-created-goal-input-footer,
-.h5p-goals-page .created-goal-container .h5p-created-goal-input-footer * {
-  max-height: 0;
-  opacity: 0;
-  margin: 0;
-  transition: all 0s;
-}
-
-/* Hide specification initially */
-.h5p-goals-page .created-goal-container .h5p-created-goal-specification {
-  max-height: 0;
-  opacity: 0;
-  padding: 0;
-  transition: max-height 0.5s linear, opacity 0.5s linear, margin 0.6s ease-in, padding 0.6s ease-in;
-}
-
-/* --------------------- Goal container hovered ------------------------------ */
-
-/* Show hover footer and specifications on hover */
-.h5p-goals-page .created-goal-container:hover .h5p-created-goal-footer,
-.h5p-goals-page .created-goal-container:hover .h5p-created-goal-hover-footer,
-.h5p-goals-page .created-goal-container:hover .h5p-created-goal-specification,
-.h5p-goals-page .created-goal-container:hover .h5p-created-goal-specification .created-goal {
-  max-height: 50em;
-  opacity: 1;
-  transition: max-height 0.4s linear, opacity 0.7s linear, margin 0.1s ease-out, padding 0.1s ease-out;
-}
-
-.h5p-goals-page .created-goal-container:hover .h5p-created-goal-hover-footer * {
-  max-height: 50em;
-  opacity: 0.75;
-  transition: max-height 0.4s linear, opacity 0.7s linear, margin 0.1s ease-out, padding 0.1s ease-out;
 }
 
 .h5p-goals-page .created-goal-container:hover .h5p-created-goal-specification .created-goal {
   padding-left: 1px;
-}
-
-.h5p-goals-page .created-goal-container:hover .h5p-created-goal-hover-footer * {
-  transition: opacity 0.2s ease-out;
 }
 
 /* Padding for specification */
@@ -184,46 +107,6 @@
   transition: padding 0.1s ease-out, margin 0.1s ease-out;
 }
 
-/* Button margins */
-.h5p-goals-page .created-goal-container:hover .h5p-created-goal-hover-footer * {
-  transition: margin 0.1s ease-out;
-  margin: 0.5em 1em 0.5em 0;
-}
-
-/* -------------------- Goal container focused ------------------------------ */
-
-/* Show input footer on focus */
-.h5p-goals-page .created-goal-container.focused,
-.h5p-goals-page .created-goal-container.focused .h5p-created-goal-footer,
-.h5p-goals-page .created-goal-container.focused .h5p-created-goal-input-footer {
-  max-height: 50em;
-  opacity: 1;
-  transition: max-height 0.4s linear, opacity 0.7s linear, margin 0.1s ease-out, padding 0.1s ease-out;
-}
-
-.h5p-goals-page .created-goal-container.focused .h5p-created-goal-input-footer * {
-  max-height: 50em;
-  opacity: 0.75;
-  transition: max-height 0.4s linear, opacity 0.2s ease-out, margin 0.1s ease-out, padding 0.1s ease-out;
-}
-
-/* Hide hover footer on focus */
-.h5p-goals-page .created-goal-container:hover .created-goal-container.focused .h5p-created-goal-hover-footer,
-.h5p-goals-page .created-goal-container:hover .created-goal-container.focused .h5p-created-goal-hover-footer *,
-.h5p-goals-page .created-goal-container.focused:hover .h5p-created-goal-hover-footer,
-.h5p-goals-page .created-goal-container.focused:hover .h5p-created-goal-hover-footer * {
-  max-height: 0;
-  opacity: 0;
-  margin: 0;
-  transition: all 0s;
-}
-
-/* Buttons margins */
-.h5p-goals-page .created-goal-container.focused .h5p-created-goal-input-footer * {
-  transition: margin 0.1s ease-out;
-  margin: 0.5em 1em 0.5em 0;
-}
-
 /* Show specification padding */
 .h5p-goals-page .created-goal-container .h5p-created-goal-specification.focused {
   padding: 0.75em;
@@ -231,116 +114,76 @@
   transition: padding 0.1s ease-out, margin 0.1s ease-out;
 }
 
-/* ------------------- Specification container focused ------------------------- */
-
-/* Show hover footer on hover */
-.h5p-goals-page .created-goal-container.child-focused .h5p-created-goal-footer,
-.h5p-goals-page .created-goal-container.child-focused .h5p-created-goal-hover-footer,
-.h5p-goals-page .created-goal-container.child-focused .h5p-created-goal-specification,
-.h5p-goals-page .created-goal-container.child-focused .h5p-created-goal-specification .created-goal {
-  max-height: 50em;
-  opacity: 1;
-  transition: max-height 0.4s linear, opacity 0.7s linear, margin 0.1s ease-out, padding 0.1s ease-out;
-}
-
-.h5p-goals-page .created-goal-container.child-focused .h5p-created-goal-hover-footer * {
-  max-height: 50em;
-  opacity: 0.75;
-  transition: max-height 0.4s linear, opacity 0.7s linear, margin 0.1s ease-out, padding 0.1s ease-out;
-}
-
-/* Hide hover footer on focus */
-.h5p-goals-page .created-goal-container.child-focused .created-goal-container.focused .h5p-created-goal-hover-footer,
-.h5p-goals-page .created-goal-container.child-focused .created-goal-container.focused .h5p-created-goal-hover-footer * {
-  max-height: 0;
-  opacity: 0;
-  margin: 0;
-  transition: all 0s;
-}
-
 .h5p-goals-page .created-goal-container.child-focused .h5p-created-goal-specification .created-goal {
   padding-left: 1px;
 }
 
-/* Padding for specification */
-.h5p-goals-page .created-goal-container.has-specification.child-focused .h5p-created-goal-specification {
-  padding: 0.75em;
-  margin-top: 0.75em;
-  transition: padding 0.1s ease-out, margin 0.1s ease-out;
-}
-
-/* Hide hover footer for focused item */
-.h5p-goals-page .created-goal-container.child-focused .h5p-created-goal-specification.focused .h5p-created-goal-hover-footer {
-  max-height: 0;
-  opacity: 0;
-  transition: max-height 0.5s linear, opacity 0.5s linear, margin 0.6s ease-in, padding 0.6s ease-in;
-}
-
-/* Button margins */
-.h5p-goals-page .created-goal-container.child-focused .h5p-created-goal-hover-footer * {
-  transition: margin 0.1s ease-out;
-  margin: 0.5em 1em 0.5em 0;
-}
-
-/* ------------------------------ Goal footer elements ------------------------------ */
-
-/* Description field */
-.h5p-goals-page .created-goal-container .h5p-created-goal-footer .h5p-created-goal-hover-footer .footer-description {
+.created-goal-container:hover .h5p-goals-buttons {
   display: inline-block;
-  float: left;
-  max-width: 40%;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  font-style: italic;
-  opacity: 0.75;
   color: #fff;
 }
 
-/* Text colors */
-.h5p-goals-page .created-goal-container.goal-type-0 .h5p-created-goal-footer,
-.h5p-goals-page .created-goal-container.goal-type-1 .h5p-created-goal-footer,
-.h5p-goals-page .created-goal-container.goal-type-2 .h5p-created-goal-footer {
-  color: #fff;
+.created-goal-container.focused .h5p-goals-buttons {
+  display: inline-block;
+  color: #333;
+}
+
+.h5p-goals-buttons {
+  display: none;
+  position: absolute;
+  right: 0.5em;
+  color: #333;
+  bottom: 0.5em;
   opacity: 0.75;
 }
 
-.h5p-goals-page .created-goal-container .h5p-created-goal-footer .h5p-created-goal-done,
-.h5p-goals-page .created-goal-container .h5p-created-goal-footer .h5p-created-goal-edit,
-.h5p-goals-page .created-goal-container .h5p-created-goal-footer .h5p-created-goal-specify,
-.h5p-goals-page .created-goal-container .h5p-created-goal-footer .h5p-created-goal-remove {
+.h5p-goals-buttons > div {
+  margin-left: 1em;
+}
+
+.h5p-goals-page .h5p-created-goal-done,
+.h5p-goals-page .h5p-created-goal-edit,
+.h5p-goals-page .h5p-created-goal-remove {
   display: inline-block;
   float: right;
   cursor: pointer;
   transition: transform .2s ease-in-out;
 }
 
-/* Icons */
-.h5p-goals-page .created-goal-container .h5p-created-goal-footer .h5p-created-goal-done:before,
-.h5p-goals-page .created-goal-container .h5p-created-goal-footer .h5p-created-goal-edit:before,
-.h5p-goals-page .created-goal-container .h5p-created-goal-footer .h5p-created-goal-specify:before,
-.h5p-goals-page .created-goal-container .h5p-created-goal-footer .h5p-created-goal-remove:before {
-  font-family: 'H5PFontAwesome4';
-  content: '\f00c';
-  padding-right: 0.5em;
+.h5p-goals-page .h5p-created-goal-done,
+.h5p-goals-page .h5p-created-goal-edit {
+  display: none;
+}
+.created-goal-container.focused .h5p-created-goal-done {
+  display: inline-block;
+}
+.created-goal-container:hover .h5p-created-goal-edit {
+  display: inline-block;
+}
+.created-goal-container.focused:hover .h5p-created-goal-edit {
+  display: none;
 }
 
-.h5p-goals-page .created-goal-container .h5p-created-goal-footer .h5p-created-goal-remove:before {
+/* Icons */
+.h5p-goals-page .h5p-created-goal-done:before,
+.h5p-goals-page .h5p-created-goal-edit:before,
+.h5p-goals-page .h5p-created-goal-remove:before {
+  font-family: 'H5PFontAwesome4';
+  content: '\f00c';
+  padding-right: 0.3em;
+}
+
+.h5p-goals-page .h5p-created-goal-remove:before {
   content: '\f00d';
 }
 
-.h5p-goals-page .created-goal-container .h5p-created-goal-footer .h5p-created-goal-edit:before {
+.h5p-goals-page .h5p-created-goal-edit:before {
   content: '\f044';
 }
 
-.h5p-goals-page .created-goal-container .h5p-created-goal-footer .h5p-created-goal-specify:before {
-  content: '\f05b';
-}
-
-.h5p-goals-page .created-goal-container .h5p-created-goal-footer .h5p-created-goal-done:hover,
-.h5p-goals-page .created-goal-container .h5p-created-goal-footer .h5p-created-goal-edit:hover,
-.h5p-goals-page .created-goal-container .h5p-created-goal-footer .h5p-created-goal-specify:hover,
-.h5p-goals-page .created-goal-container .h5p-created-goal-footer .h5p-created-goal-remove:hover {
+.h5p-goals-page .h5p-created-goal-done:hover,
+.h5p-goals-page .h5p-created-goal-edit:hover,
+.h5p-goals-page .h5p-created-goal-remove:hover {
   opacity: 1;
 }
 
@@ -374,13 +217,12 @@
 /* ------------------------------ Responsive view ------------------------- */
 
 /* Hide description field */
-.h5p-goals-page .goals-view.no-footer-description .created-goal-container .h5p-created-goal-footer .h5p-created-goal-hover-footer .footer-description {
+.h5p-goals-page .goals-view.no-footer-description .created-goal-container .footer-description {
   display: none;
 }
 
-.h5p-goals-page .goals-view.no-footer-description.no-footer-labels .created-goal-container .h5p-created-goal-footer .h5p-created-goal-remove-text,
-.h5p-goals-page .goals-view.no-footer-description.no-footer-labels .created-goal-container .h5p-created-goal-footer .h5p-created-goal-done-text,
-.h5p-goals-page .goals-view.no-footer-description.no-footer-labels .created-goal-container .h5p-created-goal-footer .h5p-created-goal-edit-text,
-.h5p-goals-page .goals-view.no-footer-description.no-footer-labels .created-goal-container .h5p-created-goal-footer .h5p-created-goal-specify-text {
+.h5p-goals-page .goals-view.no-footer-description.no-footer-labels .h5p-created-goal-remove-text,
+.h5p-goals-page .goals-view.no-footer-description.no-footer-labels .h5p-created-goal-done-text,
+.h5p-goals-page .goals-view.no-footer-description.no-footer-labels .h5p-created-goal-edit-text {
   display: none;
 }
