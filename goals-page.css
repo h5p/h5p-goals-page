@@ -16,6 +16,7 @@
   border-bottom: 2px solid #D6D6D6;
   background-color: #f5f5f5;
   padding: 0.75em;
+  padding-bottom: 1.9em;
   margin-bottom: 1em;
 }
 
@@ -96,31 +97,19 @@
   color: #666;
 }
 
-.h5p-goals-page .created-goal-container:hover .h5p-created-goal-specification .created-goal {
-  padding-left: 1px;
-}
+.h5p-goals-buttons {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  color: #333;
+  opacity: 0.75;
+  background: #000;
+  border-top-left-radius: 3px;
+  padding: 0em 0.5em;
 
-/* Padding for specification */
-.h5p-goals-page .created-goal-container.has-specification:hover .h5p-created-goal-specification {
-  padding: 0.75em;
-  margin-top: 0.75em;
-  transition: padding 0.1s ease-out, margin 0.1s ease-out;
-}
-
-/* Show specification padding */
-.h5p-goals-page .created-goal-container .h5p-created-goal-specification.focused {
-  padding: 0.75em;
-  margin-top: 0.75em;
-  transition: padding 0.1s ease-out, margin 0.1s ease-out;
-}
-
-.h5p-goals-page .created-goal-container.child-focused .h5p-created-goal-specification .created-goal {
-  padding-left: 1px;
-}
-
-.created-goal-container:hover .h5p-goals-buttons {
+  font-size: 0.9em;
   display: inline-block;
-  color: #fff;
+  background: #fff;
 }
 
 .created-goal-container.focused .h5p-goals-buttons {
@@ -128,46 +117,33 @@
   color: #333;
 }
 
-.h5p-goals-buttons {
-  display: none;
-  position: absolute;
-  right: 0.5em;
-  color: #333;
-  bottom: 0.5em;
-  opacity: 0.75;
-}
-
-.h5p-goals-buttons > div {
+.h5p-goals-buttons > .h5p-created-goal-remove {
   margin-left: 1em;
 }
 
-.h5p-goals-page .h5p-created-goal-done,
-.h5p-goals-page .h5p-created-goal-edit,
-.h5p-goals-page .h5p-created-goal-remove {
-  display: inline-block;
+.h5p-goals-page .h5p-goals-button {
   float: right;
   cursor: pointer;
-  transition: transform .2s ease-in-out;
 }
 
-.h5p-goals-page .h5p-created-goal-done,
-.h5p-goals-page .h5p-created-goal-edit {
+.h5p-goals-page .h5p-goals-button:hover {
+  color: #111;
+}
+
+.created-goal-container .h5p-created-goal-done {
   display: none;
 }
 .created-goal-container.focused .h5p-created-goal-done {
   display: inline-block;
 }
-.created-goal-container:hover .h5p-created-goal-edit {
-  display: inline-block;
-}
-.created-goal-container.focused:hover .h5p-created-goal-edit {
+
+.created-goal-container.focused .h5p-created-goal-remove,
+.created-goal-container.focused .h5p-created-goal-edit {
   display: none;
 }
 
 /* Icons */
-.h5p-goals-page .h5p-created-goal-done:before,
-.h5p-goals-page .h5p-created-goal-edit:before,
-.h5p-goals-page .h5p-created-goal-remove:before {
+.h5p-goals-page .h5p-goals-button:before {
   font-family: 'H5PFontAwesome4';
   content: '\f00c';
   padding-right: 0.3em;

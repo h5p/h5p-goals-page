@@ -357,7 +357,7 @@ H5P.GoalsPage = (function ($) {
    */
   GoalsPage.prototype.createEditGoalButton = function (text, $inputGoal) {
     var $editGoalButton = $('<div>', {
-      'class': 'h5p-created-goal-edit',
+      'class': 'h5p-created-goal-edit h5p-goals-button',
       'role': 'button',
       'tabindex': 1,
       'title': text
@@ -383,7 +383,7 @@ H5P.GoalsPage = (function ($) {
    */
   GoalsPage.prototype.createFinishedGoalButton = function (text, $goalContainer) {
     var $finishedGoalButton = $('<div>', {
-      'class': 'h5p-created-goal-done',
+      'class': 'h5p-created-goal-done h5p-goals-button',
       'role': 'button',
       'tabindex': 1,
       'title': text
@@ -408,7 +408,7 @@ H5P.GoalsPage = (function ($) {
   GoalsPage.prototype.createRemoveGoalButton = function (text, $removeContainer) {
     var self = this;
     var $removeGoalButton = $('<div>', {
-      'class': 'h5p-created-goal-remove',
+      'class': 'h5p-created-goal-remove h5p-goals-button',
       'role': 'button',
       'tabindex': 1,
       'title': text
