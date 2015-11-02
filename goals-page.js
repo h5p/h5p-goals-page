@@ -168,9 +168,6 @@ H5P.GoalsPage = (function ($) {
         $newGoalInput.prop('contenteditable', true);
         $newGoalInput.focus();
       }, 0);
-    } else {
-      // Truncate goal if it is not receiving focus
-      $newGoalInput.addClass('truncate');
     }
 
     return $newGoal;
@@ -317,14 +314,12 @@ H5P.GoalsPage = (function ($) {
       }
 
       setTimeout(function () {
-        $(this).removeClass('truncate');
         $goalContainer.addClass('focused');
       }, 150);
     }).focusout(function () {
       // Delay focus out function slightly in case goal is removed
 
       setTimeout(function () {
-        $goalInputArea.addClass('truncate');
         $goalContainer.removeClass('focused');
         $goalInputArea.prop('contenteditable', false);
       }, 150);
@@ -336,16 +331,6 @@ H5P.GoalsPage = (function ($) {
 
       self.getGoalInstanceFromUniqueId($goalContainer.data('uniqueId'))
         .goalText($(this).text());
-    });
-
-    // Add custom hover effects for the goal container
-    $goalContainer.mouseenter(function () {
-      $goalInputArea.removeClass('truncate');
-    }).mouseleave(function () {
-
-      if (!$goalInputArea.is(':focus') && !$(this).hasClass('child-focused')) {
-        $goalInputArea.addClass('truncate');
-      }
     });
   };
 
