@@ -68,6 +68,12 @@
   outline: 0;
 }
 
+/* IE adds <p>s when editing goals. Don't want margin from theme */
+.h5p-goals-page .created-goal-container .created-goal > p {
+  margin: 0;
+  padding: 0;
+}
+
 /* ------------------------- Goal container colors ------------------------ */
 /* Background colors */
 .h5p-goals-page .created-goal-container.goal-type-0,
