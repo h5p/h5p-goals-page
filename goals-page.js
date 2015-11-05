@@ -111,6 +111,7 @@ H5P.GoalsPage = (function ($) {
           self.trigger('resize');
         });
 
+        self.trigger('resize');
       }).appendTo($goalButtonsContainer);
   };
 
