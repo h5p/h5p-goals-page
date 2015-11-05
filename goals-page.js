@@ -105,6 +105,12 @@ H5P.GoalsPage = (function ($) {
         var $goalInput = $('.created-goal', $newGoal);
         $goalInput.prop('contenteditable', true);
         $goalInput.focus();
+
+        // Need to tell world I might need to resize
+        $goalInput.on('blur keyup paste input', function () {
+          self.trigger('resize');
+        });
+
       }).appendTo($goalButtonsContainer);
   };
 
