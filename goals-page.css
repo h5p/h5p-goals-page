@@ -198,3 +198,7 @@
 .h5p-goals-page .goals-view.no-footer-description.no-footer-labels .h5p-created-goal-edit-text {
   display: none;
 }
+
+.h5p-goals-page .goals-view.no-footer-description.no-footer-labels .h5p-goals-button:before {
+  padding-right: 0;
+}
