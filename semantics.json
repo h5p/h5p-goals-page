@@ -2,6 +2,7 @@
   {
     "name": "title",
     "label": "Title",
+    "importance":"high",
     "type": "text",
     "description": "Title for the goals page.",
     "default": "Goals"
@@ -9,6 +10,7 @@
   {
     "name": "description",
     "label": "Description",
+    "importance":"medium",
     "type": "text",
     "widget": "html",
     "description": "Description of the goals page.",
@@ -30,6 +32,7 @@
   {
     "name": "defineGoalText",
     "label": "Define goal link text",
+    "importance":"low",
     "type": "text",
     "description": "Text that will be displayed on the button for creating a new goal.",
     "default": "Create a new goal"
@@ -37,6 +40,7 @@
   {
     "name": "definedGoalLabel",
     "label": "Label for a user defined goal",
+    "importance":"low",
     "type": "text",
     "description": "Text that will be displayed as label on a user created goal.",
     "default": "User defined goal"
@@ -44,6 +48,7 @@
   {
     "name": "defineGoalPlaceholder",
     "label": "Define goal placeholder",
+    "importance":"low",
     "type": "text",
     "description": "Text that will be displayed as a placeholder when creating a new goal.",
     "default": "Write here..."
@@ -51,6 +56,7 @@
   {
     "name": "goalsAddedText",
     "label": "Text indicating how many goals has been added",
+    "importance":"low",
     "type": "text",
     "default": "Goals added:",
     "description": "This text will follow after the amount of goals that is currently created, example: 'Goals added: 5' where 'Goals added:' is this text."
@@ -58,30 +64,35 @@
   {
     "name": "finishGoalText",
     "label": "Text for \"Finish goal\"-button",
+    "importance":"low",
     "type": "text",
     "default": "Finish"
   },
   {
     "name": "editGoalText",
     "label": "Text for \"Edit goal\"-button",
+    "importance":"low",
     "type": "text",
     "default": "Edit"
   },
   {
     "name": "specifyGoalText",
     "label": "Text for \"Specify goal\"-button",
+    "importance":"low",
     "type": "text",
     "default": "Specification"
   },
   {
     "name": "removeGoalText",
     "label": "Text for \"Remove goal\"-button",
+    "importance":"low",
     "type": "text",
     "default": "Remove"
   },
   {
     "name": "helpTextLabel",
     "label": "Label for help text",
+    "importance":"low",
     "type": "text",
     "description": "Label for showing additional helpful information to the user.",
     "default": "More information"
@@ -89,6 +100,7 @@
   {
     "name": "helpText",
     "label": "Fill in additional help information",
+    "importance":"low",
     "type": "text",
     "widget": "html",
     "description": "Here you can fill in additional helpful information for the user.",
