@@ -16,7 +16,7 @@ H5P.GoalsPage.GoalInstance = (function () {
    * @param {String} goalTypeDescription String describing the goal type, that will be displayed in its' footer
    * @returns {Object} GoalInstance GoalInstance instance
    */
-  function GoalInstance(defineGoalPlaceholder, uniqueId, goalInstanceType, goalTypeDescription) {
+  function GoalInstance(defineGoalPlaceholder, uniqueId, goalInstanceType, goalTypeDescription, goalListId) {
     this.uniqueId = uniqueId;
     this.answer = -1;
     this.textualAnswer = '';
@@ -24,6 +24,7 @@ H5P.GoalsPage.GoalInstance = (function () {
     this.goalInstanceType = goalInstanceType;
     this.specificationChildren = [];
     this.goalTypeDescription = goalTypeDescription;
+    this.goalListId = goalListId;
   }
 
   /**

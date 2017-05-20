@@ -117,5 +117,12 @@
       "h3",
       "hr"
     ]
+  },
+  {
+    "name": "goalListId",
+    "label": "Goal list ID",
+    "importance": "medium",
+    "type": "text",
+    "optional": true
   }
 ]

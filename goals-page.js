@@ -34,7 +34,8 @@ H5P.GoalsPage = (function ($) {
       editGoalText: 'Edit',
       removeGoalText: 'Remove',
       helpTextLabel: 'Read more',
-      helpText: 'Help text'
+      helpText: 'Help text',
+      goalListId: ''
     }, params);
   }
 
@@ -125,6 +126,7 @@ H5P.GoalsPage = (function ($) {
     var goalText = self.params.defineGoalPlaceholder;
     var goalType = GOAL_USER_CREATED;
     var goalTypeDescription = self.params.definedGoalLabel;
+    var goalListId =  self.params.goalListId;
 
     // Use predefined goal
     if (competenceAim !== undefined) {
@@ -133,7 +135,7 @@ H5P.GoalsPage = (function ($) {
       goalTypeDescription = competenceAim.description;
     }
 
-    var newGoal = new H5P.GoalsPage.GoalInstance(goalText, self.goalId, goalType, goalTypeDescription);
+    var newGoal = new H5P.GoalsPage.GoalInstance(goalText, self.goalId, goalType, goalTypeDescription, goalListId);
     self.goalList.push(newGoal);
     self.goalId += 1;
 
