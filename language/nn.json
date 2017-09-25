@@ -31,14 +31,6 @@
       "description":"Denne teksten vil følgje etter antall mål som er lagt til. Til dømes: 'Mål lagt til: 5' hvor 'Mål lagt til:' er denne teksten."
     },
     {
-      "label":"Tekst for \"Ferdigstill mål\"-knapp",
-      "default":"Ferdig"
-    },
-    {
-      "label":"Tekst for \"Rediger mål\"-knapp",
-      "default":"Rediger"
-    },
-    {
       "label":"Tekst for \"Konkretiser mål\"-knapp",
       "default":"Konkretiser"
     },
@@ -54,6 +46,27 @@
     {
       "label":"Fyll inn tilleggsinformasjon om utføring til brukaren",
       "description":"Her kan du fylla inn ekstra nyttig informasjon om korleis brukaren skal bruke denne sida."
+    },
+    {
+      "label": "Localize goal deletion confirmation",
+      "fields": [
+        {
+          "label": "Header",
+          "default": "Confirm deletion"
+        },
+        {
+          "label": "Message",
+          "default": "Are you sure you want to delete this goal?"
+        },
+        {
+          "label": "Cancel button label",
+          "default": "Cancel"
+        },
+        {
+          "label": "Confirm button label",
+          "default": "Confirm"
+        }
+      ]
     }
   ]
 }
