@@ -76,9 +76,9 @@ H5P.GoalsPage = (function ($, JoubelUI, EventDispatcher) {
     self.goalId = 0;
 
     var goalsTemplate =
-      '<div class="goals-header">' +
-      ' <div class="goals-title" role="heading" tabindex="-1">{{{title}}}</div>' +
-      ' <button class="goals-help-text">{{{helpTextLabel}}}</button>' +
+      '<div class="page-header">' +
+      ' <div class="page-title" role="heading" tabindex="-1">{{{title}}}</div>' +
+      ' <button class="page-help-text">{{{helpTextLabel}}}</button>' +
       '</div>' +
       '<div class="goals-description">{{{description}}}</div>' +
       '<div class="goals-view"></div>' +
@@ -92,8 +92,8 @@ H5P.GoalsPage = (function ($, JoubelUI, EventDispatcher) {
     /*global Mustache */
     self.$inner.append(Mustache.render(goalsTemplate, self.params));
     self.$goalsView = $('.goals-view', self.$inner);
-    self.$pageTitle = $('.goals-title', self.$inner);
-    self.$helpButton = $('.goals-help-text', this.$inner);
+    self.$pageTitle = $('.page-title', self.$inner);
+    self.$helpButton = $('.page-help-text', this.$inner);
     self.$createGoalButton = $('.goals-create', this.$inner);
 
     self.initHelpTextButton();

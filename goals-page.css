@@ -2,21 +2,6 @@
   padding: 0.5em 1em;
 }
 
-.h5p-goals-page .goals-header {
-  position: relative;
-}
-
-.h5p-goals-page .goals-help-text {
-  position: absolute;
-  top: 0;
-  right: 0;
-
-  color: #1a73d9;
-  cursor: pointer;
-  font-size: 0.8em;
-  line-height: 3.6em;
-}
-
 /* Goal container */
 .h5p-goals-page .created-goal-container {
   position: relative;
