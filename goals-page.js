@@ -280,7 +280,7 @@ H5P.GoalsPage = (function ($, JoubelUI, EventDispatcher) {
           self.$createGoalButton.focus();
         });
 
-        confirmationDialog.appendTo(self.$inner.get(0));
+        confirmationDialog.appendTo(self.$inner.closest('.h5p-documentation-tool').get(0));
         confirmationDialog.show();
       }
     });
