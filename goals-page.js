@@ -155,6 +155,7 @@ H5P.GoalsPage = (function ($, JoubelUI, EventDispatcher) {
     }
     $goalContainer.remove();
     this.updateGoalsCounter();
+    this.trigger('resize');
   };
 
   /**
