@@ -39,13 +39,13 @@
       "default": "Poista"
     },
     {
-      "label": "Teksti ilmaisemaan lisätietoa",
-      "description": "Teksti, joka ilmaisee käyttäjälle olevan lisätietoa.",
-      "default": "Lisää tietoa"
+      "label":"Teksti osoittamaan lisätietoa",
+      "description":"Lisätietoa ilmaiseva teksti käyttäjälle.",
+      "default":"Lisää tietoa"
     },
     {
-      "label": "Lisätietoteksti",
-      "description": "Tässä voit antaa käyttäjälle lisätietoa tarvittaessa."
+      "label":"Lisätietoteksti",
+      "description":"Tähän voit täyttää tekstiä lisätietona käyttäjälle."
     },
     {
       "label": "Tavoitteen poistamisen varmistusruudun tekstit",
