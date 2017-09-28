@@ -4,7 +4,7 @@ var H5P = H5P || {};
  * Goals Page module
  * @external {jQuery} $ H5P.jQuery
  */
-H5P.GoalsPage = (function ($, JoubelUI, EventDispatcher) {
+H5P.GoalsPage = (function ($, EventDispatcher) {
   // CSS Classes:
   var MAIN_CONTAINER = 'h5p-goals-page';
 
@@ -107,7 +107,7 @@ H5P.GoalsPage = (function ($, JoubelUI, EventDispatcher) {
     var self = this;
 
     // Create new goal on click
-    H5P.JoubelUI.handleButtonClick(self.$createGoalButton, function () {
+    H5P.DocumentationTool.handleButtonClick(self.$createGoalButton, function () {
       self.addGoal().find('.created-goal').focus();
       self.trigger('resize');
     });
@@ -312,4 +312,4 @@ H5P.GoalsPage = (function ($, JoubelUI, EventDispatcher) {
   };
 
   return GoalsPage;
-}(H5P.jQuery, H5P.JoubelUI, H5P.EventDispatcher));
+}(H5P.jQuery, H5P.EventDispatcher));
