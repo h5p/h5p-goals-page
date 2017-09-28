@@ -6,23 +6,19 @@ H5P.GoalsPage = H5P.GoalsPage || {};
  */
 H5P.GoalsPage.GoalInstance = (function () {
 
-  var GOAL_PREDEFINED_SPECIFICATION = 2;
-
   /**
    * Initialize module.
    * @param {String} defineGoalPlaceholder Placeholder for Goal Instance
    * @param {Number} uniqueId Unique identifier for Goal Instance.
-   * @param {Number} goalInstanceType Type of goal instance, 0 = user defined, 1 = pre defined, 2 = specification
+
    * @param {String} goalTypeDescription String describing the goal type, that will be displayed in its' footer
    * @returns {Object} GoalInstance GoalInstance instance
    */
-  function GoalInstance(defineGoalPlaceholder, uniqueId, goalInstanceType, goalTypeDescription) {
+  function GoalInstance(defineGoalPlaceholder, uniqueId, goalTypeDescription) {
     this.uniqueId = uniqueId;
     this.answer = -1;
     this.textualAnswer = '';
     this.text = defineGoalPlaceholder;
-    this.goalInstanceType = goalInstanceType;
-    this.specificationChildren = [];
     this.goalTypeDescription = goalTypeDescription;
   }
 
@@ -32,14 +28,6 @@ H5P.GoalsPage.GoalInstance = (function () {
    */
   GoalInstance.prototype.getGoalTypeDescription = function () {
     return this.goalTypeDescription;
-  };
-
-  /**
-   * Get goal instance type
-   * @returns {Number} goalInstanceType 0 = user defined, 1 = predefined, 2 = edited predefined
-   */
-  GoalInstance.prototype.getGoalInstanceType = function () {
-    return this.goalInstanceType;
   };
 
   /**
@@ -80,55 +68,6 @@ H5P.GoalsPage.GoalInstance = (function () {
     // Set text value
     this.text = text;
     return this;
-  };
-
-  /**
-   * Adds parent for this goal, used by specifications to set their parent
-   */
-  GoalInstance.prototype.addParent = function (goalInstance) {
-    this.parent = goalInstance;
-  };
-
-  /**
-   * Gets parent of this specification goal
-   * @returns {Object} Goal instance of parent
-   */
-  GoalInstance.prototype.getParent = function () {
-    return this.parent;
-  };
-
-  /**
-   * Add a specification to this goal
-   * @param {string} text Text for a specification of this goal
-   * @param {number} goalId Goal id
-   * @param {string} goalTypeDescription Goal type description
-   * @return {GoalInstance} goalSpecification Goal instance
-   */
-  GoalInstance.prototype.addSpecification = function (text, goalId, goalTypeDescription) {
-    // Create a new goal specification instance and add it to goal specification array
-    var goalSpecification = new GoalInstance(text, goalId, GOAL_PREDEFINED_SPECIFICATION, goalTypeDescription);
-    goalSpecification.addParent(this);
-    this.specificationChildren.push(goalSpecification);
-
-    return goalSpecification;
-  };
-
-  /**
-   * Remove a specification of this goal
-   * @param {Object} goalInstance Goal instance of specification goal that will be removed
-   */
-  GoalInstance.prototype.removeSpecification = function (goalInstance) {
-    if (this.specificationChildren.indexOf(goalInstance) > -1) {
-      this.specificationChildren.splice(this.specificationChildren.indexOf(goalInstance), 1);
-    }
-  };
-
-  /**
-   * Get specifications for this goal instance
-   * @returns {Array} Array of specifications of this goal instance
-   */
-  GoalInstance.prototype.getSpecifications = function () {
-    return this.specificationChildren;
   };
 
   /**

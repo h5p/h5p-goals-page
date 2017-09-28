@@ -2,21 +2,12 @@
   padding: 0.5em 1em;
 }
 
-.h5p-goals-page .goals-help-text {
-  float: right;
-  color: #1a73d9;
-  cursor: pointer;
-  font-size: 0.8em;
-  line-height: 3.6em;
-}
-
 /* Goal container */
 .h5p-goals-page .created-goal-container {
   position: relative;
   border-bottom: 2px solid #ebebeb;
   background-color: #f5f5f5;
-  padding: 0.75em;
-  padding-bottom: 3.6em;
+  padding: 1em;
   margin-bottom: 1em;
   border: solid 1px #D6D6D6;
 }
@@ -52,27 +43,15 @@
 
 .h5p-goals-page .created-goal-container .created-goal {
   display: block;
-  padding-left: 1px;
+  padding: 0.5em;
+  box-sizing: border-box;
   color: #666;
   width: 100%;
   word-wrap: break-word;
-}
-
-/* Set initial height of input field when empty, so it is editable */
-.h5p-goals-page .created-goal-container .created-goal:empty {
-  display: inline-block;
-  min-height: 0.5em;
-}
-
-.h5p-goals-page .created-goal-container .created-goal:focus {
-  border: 0;
-  outline: 0;
-}
-
-/* IE adds <p>s when editing goals. Don't want margin from theme */
-.h5p-goals-page .created-goal-container .created-goal > p {
-  margin: 0;
-  padding: 0;
+  font-size: 16px;
+  font-family: Arial, sans-serif;
+  resize: none;
+  overflow-y: hidden;
 }
 
 /* ------------------------- Goal container colors ------------------------ */
@@ -83,82 +62,38 @@
   background-color: #fff;
 }
 
-.h5p-goals-page .created-goal-container.focused {
-  background-color: #eee;
-  color: #666;
-}
-
-.h5p-goals-page .created-goal-container.focused .created-goal {
-  color: #666;
-}
-
-.h5p-goals-buttons {
+.h5p-goals-page button.h5p-created-goal-remove {
   position: absolute;
-  right: 0;
-  bottom: 0;
-  margin: 1em;
-  color: #333;
-  border-top-left-radius: 3px;
-  font-size: 0.9em;
-  display: inline-block;
-}
-
-.created-goal-container.focused .h5p-goals-buttons {
-  display: inline-block;
-  color: #333;
-}
-
-.h5p-goals-buttons > .h5p-created-goal-remove {
-  margin-left: .3em;
-}
-
-.h5p-goals-page .h5p-goals-button {
-  float: right;
+  top: -0.8em;
+  right: -0.8em;
   cursor: pointer;
   background: #fff;
-  border-radius: 2em;
-  border: solid 1px #1a73d9;
-  padding: 0.5em 1.25em;
+  border-radius: 50%;
+  border: none;
+  padding: 3px;
   line-height: 1;
-  color: #1a73d9;
-}
+  color: #bd3e3e;
 
-.h5p-goals-page .h5p-goals-button:hover {
-  color: #1e7dea;
-  border: solid 1px #1e7dea;
-}
-
-.created-goal-container .h5p-created-goal-done {
-  display: none;
-}
-.created-goal-container.focused .h5p-created-goal-done {
-  display: inline-block;
-}
-
-.created-goal-container.focused .h5p-created-goal-remove,
-.created-goal-container.focused .h5p-created-goal-edit {
-  display: none;
-}
-
-/* Icons */
-.h5p-goals-page .h5p-goals-button:before {
-  font-family: 'H5PFontAwesome4';
-  content: '\f00c';
-  padding-right: 0.3em;
 }
 
 .h5p-goals-page .h5p-created-goal-remove:before {
+  font-family: 'H5PFontAwesome4';
   content: '\f00d';
+  border: 1px solid  #bd3e3e;
+  text-align: center;
+  border-radius: 50%;
+  width: 1.5em;
+  height: 1.5em;
+  display: inline-block;
+  line-height: 1.5;
+  transition: all 0.2s;
 }
 
-.h5p-goals-page .h5p-created-goal-edit:before {
-  content: '\f044';
-}
 
-.h5p-goals-page .h5p-created-goal-done:hover,
-.h5p-goals-page .h5p-created-goal-edit:hover,
-.h5p-goals-page .h5p-created-goal-remove:hover {
-  opacity: 1;
+.h5p-goals-page .h5p-created-goal-remove:hover:before {
+  background-color: #e74041;
+  border-color: #e74041;
+  color: #fff;
 }
 
 /* ------------------------------ Buttons -------------------------------------------------- */
@@ -166,7 +101,7 @@
 
 .h5p-goals-page .goals-define .goals-create:before {
   font-family: "H5PFontAwesome4";
-  content: "\f040";
+  content: "\f067";
   margin-right: 0.75em;
 }
 
@@ -186,21 +121,4 @@
 .h5p-goals-page .goals-define .goals-create:active:before {
   position: relative;
   top: 2px;
-}
-
-/* ------------------------------ Responsive view ------------------------- */
-
-/* Hide description field */
-.h5p-goals-page .goals-view.no-footer-description .created-goal-container .footer-description {
-  display: none;
-}
-
-.h5p-goals-page .goals-view.no-footer-description.no-footer-labels .h5p-created-goal-remove-text,
-.h5p-goals-page .goals-view.no-footer-description.no-footer-labels .h5p-created-goal-done-text,
-.h5p-goals-page .goals-view.no-footer-description.no-footer-labels .h5p-created-goal-edit-text {
-  display: none;
-}
-
-.h5p-goals-page .goals-view.no-footer-description.no-footer-labels .h5p-goals-button:before {
-  padding-right: 0;
 }
