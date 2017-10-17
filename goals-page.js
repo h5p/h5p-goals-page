@@ -76,8 +76,8 @@ H5P.GoalsPage = (function ($, EventDispatcher) {
     self.goalId = 0;
 
     var goalsTemplate =
-      '<div class="page-header">' +
-      ' <div class="page-title" role="heading" tabindex="-1">{{{title}}}</div>' +
+      '<div class="page-header" role="heading" tabindex="-1">' +
+      ' <div class="page-title">{{{title}}}</div>' +
       ' <button class="page-help-text">{{{helpTextLabel}}}</button>' +
       '</div>' +
       '<div class="goals-description">{{{description}}}</div>' +
@@ -92,7 +92,7 @@ H5P.GoalsPage = (function ($, EventDispatcher) {
     /*global Mustache */
     self.$inner.append(Mustache.render(goalsTemplate, self.params));
     self.$goalsView = $('.goals-view', self.$inner);
-    self.$pageTitle = $('.page-title', self.$inner);
+    self.$pageTitle = $('.page-header', self.$inner);
     self.$helpButton = $('.page-help-text', this.$inner);
     self.$createGoalButton = $('.goals-create', this.$inner);
 
