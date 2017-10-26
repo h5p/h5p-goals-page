@@ -31,14 +31,6 @@
       "description": "This text will follow after the amount of goals that is currently created, example: 'Goals added: 5' where 'Goals added:' is this text."
     },
     {
-      "label": "Text for \"Finish goal\"-button",
-      "default": "Finish"
-    },
-    {
-      "label": "Text for \"Edit goal\"-button",
-      "default": "Edit"
-    },
-    {
       "label": "Text for \"Specify goal\"-button",
       "default": "Specification"
     },
@@ -54,6 +46,27 @@
     {
       "label": "Fill in additional help information",
       "description": "Here you can fill in additional helpful information for the user."
+    },
+    {
+      "label": "Localize goal deletion confirmation",
+      "fields": [
+        {
+          "label": "Header",
+          "default": "Confirm deletion"
+        },
+        {
+          "label": "Message",
+          "default": "Are you sure you want to delete this goal?"
+        },
+        {
+          "label": "Cancel button label",
+          "default": "Cancel"
+        },
+        {
+          "label": "Confirm button label",
+          "default": "Confirm"
+        }
+      ]
     }
   ]
 }

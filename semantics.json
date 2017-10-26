@@ -62,20 +62,6 @@
     "description": "This text will follow after the amount of goals that is currently created, example: 'Goals added: 5' where 'Goals added:' is this text."
   },
   {
-    "name": "finishGoalText",
-    "label": "Text for \"Finish goal\"-button",
-    "importance": "low",
-    "type": "text",
-    "default": "Finish"
-  },
-  {
-    "name": "editGoalText",
-    "label": "Text for \"Edit goal\"-button",
-    "importance": "low",
-    "type": "text",
-    "default": "Edit"
-  },
-  {
     "name": "specifyGoalText",
     "label": "Text for \"Specify goal\"-button",
     "importance": "low",
@@ -116,6 +102,43 @@
       "h2",
       "h3",
       "hr"
+    ]
+  },
+  {
+    "name": "goalDeletionConfirmation",
+    "type": "group",
+    "common": true,
+    "importance": "low",
+    "label": "Localize goal deletion confirmation",
+    "fields": [
+      {
+        "name": "header",
+        "type": "text",
+        "label": "Header",
+        "optional": false,
+        "default": "Confirm deletion"
+      },
+      {
+        "name": "message",
+        "type": "text",
+        "label": "Message",
+        "optional": false,
+        "default": "Are you sure you want to delete this goal?"
+      },
+      {
+        "name": "cancelLabel",
+        "type": "text",
+        "label": "Cancel button label",
+        "optional": false,
+        "default": "Cancel"
+      },
+      {
+        "name": "confirmLabel",
+        "type": "text",
+        "label": "Confirm button label",
+        "optional": false,
+        "default": "Confirm"
+      }
     ]
   }
 ]

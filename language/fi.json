@@ -1,59 +1,72 @@
-{
-  "semantics":[
+  {
+  "semantics": [
     {
-      "label":"Title",
-      "description":"Title for the goals page.",
-      "default":"Goals"
+      "label": "Otsikko",
+      "description": "Otsikko sivulle tavoitteista.",
+      "default": "Tavoitteet"
     },
     {
-      "label":"Description",
-      "description":"Description of the goals page.",
-      "default":"Insert the goals that you have chosen to work with."
+      "label": "Kuvaus",
+      "description": "Kuvaus tai ohje sivulle.",
+      "default": "Lisää tavoitteet, jotka olet päättänyt saavuttaa."
     },
     {
-      "label":"Define goal link text",
-      "description":"Text that will be displayed on the button for creating a new goal.",
-      "default":"Create a new goal"
+      "label": "Painikkeen Luo tavoite teksti",
+      "description": "Teksti näytetään painikkeessa, jolla luodaan uusi tavoite.",
+      "default": "Luo tavoite"
     },
     {
-      "label":"Label for a user defined goal",
-      "description":"Text that will be displayed as label on a user created goal.",
-      "default":"User defined goal"
+      "label": "Teksti käyttäjän luomalle tavoitteelle",
+      "description": "Käyttäjän luoman tavoitteen teksti.",
+      "default": "Käyttäjän luoma tavoite"
     },
     {
-      "label":"Define goal placeholder",
-      "description":"Text that will be displayed as a placeholder when creating a new goal.",
-      "default":"Write here..."
+      "label": "Uuden tavoitteen oletusteksti",
+      "description": "Oletusteksti, joka näkyy kun luodaan uusi tavoite.",
+      "default": "Kirjoita tähän..."
     },
     {
-      "label":"Text indicating how many goals has been added",
-      "default":"Goals added:",
-      "description":"This text will follow after the amount of goals that is currently created, example: 'Goals added: 5' where 'Goals added:' is this text."
+      "label": "Tavoitteiden lukumäärää ilmaiseva teksti",
+      "default": "Tavoitteita:",
+      "description": "Tekstin jälkeen näkyy luotujen tavoitteiden määrä. Esimerkiksi: Tavoitteita: 5."
     },
     {
-      "label":"Text for \"Finish goal\"-button",
-      "default":"Finish"
+      "label": "Teksti \"Määrittele tavoite\"-painikkeelle",
+      "default": "Määrittele"
     },
     {
-      "label":"Text for \"Edit goal\"-button",
-      "default":"Edit"
+      "label": "Teksti \"Poista tavoite\"-painikkeelle",
+      "default": "Poista"
     },
     {
-      "label":"Text for \"Specify goal\"-button",
-      "default":"Specification"
+      "label":"Teksti osoittamaan lisätietoa",
+      "description":"Lisätietoa ilmaiseva teksti käyttäjälle.",
+      "default":"Lisää tietoa"
     },
     {
-      "label":"Text for \"Remove goal\"-button",
-      "default":"Remove"
+      "label":"Lisätietoteksti",
+      "description":"Tähän voit täyttää tekstiä lisätietona käyttäjälle."
     },
     {
-      "label":"Label for help text",
-      "description":"Label for showing additional helpful information to the user.",
-      "default":"More information"
-    },
-    {
-      "label":"Fill in additional help information",
-      "description":"Here you can fill in additional helpful information for the user."
+      "label": "Tavoitteen poistamisen varmistusruudun tekstit",
+      "fields": [
+        {
+          "label": "Otsikko",
+          "default": "Varmista poisto"
+        },
+        {
+          "label": "Viesti",
+          "default": "Oletko varma, että haluat poistaa tämän tavoitteen?"
+        },
+        {
+          "label": "Painikkeen Peruuta teksti",
+          "default": "Peruuta"
+        },
+        {
+          "label": "Painikkeen Kyllä teksti",
+          "default": "Kyllä"
+        }
+      ]
     }
   ]
 }
