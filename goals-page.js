@@ -98,6 +98,7 @@ H5P.GoalsPage = (function ($, EventDispatcher) {
 
     self.initHelpTextButton();
     self.initCreateGoalButton();
+    this.xApiGenerator = new H5P.GoalsPage.xApiGenerator(self.params.definedGoalLabel);
   };
 
   /**
@@ -244,6 +245,9 @@ H5P.GoalsPage = (function ($, EventDispatcher) {
     // Save the value
     $goalInputArea.on('blur', function () {
       goalInstance.goalText($goalInputArea.val());
+      var xApiTemplate = self.createXAPIEventTemplate('interacted');
+      var xApiEvent = self.xApiGenerator.generateXApi(xApiTemplate, $goalInputArea.val());
+      self.trigger(xApiEvent);
     });
 
     autoResizeTextarea($goalInputArea);
@@ -309,6 +313,77 @@ H5P.GoalsPage = (function ($, EventDispatcher) {
    */
   GoalsPage.prototype.focus = function () {
     this.$pageTitle.focus();
+  };
+
+  /**
+   * Triggers an 'answered' xAPI event for all inputs
+   */
+  GoalsPage.prototype.triggerAnsweredEvents = function () {
+    // TODO: How do you create sub content ids for non-runnables?
+    var self = this;
+    this.getGoals().forEach(function(goal) {
+      var xApiTemplate = self.createXAPIEventTemplate('answered');
+      var xApiEvent = self.xApiGenerator.generateXApi(xApiTemplate, goal.text);
+      self.trigger(xApiEvent);
+    });
+  };
+
+  /**
+   * Helper function to return all xAPI data
+   * @returns {Array}
+   */
+  GoalsPage.prototype.getXAPIDataFromChildren = function () {
+    var children = [];
+
+    var self = this;
+    this.getGoals().forEach(function(goal) {
+      var xApiTemplate = self.createXAPIEventTemplate('answered');
+      var xApiEvent = self.xApiGenerator.generateXApi(xApiTemplate, goal.text);
+      children.push({
+        statement: xApiEvent.data.statement
+      });
+    });
+
+    return children;
+  };
+
+  /**
+   * Generate xAPI object definition used in xAPI statements.
+   * @return {Object}
+   */
+  GoalsPage.prototype.getxAPIDefinition = function () {
+    var definition = {};
+
+    definition.interactionType = 'compound';
+    definition.type = 'http://adlnet.gov/expapi/activities/cmi.interaction';
+    definition.description = {
+      'en-US': ''
+    };
+
+    return definition;
+  };
+
+  /**
+   * Add the question itself to the definition part of an xAPIEvent
+   */
+  GoalsPage.prototype.addQuestionToXAPI = function (xAPIEvent) {
+    var definition = xAPIEvent.getVerifiedStatementValue(['object', 'definition']);
+    $.extend(definition, this.getxAPIDefinition());
+  };
+
+  /**
+   * Get xAPI data.
+   * Contract used by report rendering engine.
+   *
+   * @see contract at {@link https://h5p.org/documentation/developers/contracts#guides-header-6}
+   */
+  GoalsPage.prototype.getXAPIData = function () {
+    var xAPIEvent = this.createXAPIEventTemplate('compound');
+    this.addQuestionToXAPI(xAPIEvent);
+    return {
+      statement: xAPIEvent.data.statement,
+      children: this.getXAPIDataFromChildren()
+    };
   };
 
   return GoalsPage;

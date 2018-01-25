@@ -19,6 +19,9 @@
     },
     {
       "path": "goal-instance.js"
+    },
+    {
+      "path": "xapi-generator.js"
     }
   ],
   "preloadedDependencies": [
