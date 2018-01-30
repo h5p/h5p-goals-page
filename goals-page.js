@@ -375,6 +375,7 @@ H5P.GoalsPage = (function ($, EventDispatcher) {
    *  The xAPI event we will add a response to
    */
   GoalsPage.prototype.addResponseToxAPI = function (xAPIEvent) {
+    xAPIEvent.setScoredResult(0, 0, this);
     xAPIEvent.data.statement.result.response = this.getXAPIResponse();
   };
 
