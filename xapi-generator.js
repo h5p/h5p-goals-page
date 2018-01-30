@@ -15,7 +15,7 @@ H5P.GoalsPage.XAPIGenerator = (function () {
       type: 'http://adlnet.gov/expapi/activities/cmi.interaction',
       interactionType: 'fill-in',
       extensions: {
-        'https://h5p.org/x-api/h5p-machine-name': 'H5P.DocumentationTool'
+        'https://h5p.org/x-api/h5p-machine-name': 'H5P.GoalsPage'
       }
     };
   }
