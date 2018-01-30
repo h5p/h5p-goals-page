@@ -361,7 +361,7 @@ H5P.GoalsPage = (function ($, EventDispatcher) {
     definition.type = 'http://adlnet.gov/expapi/activities/cmi.interaction';
     definition.interactionType = 'fill-in';
     definition.correctResponsesPattern = '';
-    definition.extensions: {
+    definition.extensions = {
       'https://h5p.org/x-api/h5p-machine-name': 'H5P.DocumentationTool'
     };
 
@@ -375,7 +375,6 @@ H5P.GoalsPage = (function ($, EventDispatcher) {
    *  The xAPI event we will add a response to
    */
   GoalsPage.prototype.addResponseToxAPI = function (xAPIEvent) {
-    xAPIEvent.setScoredResult(0, 0, this);
     xAPIEvent.data.statement.result.response = this.getXAPIResponse();
   };
 
