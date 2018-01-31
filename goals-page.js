@@ -98,7 +98,6 @@ H5P.GoalsPage = (function ($, EventDispatcher) {
 
     self.initHelpTextButton();
     self.initCreateGoalButton();
-    this.XAPIGenerator = new H5P.GoalsPage.XAPIGenerator(self.params.definedGoalLabel);
   };
 
   /**
@@ -245,9 +244,10 @@ H5P.GoalsPage = (function ($, EventDispatcher) {
     // Save the value
     $goalInputArea.on('blur', function () {
       goalInstance.goalText($goalInputArea.val());
-      var xApiTemplate = self.createXAPIEventTemplate('interacted');
-      var xApiEvent = self.XAPIGenerator.generateXApi(xApiTemplate, $goalInputArea.val());
-      self.trigger(xApiEvent);
+      var xAPIEvent = self.createXAPIEventTemplate('interacted');
+      self.addQuestionToxAPI(xAPIEvent);
+      self.addResponseToxAPI(xAPIEvent);
+      self.trigger(xAPIEvent);
     });
 
     autoResizeTextarea($goalInputArea);
@@ -375,7 +375,7 @@ H5P.GoalsPage = (function ($, EventDispatcher) {
    *  The xAPI event we will add a response to
    */
   GoalsPage.prototype.addResponseToxAPI = function (xAPIEvent) {
-    xAPIEvent.setScoredResult(0, 0, this);
+    xAPIEvent.data.statement.result = {};
     xAPIEvent.data.statement.result.response = this.getXAPIResponse();
   };
 
