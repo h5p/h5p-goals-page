@@ -244,6 +244,10 @@ H5P.GoalsPage = (function ($, EventDispatcher) {
     // Save the value
     $goalInputArea.on('blur', function () {
       goalInstance.goalText($goalInputArea.val());
+      var xAPIEvent = self.createXAPIEventTemplate('interacted');
+      self.addQuestionToxAPI(xAPIEvent);
+      self.addResponseToxAPI(xAPIEvent);
+      self.trigger(xAPIEvent);
     });
 
     autoResizeTextarea($goalInputArea);
@@ -309,6 +313,80 @@ H5P.GoalsPage = (function ($, EventDispatcher) {
    */
   GoalsPage.prototype.focus = function () {
     this.$pageTitle.focus();
+  };
+
+  /**
+   * Get xAPI data.
+   * Contract used by report rendering engine.
+   *
+   * @see contract at {@link https://h5p.org/documentation/developers/contracts#guides-header-6}
+   */
+  GoalsPage.prototype.getXAPIData = function () {
+    var XAPIEvent = this.createXAPIEventTemplate('answered');
+    this.addQuestionToxAPI(XAPIEvent);
+    this.addResponseToxAPI(XAPIEvent);
+    return {
+      statement: XAPIEvent.data.statement
+    };
+  };
+
+  /**
+    * Trigger xAPI answered event
+    */
+  GoalsPage.prototype.triggerAnswered = function() {
+    var xAPIEvent = this.createXAPIEventTemplate('answered');
+    this.addQuestionToXAPI(xAPIEvent);
+    this.addResponseToXAPI(xAPIEvent);
+    this.trigger(xAPIEvent);
+  };
+
+  /**
+   * Add the question itself to the definition part of an xAPIEvent
+   */
+  GoalsPage.prototype.addQuestionToxAPI = function (xAPIEvent) {
+    var definition = xAPIEvent.getVerifiedStatementValue(['object', 'definition']);
+    $.extend(definition, this.getxAPIDefinition());
+  };
+
+  /**
+   * Generate xAPI object definition used in xAPI statements.
+   * @return {Object}
+   */
+  GoalsPage.prototype.getxAPIDefinition = function () {
+    var definition = {};
+    var self = this;
+    definition.description = {
+      'en-US': self.params.definedGoalLabel
+    };
+    definition.type = 'http://adlnet.gov/expapi/activities/cmi.interaction';
+    definition.interactionType = 'fill-in';
+    definition.correctResponsesPattern = '';
+    definition.extensions = {
+      'https://h5p.org/x-api/h5p-machine-name': 'H5P.GoalsPage'
+    };
+
+    return definition;
+  };
+
+  /**
+   * Add the response part to an xAPI event
+   *
+   * @param {H5P.XAPIEvent} xAPIEvent
+   *  The xAPI event we will add a response to
+   */
+  GoalsPage.prototype.addResponseToxAPI = function (xAPIEvent) {
+    xAPIEvent.data.statement.result = {};
+    xAPIEvent.data.statement.result.response = this.getXAPIResponse();
+  };
+
+  /**
+   * Generate xAPI user response, used in xAPI statements.
+   * @return {string} User answers separated by the "[,]" pattern
+   */
+  GoalsPage.prototype.getXAPIResponse = function () {
+    return this.getGoals().map(function(goal) {
+      return goal.text;
+    }).join('[,]');
   };
 
   return GoalsPage;
