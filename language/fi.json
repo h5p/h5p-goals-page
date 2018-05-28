@@ -1,4 +1,4 @@
-  {
+{
   "semantics": [
     {
       "label": "Otsikko",
@@ -39,13 +39,13 @@
       "default": "Poista"
     },
     {
-      "label":"Teksti osoittamaan lisätietoa",
-      "description":"Lisätietoa ilmaiseva teksti käyttäjälle.",
-      "default":"Lisää tietoa"
+      "label": "Teksti osoittamaan lisätietoa",
+      "description": "Lisätietoa ilmaiseva teksti käyttäjälle.",
+      "default": "Lisää tietoa"
     },
     {
-      "label":"Lisätietoteksti",
-      "description":"Tähän voit täyttää tekstiä lisätietona käyttäjälle."
+      "label": "Lisätietoteksti",
+      "description": "Tähän voit täyttää tekstiä lisätietona käyttäjälle."
     },
     {
       "label": "Tavoitteen poistamisen varmistusruudun tekstit",
