@@ -57,6 +57,26 @@ H5P.GoalsPage = (function ($, EventDispatcher) {
         confirmLabel: 'Confirm'
       }
     }, params);
+
+    /**
+     * Implements resume (save content state)
+     *
+     * @method getCurrentState
+     * @public
+     * @returns [array] array containing input fields state
+     */
+    this.getCurrentState = function () {
+      var state = [];
+
+      this.goalList.forEach(function (goal) {
+        state.push({
+          value: goal.text,
+          description: goal.goalTypeDescription
+        });
+      });
+
+      return state;
+    };
   }
 
   GoalsPage.prototype = Object.create(EventDispatcher.prototype);
@@ -241,11 +261,13 @@ H5P.GoalsPage = (function ($, EventDispatcher) {
     // Need to tell world I might need to resize
     $goalInputArea.on('blur keyup paste input', function () {
       self.trigger('resize');
+
+      // Save the value
+      goalInstance.goalText($goalInputArea.val());
     });
 
     // Save the value
     $goalInputArea.on('blur', function () {
-      goalInstance.goalText($goalInputArea.val());
       var xAPIEvent = self.createXAPIEventTemplate('interacted');
       self.addQuestionToxAPI(xAPIEvent);
       self.addResponseToxAPI(xAPIEvent);
@@ -308,6 +330,26 @@ H5P.GoalsPage = (function ($, EventDispatcher) {
    */
   GoalsPage.prototype.getGoals = function () {
     return this.goalList;
+  };
+
+  /**
+   * Creates goals from previously saved state
+   * @param state
+   */
+  GoalsPage.prototype.setPreviousState = function (state) {
+    var self = this;
+
+    if (!state) {
+      return;
+    }
+
+    state.forEach(function (goal, index) {
+      var $goal = self.addGoal(),
+          goalInstance = self.getGoalInstanceFromUniqueId(index);
+
+      $goal.find('textarea').val(goal.value || '');
+      goalInstance.goalText(goal.value || '');
+    });
   };
 
   /**
