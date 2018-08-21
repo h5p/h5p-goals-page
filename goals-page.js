@@ -34,9 +34,10 @@ H5P.GoalsPage = (function ($, EventDispatcher) {
    * @param {Number} id Content identification
    * @returns {Object} GoalsPage GoalsPage instance
    */
-  function GoalsPage(params, id) {
+  function GoalsPage(params, id, extras) {
     EventDispatcher.call(this);
     this.id = id;
+    this.extras = extras;
 
     // Set default behavior.
     this.params = $.extend({}, {
@@ -297,7 +298,7 @@ H5P.GoalsPage = (function ($, EventDispatcher) {
    * @returns {String} Page title
    */
   GoalsPage.prototype.getTitle = function () {
-    return this.params.title;
+    return H5P.createTitle((this.extras && this.extras.metadata && this.extras.metadata.title) ? this.extras.metadata.title : 'Goals Page');
   };
 
   /**
