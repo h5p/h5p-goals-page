@@ -1,11 +1,6 @@
 {
   "semantics": [
     {
-      "label": "Otsikko",
-      "description": "Otsikko sivulle tavoitteista.",
-      "default": "Tavoitteet"
-    },
-    {
       "label": "Kuvaus",
       "description": "Kuvaus tai ohje sivulle.",
       "default": "Lisää tavoitteet, jotka olet päättänyt saavuttaa."

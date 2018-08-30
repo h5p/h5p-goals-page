@@ -1,11 +1,6 @@
 {
   "semantics": [
     {
-      "label": "العنوان",
-      "description": "عنوان صفحة الاهداف.",
-      "default": "Goals"
-    },
-    {
       "label": "الوصف",
       "description": "وصف صفحة الاهداف.",
       "default": "Insert the goals that you have chosen to work with."
