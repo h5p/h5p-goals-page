@@ -1,11 +1,6 @@
 {
   "semantics": [
     {
-      "label": "Titel",
-      "description": "Titel für die Zielseite.",
-      "default": "Ziele"
-    },
-    {
       "label": "Beschreibung",
       "description": "Beschreibung der Zielseite.",
       "default": "Ziele einfügen, mit denen gearbeitet werden soll."

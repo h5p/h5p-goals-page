@@ -1,11 +1,6 @@
 {
   "semantics": [
     {
-      "label": "Titre",
-      "description": "Titre pour la page des objectifs.",
-      "default": "Objectifs"
-    },
-    {
       "label": "Description",
       "description": "Description des objectifs de la page.",
       "default": "Entrez les objectifs sur lesquels vous avez choisis de travailler."

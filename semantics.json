@@ -1,13 +1,5 @@
 [
   {
-    "name": "title",
-    "label": "Title",
-    "importance": "high",
-    "type": "text",
-    "description": "Title for the goals page.",
-    "default": "Goals"
-  },
-  {
     "name": "description",
     "label": "Description",
     "importance": "medium",
