@@ -1,11 +1,6 @@
 {
   "semantics": [
     {
-      "label": "標題文字",
-      "description": "目標頁面上顯示的標題。",
-      "default": "目標頁面"
-    },
-    {
       "label": "說明文字",
       "description": "目標頁面上顯示的說明。",
       "default": "你要想要達成的目標有哪些？點擊下方的按鈕以添加。"

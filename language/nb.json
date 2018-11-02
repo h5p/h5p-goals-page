@@ -1,11 +1,6 @@
 {
   "semantics": [
     {
-      "label": "Tittel",
-      "description": "Tittel for målsiden.",
-      "default": "Mål"
-    },
-    {
       "label": "Beskrivelse av siden",
       "description": "Beskriv aktivitetene brukeren skal gjennomføre på målsiden.",
       "default": "Opprett målene du har valgt å jobbe med."

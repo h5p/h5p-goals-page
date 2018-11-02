@@ -1,11 +1,6 @@
 {
   "semantics": [
     {
-      "label": "Title",
-      "description": "Title for the goals page.",
-      "default": "Goals"
-    },
-    {
       "label": "Description",
       "description": "Description of the goals page.",
       "default": "Insert the goals that you have chosen to work with."

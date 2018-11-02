@@ -1,11 +1,6 @@
 {
   "semantics": [
     {
-      "label": "Titel",
-      "description": "Titel voor de doelstellingen pagina.",
-      "default": "Doelstellingen"
-    },
-    {
       "label": "Omschrijving",
       "description": "Omschrijving van de doelstellingen pagina.",
       "default": "Omschrijf de doelen die je hebt gekozen om mee aan de slag te gaan."
