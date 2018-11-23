@@ -334,7 +334,7 @@ H5P.GoalsPage = (function ($, EventDispatcher) {
   /**
     * Trigger xAPI answered event
     */
-  GoalsPage.prototype.triggerAnswered = function() {
+  GoalsPage.prototype.triggerAnswered = function () {
     var xAPIEvent = this.createXAPIEventTemplate('answered');
     this.addQuestionToXAPI(xAPIEvent);
     this.addResponseToXAPI(xAPIEvent);
@@ -385,7 +385,7 @@ H5P.GoalsPage = (function ($, EventDispatcher) {
    * @return {string} User answers separated by the "[,]" pattern
    */
   GoalsPage.prototype.getXAPIResponse = function () {
-    return this.getGoals().map(function(goal) {
+    return this.getGoals().map(function (goal) {
       return goal.text;
     }).join('[,]');
   };
