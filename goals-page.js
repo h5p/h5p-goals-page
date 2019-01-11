@@ -85,7 +85,7 @@ H5P.GoalsPage = (function ($, EventDispatcher) {
       '<div class="goals-view"></div>' +
       '<div class="goals-counter"></div>' +
       '<div class="goals-define">' +
-      '<div role="button" tabindex="0" class="joubel-simple-rounded-button goals-create" title="{{{defineGoalText}}}" aria-label="{{{defineGoalText}}}">' +
+      '<div role="button" tabindex="0" class="joubel-simple-rounded-button goals-create" title="{{{defineGoalText}}}">' +
       ' <span class="joubel-simple-rounded-button-text">{{{defineGoalText}}}</span>' +
       '</div>' +
       '</div>';
