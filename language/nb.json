@@ -47,19 +47,19 @@
       "fields": [
         {
           "label": "Header",
-          "default": "Confirm deletion"
+          "default": "Bekreft sletting"
         },
         {
           "label": "Message",
-          "default": "Are you sure you want to delete this goal?"
+          "default": "Sikker på at du vil slette målet?"
         },
         {
           "label": "Cancel button label",
-          "default": "Cancel"
+          "default": "Avbryt"
         },
         {
           "label": "Confirm button label",
-          "default": "Confirm"
+          "default": "Bekreft"
         }
       ]
     }
