@@ -17,7 +17,9 @@
       "ol",
       "h2",
       "h3",
-      "hr"
+      "hr",
+      "pre",
+      "code"
     ],
     "optional": true
   },
@@ -93,7 +95,9 @@
       "ol",
       "h2",
       "h3",
-      "hr"
+      "hr",
+      "pre",
+      "code"
     ]
   },
   {
