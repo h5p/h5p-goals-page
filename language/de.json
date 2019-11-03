@@ -43,23 +43,23 @@
       "description": "Hier können zusätzliche hilfreiche Informationen für den Benutzer eingegeben werden."
     },
     {
-      "label": "Localize goal deletion confirmation",
+      "label": "Übersetzung des Bestätigungsdialogs für das Löschen von Zielen",
       "fields": [
         {
-          "label": "Header",
-          "default": "Confirm deletion"
+          "label": "Überschrift",
+          "default": "Löschen bestätigen"
         },
         {
-          "label": "Message",
-          "default": "Are you sure you want to delete this goal?"
+          "label": "Nachricht",
+          "default": "Bist du sicher, dass du dieses Ziel löschen möchtest?"
         },
         {
-          "label": "Cancel button label",
-          "default": "Cancel"
+          "label": "\"Abbrechen\"-Button",
+          "default": "Nein, abbrechen"
         },
         {
-          "label": "Confirm button label",
-          "default": "Confirm"
+          "label": "\"Bestätigen\"-Button",
+          "default": "Ja"
         }
       ]
     }
