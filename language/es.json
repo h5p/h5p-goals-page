@@ -26,11 +26,11 @@
       "description": "Este texto seguir´después de la cantidad de metas que están creadas actualmente, ejemplo: 'Metas añadidas: 5' donde 'Metas añadidas:' es este texto."
     },
     {
-      "label": "Texto para botón \"Especificar meta\" ",
+      "label": "Texto para botón \"Especificar meta\".",
       "default": "Especificación"
     },
     {
-      "label": "Texto para botón de \"Quitar meta\" ",
+      "label": "Texto para botón de \"Quitar meta\".",
       "default": "Quitar"
     },
     {
