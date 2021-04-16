@@ -16,7 +16,7 @@
       "default": "Meta definida por el usuario"
     },
     {
-      "label": "Remplazable definir meta",
+      "label": "Definir remplazable de meta",
       "description": "Texto que será mostrado como un remplazable cuando se crea una nueva meta.",
       "default": "Escriba aquí..."
     },
@@ -26,12 +26,12 @@
       "description": "Este texto seguir´después de la cantidad de metas que están creadas actualmente, ejemplo: 'Metas añadidas: 5' donde 'Metas añadidas:' es este texto."
     },
     {
-      "label": "Texto para botón \"Especificar meta\" ",
+      "label": "Texto para botón \"Especificar meta\"",
       "default": "Especificación"
     },
     {
-      "label": "Texto para botón de \"Quitar meta\" ",
-      "default": "Quitar"
+      "label": "Texto para botón de \"Eliminar meta\"",
+      "default": "Eliminar"
     },
     {
       "label": "Etiqueta para texto de ayuda",
@@ -50,7 +50,7 @@
           "default": "Confirmar eliminación"
         },
         {
-          "label": "Mensake",
+          "label": "Mensaje",
           "default": "¿Está seguro de querer eliminar esta meta?"
         },
         {
