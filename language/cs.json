@@ -23,14 +23,14 @@
     {
       "label": "Text označující, kolik cílů bylo přidáno",
       "default": "Přidány cíle:",
-      "description": "Tento text bude následovat po množství aktuálně vytvořených cílů, například: 'Přidány cíle: 5', kde 'Přidány cíle:' je tento text."
+      "description": "Tento text bude následovat po množství aktuálně vytvořených cílů, například: \"Přidány cíle: 5\", kde \"Přidány cíle:\" je tento text."
     },
     {
-      "label": "Text pro tlačítko \"Určit cíl\" ",
+      "label": "Text pro tlačítko \"Určit cíl\"",
       "default": "Specifikace"
     },
     {
-      "label": "Text pro tlačítko \"Odstranit cíl\"-",
+      "label": "Text pro tlačítko \"Odstranit cíl\"",
       "default": "Odstranit"
     },
     {
