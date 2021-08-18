@@ -58,7 +58,7 @@
           "default": "Cancelar"
         },
         {
-          "label": "Etiqueta botón Confirmar",
+          "label": "Etiqueta del botón Confirmar",
           "default": "Confirmar"
         }
       ]
