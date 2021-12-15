@@ -47,7 +47,7 @@ H5P.GoalsPage = (function ($, EventDispatcher) {
       definedGoalLabel: 'User defined goal',
       defineGoalPlaceholder: 'Write here...',
       goalsAddedText: 'Number of goals added:',
-      removeGoalText: 'Remove',
+      removeGoalText: 'Remove Goal',
       helpTextLabel: 'Read more',
       helpText: 'Help text',
       goalDeletionConfirmation: {
@@ -271,7 +271,6 @@ H5P.GoalsPage = (function ($, EventDispatcher) {
     var $removeGoalButton = $('<button>', {
       'class': 'h5p-created-goal-remove h5p-goals-button',
       'title': text,
-      'aria-describedby': textAreaId,
       click: function () {
         var confirmationDialog = new H5P.ConfirmationDialog({
           headerText: self.params.goalDeletionConfirmation.header,
