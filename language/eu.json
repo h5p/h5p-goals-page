@@ -11,17 +11,17 @@
       "default": "Sortu helburu berria"
     },
     {
-      "label": "Erabiltzaileak definitu duen helburuarentzako etiketa.",
+      "label": "Erabiltzaileak definitu duen helburuarentzako etiketa",
       "description": "Erabiltzaileak sorturiko helburuan etiketa gisa agertuko den testua.",
-      "default": "Erabiltzaileak definituriko helburua."
+      "default": "Erabiltzaileak definituriko helburua"
     },
     {
-      "label": "Definitu helburuaren posizio-markagailua.",
+      "label": "Definitu helburuaren posizio-markagailua",
       "description": "Helburu berria sortzean posizio-markagailu gisa agertuko den testua.",
       "default": "Hemen idatzi..."
     },
     {
-      "label": "Zenbat helburu gehitu diren adierazten duen testua.",
+      "label": "Zenbat helburu gehitu diren adierazten duen testua",
       "default": "Gehitutako helburuak:",
       "description": "Testu hau orain arte sortutako helburuen kopuruaren ondoren agertuko da, adibidez: 'Gehitutako helburuak: 5' non 'Gehitutako helburuak:' testu hau da."
     },

@@ -16,8 +16,8 @@
       "default": "Meta definida por el usuario"
     },
     {
-      "label": "Definir remplazable de meta",
-      "description": "Texto que será mostrado como un remplazable cuando se crea una nueva meta.",
+      "label": "Definir reemplazable de meta",
+      "description": "Texto que será mostrado como un reemplazable cuando se crea una nueva meta.",
       "default": "Escriba aquí..."
     },
     {
