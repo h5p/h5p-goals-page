@@ -32,6 +32,7 @@ H5P.GoalsPage = (function ($, EventDispatcher) {
    * Initialize module.
    * @param {Object} params Behavior settings
    * @param {Number} id Content identification
+   * @param {object} [extras] Saved state, metadata, etc.
    * @returns {Object} GoalsPage GoalsPage instance
    */
   function GoalsPage(params, id, extras) {
@@ -57,6 +58,10 @@ H5P.GoalsPage = (function ($, EventDispatcher) {
         confirmLabel: 'Confirm'
       }
     }, params);
+
+    if (extras !== undefined && typeof extras.previousState === 'object' && Object.keys(extras.previousState).length) {
+      this.previousState = extras.previousState;
+    }
   }
 
   GoalsPage.prototype = Object.create(EventDispatcher.prototype);
@@ -99,6 +104,18 @@ H5P.GoalsPage = (function ($, EventDispatcher) {
 
     self.initHelpTextButton();
     self.initCreateGoalButton();
+
+    if (this.previousState && this.previousState.goals) {
+      // Recreate goals
+      this.previousState.goals.forEach(function (goal, index) {
+        self.addGoal({
+          value: goal.text,
+          description: goal.goalTypeDescription
+        });
+        self.goalList[index].goalAnswer(goal.answer);
+        self.goalList[index].setTextualAnswer(goal.textualAnswer);
+      });
+    }
   };
 
   /**
@@ -389,6 +406,23 @@ H5P.GoalsPage = (function ($, EventDispatcher) {
     return this.getGoals().map(function (goal) {
       return goal.text;
     }).join('[,]');
+  };
+
+  /**
+   * Answer call to return the current state.
+   *
+   * @return {object} Current state.
+   */
+  GoalsPage.prototype.getCurrentState = function () {
+    const goals = this.goalList.map(function (instance) {
+      return (typeof instance.getCurrentState === 'function') ?
+        instance.getCurrentState() :
+        undefined;
+    });
+
+    return {
+      goals: goals
+    };
   };
 
   return GoalsPage;
