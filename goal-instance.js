@@ -86,5 +86,19 @@ H5P.GoalsPage.GoalInstance = (function () {
     return this.textualAnswer;
   };
 
+  /**
+   * Answer call to return the current state.
+   *
+   * @return {object} Current state.
+   */
+  GoalInstance.prototype.getCurrentState = function () {
+    return {
+      answer: this.answer,
+      textualAnswer: this.getTextualAnswer(),
+      text: this.text,
+      goalTypeDescription: this.goalTypeDescription
+    };
+  };
+
   return GoalInstance;
 }());

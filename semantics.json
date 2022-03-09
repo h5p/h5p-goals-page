@@ -67,7 +67,7 @@
     "label": "Text for \"Remove goal\"-button",
     "importance": "low",
     "type": "text",
-    "default": "Remove"
+    "default": "Remove Goal"
   },
   {
     "name": "helpTextLabel",
