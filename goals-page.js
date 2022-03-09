@@ -378,7 +378,7 @@ H5P.GoalsPage = (function ($, EventDispatcher) {
     };
     definition.type = 'http://adlnet.gov/expapi/activities/cmi.interaction';
     definition.interactionType = 'fill-in';
-    definition.correctResponsesPattern = '';
+    definition.correctResponsesPattern = [];
     definition.extensions = {
       'https://h5p.org/x-api/h5p-machine-name': 'H5P.GoalsPage'
     };
