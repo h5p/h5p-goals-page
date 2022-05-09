@@ -132,6 +132,17 @@ H5P.GoalsPage = (function ($, EventDispatcher) {
   };
 
   /**
+   * Decode HTML entities
+   * @param {String}
+   * @return {String} 
+   */
+  GoalsPage.prototype.decodeEntity = function(inputStr) {
+    var textarea = document.createElement("textarea");
+    textarea.innerHTML = inputStr;
+    return textarea.value;
+  }
+
+  /**
    * Adds a new goal to the page
    * @param {Object} competenceAim Optional competence aim which the goal will constructed from
    * @return {jQuery} $newGoal New goal element
@@ -140,7 +151,7 @@ H5P.GoalsPage = (function ($, EventDispatcher) {
     var self = this;
     goalCounter++;
 
-    var goalText = self.params.defineGoalPlaceholder;
+    var goalText = this.decodeEntity(self.params.defineGoalPlaceholder);
     var goalTypeDescription = self.params.definedGoalLabel;
 
     // Use predefined goal
