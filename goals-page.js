@@ -140,8 +140,8 @@ H5P.GoalsPage = (function ($, EventDispatcher) {
     var self = this;
     goalCounter++;
 
-    var goalText = self.params.defineGoalPlaceholder;
-    var goalTypeDescription = self.params.definedGoalLabel;
+    var goalText = this.htmlDecode(self.params.defineGoalPlaceholder);
+    var goalTypeDescription = this.htmlDecode(self.params.definedGoalLabel);
 
     // Use predefined goal
     if (competenceAim !== undefined) {
@@ -408,6 +408,18 @@ H5P.GoalsPage = (function ($, EventDispatcher) {
   };
 
   /**
+   * Retrieve true string from HTML encoded string.
+   * @param {string} input Input string.
+   * @return {string} Output string.
+   */
+  GoalsPage.prototype.htmlDecode = function (input) {
+    const dparser = new DOMParser().parseFromString(input, 'text/html');
+    const div = document.createElement('div');
+    div.innerHTML = dparser.documentElement.textContent;
+
+    return div.textContent || div.innerText || '';
+  };
+
    * Answer call to return the current state.
    *
    * @return {object} Current state.
