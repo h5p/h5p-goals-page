@@ -420,8 +420,8 @@ H5P.GoalsPage = (function ($, EventDispatcher) {
     return div.textContent || div.innerText || '';
   };
 
+  /** 
    * Answer call to return the current state.
-   *
    * @return {object} Current state.
    */
   GoalsPage.prototype.getCurrentState = function () {
