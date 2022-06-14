@@ -6,7 +6,7 @@
       "default": "Insira os objetivos que você escolheu trabalhar."
     },
     {
-      "label": "Texto link de Definição de objetivo",
+      "label": "Definir texto do link de objetivo",
       "description": "Texto que será exibido no botão de criação de novos objetivos.",
       "default": "Criar um novo objetivo"
     },
@@ -16,21 +16,21 @@
       "default": "Objetivo definido pelo usuário"
     },
     {
-      "label": "Placeholder de definir objetivo",
-      "description": "Texto que será exibido como placeholder quando um novo objetivo estiver sendo criado.",
+      "label": "Definir o sinalizador do objetivo",
+      "description": "Texto que será exibido como sinalizador quando um novo objetivo estiver sendo criado.",
       "default": "Escreva aqui..."
     },
     {
       "label": "Texto indicando quantos objetivos foram adicionados",
       "default": "Objetivos adicionados:",
-      "description": "Este texto será seguido pelo número de objetivos criados atualmente, exemplo: 'Objetivos adicionados: 5' onde 'Objetivos adicionados:' é este texto."
+      "description": "Este texto será seguido pelo número de objetivos atualmente criados, exemplo: 'Objetivos adicionados: 5' onde 'Objetivos adicionados:' é este texto."
     },
     {
-      "label": "Texto para botão \"Especificar objetivo\"",
+      "label": "Texto para o botão \"Especificar objetivo\"",
       "default": "Especificação"
     },
     {
-      "label": "Texto para botão \"Remover objetivo\"",
+      "label": "Texto para o botão \"Remover objetivo\"",
       "default": "Remover"
     },
     {
@@ -39,11 +39,11 @@
       "default": "Mais informações"
     },
     {
-      "label": "Preencha com informações adicionais",
+      "label": "Preencha com informações adicionais de ajuda",
       "description": "Aqui você pode preencher as informações úteis adicionais para o usuário."
     },
     {
-      "label": "Localização de confirmação de eliminação de objetivo",
+      "label": "Localizar a confirmação de eliminação do objetivo",
       "fields": [
         {
           "label": "Cabeçalho",
