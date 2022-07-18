@@ -43,6 +43,7 @@ H5P.GoalsPage = (function ($, EventDispatcher) {
     // Set default behavior.
     this.params = $.extend({
       title: this.getTitle(),
+      a11yFriendlyTitle: this.getTitle(false),
       description: '',
       defineGoalText: 'Create a new goal',
       definedGoalLabel: 'User defined goal',
@@ -82,7 +83,7 @@ H5P.GoalsPage = (function ($, EventDispatcher) {
     self.goalId = 0;
 
     var goalsTemplate =
-      '<div class="page-header" role="heading" tabindex="-1">' +
+      '<div class="page-header" role="heading" tabindex="-1" aria-label="{{{a11yFriendlyTitle}}}">' +
       ' <div class="page-title">{{{title}}}</div>' +
       ' <button class="page-help-text">{{{helpTextLabel}}}</button>' +
       '</div>' +
@@ -312,10 +313,12 @@ H5P.GoalsPage = (function ($, EventDispatcher) {
 
   /**
    * Get page title
+   * @param {boolean} turncatedTitle turncate title flag
    * @returns {String} Page title
    */
-  GoalsPage.prototype.getTitle = function () {
-    return H5P.createTitle((this.extras && this.extras.metadata && this.extras.metadata.title) ? this.extras.metadata.title : 'Goals');
+  GoalsPage.prototype.getTitle = function (turncatedTitle = true) {
+    const pageTitle = (this.extras && this.extras.metadata && this.extras.metadata.title) ? this.extras.metadata.title : 'Goals';
+    return turncatedTitle ? H5P.createTitle(pageTitle) : pageTitle;
   };
 
   /**
@@ -420,7 +423,7 @@ H5P.GoalsPage = (function ($, EventDispatcher) {
     return div.textContent || div.innerText || '';
   };
 
-  /** 
+  /**
    * Answer call to return the current state.
    * @return {object} Current state.
    */
