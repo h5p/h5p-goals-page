@@ -82,29 +82,68 @@ H5P.GoalsPage = (function ($, EventDispatcher) {
     self.goalList = [];
     self.goalId = 0;
 
-    var goalsTemplate =
-      '<div class="page-header" role="heading" tabindex="-1" aria-label="{{{a11yFriendlyTitle}}}">' +
-      ' <div class="page-title">{{{title}}}</div>' +
-      ' <button class="page-help-text">{{{helpTextLabel}}}</button>' +
-      '</div>' +
-      '<div class="goals-description">{{{description}}}</div>' +
-      '<div class="goals-view"></div>' +
-      '<div class="goals-counter"></div>' +
-      '<div class="goals-define">' +
-      '<div role="button" tabindex="0" class="joubel-simple-rounded-button goals-create" title="{{{defineGoalText}}}">' +
-      ' <span class="joubel-simple-rounded-button-text">{{{defineGoalText}}}</span>' +
-      '</div>' +
-      '</div>';
+    self.$pageTitle = $('<li>', {
+      class: 'page-header',
+      role: 'heading',
+      tabindex: '-1',
+      'aria-label': self.params.a11yFriendlyTitle,
+      append: $('<div>', {
+        class: 'page-title',
+        html: self.params.title
+      }),
+      appendTo: self.$inner
+    });
 
-    /*global Mustache */
-    self.$inner.append(Mustache.render(goalsTemplate, self.params));
-    self.$goalsView = $('.goals-view', self.$inner);
-    self.$pageTitle = $('.page-header', self.$inner);
-    self.$helpButton = $('.page-help-text', this.$inner);
-    self.$createGoalButton = $('.goals-create', this.$inner);
+    if (self.params.helpText !== undefined && self.params.helpText.length !== 0) {
+      self.$helpButton = $('<button>', {
+        'class': 'page-help-text',
+        html: self.params.helpTextLabel,
+        click: function () {
+          self.trigger('open-help-dialog', {
+            title: self.params.title,
+            helpText: self.params.helpText
+          });
+        },
+        appendTo: self.$pageTitle
+      });
+    }
 
-    self.initHelpTextButton();
-    self.initCreateGoalButton();
+    $('<div>', {
+      class: 'goals-description',
+      html: self.params.description,
+      appendTo: self.$inner
+    });
+
+    self.$goalsView = $('<div>', {
+      class: 'goals-view',
+      appendTo: self.$inner
+    });
+
+    $('<div>', {
+      class: 'goals-counter',
+      appendTo: self.$inner
+    });
+
+    const $goalsDefine = $('<div>', {
+      class: 'goals-define',
+      appendTo: self.$inner
+    });
+
+    self.$createGoalButton = $('<div>', {
+      role: 'button',
+      tabindex: '0',
+      class: 'joubel-simple-rounded-button goals-create',
+      title: self.params.defineGoalText,
+      append: $('<span>', {
+        class: 'joubel-simple-rounded-button-text',
+        html: self.params.defineGoalText
+      }),
+      click: function () {
+        self.addGoal().find('.created-goal').focus();
+        self.trigger('resize');
+      },
+      appendTo: $goalsDefine
+    });
 
     if (this.previousState && this.previousState.goals) {
       // Recreate goals
@@ -117,19 +156,6 @@ H5P.GoalsPage = (function ($, EventDispatcher) {
         self.goalList[index].setTextualAnswer(goal.textualAnswer);
       });
     }
-  };
-
-  /**
-   * Create button for creating goals
-   */
-  GoalsPage.prototype.initCreateGoalButton = function () {
-    var self = this;
-
-    // Create new goal on click
-    H5P.DocumentationTool.handleButtonClick(self.$createGoalButton, function () {
-      self.addGoal().find('.created-goal').focus();
-      self.trigger('resize');
-    });
   };
 
   /**
@@ -207,27 +233,6 @@ H5P.GoalsPage = (function ($, EventDispatcher) {
     });
 
     return foundInstance;
-  };
-
-  /**
-   * Create help text functionality for reading more about the task
-   */
-  GoalsPage.prototype.initHelpTextButton = function () {
-    var self = this;
-
-    if (this.params.helpText !== undefined && this.params.helpText.length) {
-      // Init help button
-      self.$helpButton.on('click', function () {
-        self.trigger('open-help-dialog', {
-          'aria-label': self.params.title,
-          title: self.params.title,
-          helpText: self.params.helpText
-        });
-      });
-    }
-    else {
-      self.$helpButton.remove();
-    }
   };
 
   /**
