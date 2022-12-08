@@ -138,10 +138,6 @@ H5P.GoalsPage = (function ($, EventDispatcher) {
         class: 'joubel-simple-rounded-button-text',
         html: self.params.defineGoalText
       }),
-      click: function () {
-        self.addGoal().find('.created-goal').focus();
-        self.trigger('resize');
-      },
       appendTo: $goalsDefine
     });
 
@@ -156,6 +152,22 @@ H5P.GoalsPage = (function ($, EventDispatcher) {
         self.goalList[index].setTextualAnswer(goal.textualAnswer);
       });
     }
+
+    // Attach button click event listener
+    self.initCreateGoalButton();
+  };
+
+  /**
+   * Create button for creating goals
+   */
+  GoalsPage.prototype.initCreateGoalButton = function () {
+    var self = this;
+
+    // Create new goal on click
+    H5P.DocumentationTool.handleButtonClick(self.$createGoalButton, function () {
+      self.addGoal().find('.created-goal').focus();
+      self.trigger('resize');
+    });
   };
 
   /**
