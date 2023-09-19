@@ -456,5 +456,13 @@ H5P.GoalsPage = (function ($, EventDispatcher) {
     };
   };
 
+  GoalsPage.prototype.resetTask = function () {
+    const self = this;
+
+    $(this.$goalsView).find('.created-goal-container').each(function () {
+      self.removeGoal($(this));
+    });
+  };
+
   return GoalsPage;
 }(H5P.jQuery, H5P.EventDispatcher));
