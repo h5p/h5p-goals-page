@@ -14,11 +14,12 @@ H5P.GoalsPage.GoalInstance = (function () {
    * @param {String} goalTypeDescription String describing the goal type, that will be displayed in its' footer
    * @returns {Object} GoalInstance GoalInstance instance
    */
-  function GoalInstance(defineGoalPlaceholder, uniqueId, goalTypeDescription) {
+  function GoalInstance(defineGoalPlaceholder, uniqueId, goalTypeDescription, goalText) {
     this.uniqueId = uniqueId;
     this.answer = -1;
     this.textualAnswer = '';
-    this.text = defineGoalPlaceholder;
+    this.text = goalText;
+    this.placeholder = defineGoalPlaceholder;
     this.goalTypeDescription = goalTypeDescription;
   }
 
@@ -71,6 +72,14 @@ H5P.GoalsPage.GoalInstance = (function () {
   };
 
   /**
+   * Get goal placeholder
+   * @returns {*} Returns placeholder
+   */
+  GoalInstance.prototype.getGoalPlaceholder = function () {
+    return this.placeholder;
+  };
+
+  /**
    * Set textual answer in goal instance
    * @param {String} textualAnswer Textual answer
    */
@@ -96,6 +105,7 @@ H5P.GoalsPage.GoalInstance = (function () {
       answer: this.answer,
       textualAnswer: this.getTextualAnswer(),
       text: this.text,
+      placeholder: this.placeholder,
       goalTypeDescription: this.goalTypeDescription
     };
   };

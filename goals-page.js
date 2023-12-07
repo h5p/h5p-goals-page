@@ -179,8 +179,9 @@ H5P.GoalsPage = (function ($, EventDispatcher) {
     var self = this;
     goalCounter++;
 
-    var goalText = this.htmlDecode(self.params.defineGoalPlaceholder);
+    var goalPlaceholder = this.htmlDecode(self.params.defineGoalPlaceholder);
     var goalTypeDescription = this.htmlDecode(self.params.definedGoalLabel);
+    let goalText = undefined;
 
     // Use predefined goal
     if (competenceAim !== undefined) {
@@ -188,7 +189,7 @@ H5P.GoalsPage = (function ($, EventDispatcher) {
       goalTypeDescription = competenceAim.description;
     }
 
-    var newGoal = new H5P.GoalsPage.GoalInstance(goalText, self.goalId, goalTypeDescription);
+    var newGoal = new H5P.GoalsPage.GoalInstance(goalPlaceholder, self.goalId, goalTypeDescription, goalText);
     self.goalList.push(newGoal);
     self.goalId += 1;
 
@@ -260,15 +261,14 @@ H5P.GoalsPage = (function ($, EventDispatcher) {
       'class': 'created-goal-container',
     }).data('uniqueId', goalInstance.getUniqueId());
 
-    var initialText = goalInstance.goalText();
-
     var id = 'created-goal-' + goalCounter + '-' + goalInstance.getUniqueId();
 
     // Input paragraph area
     var $goalInputArea = $('<textarea>', {
       'class': 'created-goal',
       'spellcheck': 'false',
-      'placeholder': initialText,
+      'placeholder': goalInstance.getGoalPlaceholder(),
+      'text': goalInstance.goalText(),
       'title': goalInstance.getGoalTypeDescription(),
       'id': id
     }).appendTo($goalContainer);
@@ -454,6 +454,14 @@ H5P.GoalsPage = (function ($, EventDispatcher) {
     return {
       goals: goals
     };
+  };
+
+  GoalsPage.prototype.resetTask = function () {
+    const self = this;
+
+    $(this.$goalsView).find('.created-goal-container').each(function () {
+      self.removeGoal($(this));
+    });
   };
 
   return GoalsPage;
