@@ -6,6 +6,14 @@
       "label": "აღწერა"
     },
     {
+      "label": "Predefined goals",
+      "entity": "goal",
+      "description": "Optional predefined goals that the user can choose to use or delete.",
+      "field": {
+        "label": "Predefined goal"
+      }
+    },
+    {
       "label": "განსაზღვრეთ მიზნის ბმულის ტექსტი",
       "description": "ტექსტი, რომელიც გამოჩნდება ღილაკზე ახალი მიზნის შესაქმნელად.",
       "default": "შექმენით ახალი მიზანი"

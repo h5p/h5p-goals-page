@@ -6,6 +6,14 @@
       "default": "Įterpkite tikslus, kuriuos pasirinkote vykdyti."
     },
     {
+      "label": "Predefined goals",
+      "entity": "goal",
+      "description": "Optional predefined goals that the user can choose to use or delete.",
+      "field": {
+        "label": "Predefined goal"
+      }
+    },
+    {
       "label": "Nurodykite tikslo nuorodos tekstą",
       "description": "Tekstas, kuris bus rodomas ant mygtuko, norint sukurti naują tikslą.",
       "default": "Sukurti naują tikslą"

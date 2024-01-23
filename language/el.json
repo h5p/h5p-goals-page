@@ -6,6 +6,14 @@
       "default": "Εισάγετε τους στόχους με τους οποίους έχετε επιλέξει να ασχοληθείτε."
     },
     {
+      "label": "Predefined goals",
+      "entity": "goal",
+      "description": "Optional predefined goals that the user can choose to use or delete.",
+      "field": {
+        "label": "Predefined goal"
+      }
+    },
+    {
       "label": "Ετικέτα κουμπιού για νέο στόχο",
       "description": "Κείμενο που θα εμφανίζεται στο κουμπί για τη δημιουργία νέου στόχου.",
       "default": "Νέος στόχος"

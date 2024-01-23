@@ -6,6 +6,14 @@
       "default": "Inserte las metas con las que ha elegido trabajar."
     },
     {
+      "label": "Predefined goals",
+      "entity": "goal",
+      "description": "Optional predefined goals that the user can choose to use or delete.",
+      "field": {
+        "label": "Predefined goal"
+      }
+    },
+    {
       "label": "Texto de enlace para definir meta",
       "description": "Texto que será mostrado en el botón para crear una nueva meta.",
       "default": "Crear una nueva meta"

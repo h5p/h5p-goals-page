@@ -6,6 +6,14 @@
       "default": "Introduïu els objectius que hàgiu triat per treballar-hi."
     },
     {
+      "label": "Predefined goals",
+      "entity": "goal",
+      "description": "Optional predefined goals that the user can choose to use or delete.",
+      "field": {
+        "label": "Predefined goal"
+      }
+    },
+    {
       "label": "Text de l’enllaç de l’objectiu",
       "description": "Text que es mostrarà al botó per crear un objectiu nou.",
       "default": "Crea un objectiu nou"

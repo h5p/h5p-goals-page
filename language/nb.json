@@ -6,6 +6,14 @@
       "default": "Opprett målene du har valgt å jobbe med."
     },
     {
+      "label": "Predefined goals",
+      "entity": "goal",
+      "description": "Optional predefined goals that the user can choose to use or delete.",
+      "field": {
+        "label": "Predefined goal"
+      }
+    },
+    {
       "label": "Tekst for \"Skriv eget mål\"-knapp",
       "description": "Tekst som vil vises på \"Skriv eget mål\"-knapp.",
       "default": "Skriv eget mål"

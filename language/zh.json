@@ -6,6 +6,14 @@
       "default": "你要想要達成的目標有哪些？點擊下方的按鈕以添加。"
     },
     {
+      "label": "Predefined goals",
+      "entity": "goal",
+      "description": "Optional predefined goals that the user can choose to use or delete.",
+      "field": {
+        "label": "Predefined goal"
+      }
+    },
+    {
       "label": "添加目標按鈕的顯示文字",
       "description": "目標頁面上用來創建目標的按鈕上的顯示文字。",
       "default": "添加一個目標"

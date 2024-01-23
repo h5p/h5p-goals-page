@@ -6,6 +6,14 @@
       "default": "Insert the goals that you have chosen to work with."
     },
     {
+      "label": "Predefined goals",
+      "entity": "goal",
+      "description": "Optional predefined goals that the user can choose to use or delete.",
+      "field": {
+        "label": "Predefined goal"
+      }
+    },
+    {
       "label": "نص تحديد رابط الهدف",
       "description": "النص الذي سيتم عرضه على الزر لإنشاء هدف جديد.",
       "default": "Create a new goal"

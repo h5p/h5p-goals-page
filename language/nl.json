@@ -6,6 +6,14 @@
       "default": "Beschrijf de doelen die je hebt gekozen om mee aan de slag te gaan."
     },
     {
+      "label": "Predefined goals",
+      "entity": "goal",
+      "description": "Optional predefined goals that the user can choose to use or delete.",
+      "field": {
+        "label": "Predefined goal"
+      }
+    },
+    {
       "label": "Definieer de doelstellings-linktekst",
       "description": "Deze tekst wordt getoond op de knop om een nieuwe doelstelling te maken.",
       "default": "Maak een nieuwe doelstelling"

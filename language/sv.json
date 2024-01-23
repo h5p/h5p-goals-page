@@ -6,6 +6,14 @@
       "default": "Infoga målen som du har valt att jobba med."
     },
     {
+      "label": "Predefined goals",
+      "entity": "goal",
+      "description": "Optional predefined goals that the user can choose to use or delete.",
+      "field": {
+        "label": "Predefined goal"
+      }
+    },
+    {
       "label": "Text för att definiera mål-länk",
       "description": "Text som kommer att visas på knappen för att skapa nytt mål.",
       "default": "Skapa ett nytt mål"

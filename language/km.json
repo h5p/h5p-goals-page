@@ -6,6 +6,14 @@
       "default": "បញ្ចូលគោលដៅដែលអ្នកចង់ទទួលបាន"
     },
     {
+      "label": "Predefined goals",
+      "entity": "goal",
+      "description": "Optional predefined goals that the user can choose to use or delete.",
+      "field": {
+        "label": "Predefined goal"
+      }
+    },
+    {
       "label": "Define goal link text",
       "description": "Text that will be displayed on the button for creating a new goal.",
       "default": "បង្កើតគោលដៅថ្មីមួយ"
