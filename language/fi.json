@@ -6,6 +6,14 @@
       "default": "Lisää tavoitteet, jotka olet päättänyt saavuttaa."
     },
     {
+      "label": "Predefined goals",
+      "entity": "goal",
+      "description": "Optional predefined goals that the user can choose to use or delete.",
+      "field": {
+        "label": "Predefined goal"
+      }
+    },
+    {
       "label": "Painikkeen Luo tavoite teksti",
       "description": "Teksti näytetään painikkeessa, jolla luodaan uusi tavoite.",
       "default": "Luo tavoite"

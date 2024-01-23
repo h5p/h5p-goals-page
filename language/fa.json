@@ -6,6 +6,14 @@
       "default": "اهدافی را که برای کار با آنها انتخاب کرده‌اید وارد کنید."
     },
     {
+      "label": "Predefined goals",
+      "entity": "goal",
+      "description": "Optional predefined goals that the user can choose to use or delete.",
+      "field": {
+        "label": "Predefined goal"
+      }
+    },
+    {
       "label": "متن پیوند تعریف هدف",
       "description": "متنی که روی دکمه برای ایجاد یک هدف جدید نمایش داده خواهد شد.",
       "default": "ایجاد یک هدف جدید"

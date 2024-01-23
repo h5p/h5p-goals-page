@@ -6,6 +6,14 @@
       "default": "Aseta eesmärgid väljavalitud eesmärgid."
     },
     {
+      "label": "Predefined goals",
+      "entity": "goal",
+      "description": "Optional predefined goals that the user can choose to use or delete.",
+      "field": {
+        "label": "Predefined goal"
+      }
+    },
+    {
       "label": "Määratle eesmärk lingi tekst",
       "description": "Tekst, mida näidatakse uue eesmärgi loomise nupul.",
       "default": "Loo uus eesmärk"
