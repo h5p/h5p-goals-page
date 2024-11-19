@@ -6,7 +6,7 @@ var H5P = H5P || {};
  */
 H5P.GoalsPage = (function ($, EventDispatcher) {
   // CSS Classes:
-  var MAIN_CONTAINER = 'h5p-goals-page';
+  var MAIN_CONTAINER = 'h5p-goals-page h5p-theme';
 
   var goalCounter = 0;
 
@@ -132,7 +132,7 @@ H5P.GoalsPage = (function ($, EventDispatcher) {
     self.$createGoalButton = $('<div>', {
       role: 'button',
       tabindex: '0',
-      class: 'joubel-simple-rounded-button goals-create',
+      class: 'joubel-simple-rounded-button goals-create h5p-theme-primary-cta',
       title: self.params.defineGoalText,
       append: $('<span>', {
         class: 'joubel-simple-rounded-button-text',
