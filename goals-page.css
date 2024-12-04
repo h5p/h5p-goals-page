@@ -5,11 +5,10 @@
 /* Goal container */
 .h5p-goals-page .created-goal-container {
   position: relative;
-  border-bottom: 2px solid #ebebeb;
-  background-color: #f5f5f5;
+  background-color: var(--h5p-theme-alternative-base);
   padding: 1em;
   margin-bottom: 1em;
-  border: solid 1px #D6D6D6;
+  border-radius: var(--h5p-theme-border-radius-medium);
 }
 
 /* ------------------------ Main classes ----------------------------- */
@@ -31,7 +30,7 @@
 }
 
 .h5p-goals-page .goals-counter .goals-counter-text {
-  color: #555;
+  color: var(--h5p-theme-text-third);
   opacity: 0.75;
 }
 
@@ -42,16 +41,23 @@
 /* ------------------- Goal container truncation ------------------------- */
 
 .h5p-goals-page .created-goal-container .created-goal {
-  display: block;
-  padding: 0.5em;
   box-sizing: border-box;
-  color: #333;
   width: 100%;
   word-wrap: break-word;
   font-size: 16px;
-  font-family: Arial, sans-serif;
   resize: none;
   overflow-y: hidden;
+  font-family: var(--h5p-theme-font-name);
+  
+  
+    display: flex;
+    align-items: center;
+    background-color: var(--h5p-theme-ui-base);
+    box-shadow: inset 0px 0px 4px 4px rgba(117, 128, 147, 0.10);
+    border-radius: var(--h5p-theme-border-radius-medium);
+    border: 2px solid var(--h5p-theme-stroke-1);
+    padding: var(--h5p-theme-spacing-xs) var(--h5p-theme-spacing-xs);
+    color: var(--h5p-theme-text-primary);
 }
 
 /* ------------------------- Goal container colors ------------------------ */
