@@ -1,13 +1,13 @@
 .h5p-goals-page {
-  padding: 0.5em 1em;
+
 }
 
 /* Goal container */
 .h5p-goals-page .created-goal-container {
   position: relative;
   background-color: var(--h5p-theme-alternative-base);
-  padding: 1em;
-  margin-bottom: 1em;
+  padding: var(--h5p-theme-spacing-s);
+  margin-bottom: var(--h5p-theme-spacing-s);
   border-radius: var(--h5p-theme-border-radius-medium);
 }
 
@@ -22,16 +22,15 @@
 }
 
 .h5p-goals-page .goals-define {
-  margin: 1em 0;
+  margin: var(--h5p-theme-spacing-xxs) 0;
 }
 
 .h5p-goals-page .goals-description {
-  padding-top: 1em;
+  padding-top: var(--h5p-theme-spacing-s);
 }
 
 .h5p-goals-page .goals-counter .goals-counter-text {
   color: var(--h5p-theme-text-third);
-  opacity: 0.75;
 }
 
 .h5p-goals-page .goals-view {
@@ -44,20 +43,18 @@
   box-sizing: border-box;
   width: 100%;
   word-wrap: break-word;
-  font-size: 16px;
+  font-size: var(--h5p-theme-font-size-m);
   resize: none;
   overflow-y: hidden;
   font-family: var(--h5p-theme-font-name);
-  
-  
-    display: flex;
-    align-items: center;
-    background-color: var(--h5p-theme-ui-base);
-    box-shadow: inset 0px 0px 4px 4px rgba(117, 128, 147, 0.10);
-    border-radius: var(--h5p-theme-border-radius-medium);
-    border: 2px solid var(--h5p-theme-stroke-1);
-    padding: var(--h5p-theme-spacing-xs) var(--h5p-theme-spacing-xs);
-    color: var(--h5p-theme-text-primary);
+  display: flex;
+  align-items: center;
+  background-color: var(--h5p-theme-ui-base);
+  box-shadow: inset 0px 0px 4px 4px rgba(117, 128, 147, 0.10);
+  border-radius: var(--h5p-theme-border-radius-medium);
+  border: 2px solid var(--h5p-theme-stroke-1);
+  padding: var(--h5p-theme-spacing-xs) var(--h5p-theme-spacing-xs);
+  color: var(--h5p-theme-text-primary);
 }
 
 /* ------------------------- Goal container colors ------------------------ */
@@ -65,7 +62,7 @@
 .h5p-goals-page .created-goal-container.goal-type-0,
 .h5p-goals-page .created-goal-container.goal-type-1,
 .h5p-goals-page .created-goal-container.goal-type-2 {
-  background-color: #fff;
+  background-color: var(--h5p-theme-ui-base);
 }
 
 .h5p-goals-page button.h5p-created-goal-remove {
@@ -73,19 +70,19 @@
   top: -0.8em;
   right: -0.8em;
   cursor: pointer;
-  background: #fff;
+  background: var(--h5p-theme-ui-base);
   border-radius: 50%;
   border: none;
   padding: 3px;
   line-height: 1;
-  color: #bd3e3e;
+  color: var(--h5p-theme-feedback-incorrect-main);
 
 }
 
 .h5p-goals-page .h5p-created-goal-remove:before {
   font-family: 'H5PFontAwesome4';
   content: '\f00d';
-  border: 1px solid  #bd3e3e;
+  border: 1px solid var(--h5p-theme-feedback-incorrect-main);
   text-align: center;
   border-radius: 50%;
   width: 1.5em;
@@ -99,15 +96,15 @@
 .h5p-goals-page .h5p-created-goal-remove:hover:before {
   background-color: #e74041;
   border-color: #e74041;
-  color: #fff;
+  color: var(--h5p-theme-ui-base);
 }
 
 /* ------------------------------ Buttons -------------------------------------------------- */
 /* Rounded button css in 'H5P.JoubelUI' library */
 
 .h5p-goals-page .goals-define .goals-create:before {
-  font-family: "H5PFontAwesome4";
-  content: "\f067";
+  font-family: "h5p-theme";
+  content: "\e918";
   margin-right: 0.75em;
 }
 
