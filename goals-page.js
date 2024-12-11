@@ -97,7 +97,7 @@ H5P.GoalsPage = (function ($, EventDispatcher) {
     if (self.params.helpText !== undefined && self.params.helpText.length !== 0) {
       self.$helpButton = $('<button>', {
         'class': 'page-help-text',
-        html: self.params.helpTextLabel,
+        'aria-label': self.params.helpTextLabel,
         click: function () {
           self.trigger('open-help-dialog', {
             title: self.params.title,
@@ -106,6 +106,7 @@ H5P.GoalsPage = (function ($, EventDispatcher) {
         },
         appendTo: self.$pageTitle
       });
+      H5P.Tooltip(self.$helpButton[0]);
     }
 
     $('<div>', {
@@ -311,7 +312,8 @@ H5P.GoalsPage = (function ($, EventDispatcher) {
           headerText: self.params.goalDeletionConfirmation.header,
           dialogText: self.params.goalDeletionConfirmation.message,
           cancelText: self.params.goalDeletionConfirmation.cancelLabel,
-          confirmText: self.params.goalDeletionConfirmation.confirmLabel
+          confirmText: self.params.goalDeletionConfirmation.confirmLabel,
+          theme: true,
         });
 
         confirmationDialog.on('confirmed', function () {
