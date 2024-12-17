@@ -14,11 +14,11 @@
 /* ------------------------ Main classes ----------------------------- */
 
 .h5p-goals-page .goals-title {
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid var(--h5p-theme-stroke-1);
   padding: 0.5em 0;
   margin-bottom: 0.5em;
-  font-size: 18px;
-  color: #555;
+  font-size: var(--h5p-theme-font-size-l);
+  color: var(--h5p-theme-text-third);
 }
 
 .h5p-goals-page .goals-define {
