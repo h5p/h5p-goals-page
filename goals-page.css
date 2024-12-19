@@ -60,7 +60,6 @@
 .h5p-goals-page .created-goal-container .created-goal:focus,
 .h5p-goals-page .h5p-created-goal-remove.h5p-goals-button:focus{
   background-color: var(--h5p-theme-ui-base);
-  z-index: 3000;
   outline: 2px ridge var(--h5p-theme-main-cta-base);
   outline-offset: 2px;
 }
