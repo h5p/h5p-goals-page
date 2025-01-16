@@ -126,10 +126,3 @@
   content: "\f07c";
   margin-right: 0.75em;
 }
-
-/* Active state positioning */
-.h5p-goals-page .goals-define .goals-search:active:before,
-.h5p-goals-page .goals-define .goals-create:active:before {
-  position: relative;
-  top: 2px;
-}
