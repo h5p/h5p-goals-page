@@ -6,6 +6,14 @@
       "default": "Lantzeko aukeratu dituzun helburuak sartu."
     },
     {
+      "label": "Predefined goals",
+      "entity": "goal",
+      "description": "Optional predefined goals that the user can choose to use or delete.",
+      "field": {
+        "label": "Predefined goal"
+      }
+    },
+    {
       "label": "Definitu helburuaren esteka-testua",
       "description": "Botoian helburu berria sortzeko agertuko den testua.",
       "default": "Sortu helburu berria"

@@ -6,6 +6,14 @@
       "default": "Escribe los objetivos con los que has elegido trabajar."
     },
     {
+      "label": "Predefined goals",
+      "entity": "goal",
+      "description": "Optional predefined goals that the user can choose to use or delete.",
+      "field": {
+        "label": "Predefined goal"
+      }
+    },
+    {
       "label": "Texto de enlace para definir objetivo",
       "description": "Texto mostrado en el botón para crear un nuevo objetivo.",
       "default": "Crear un nuevo objetivo"

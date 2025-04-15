@@ -6,6 +6,14 @@
       "default": "Въведете целите, с които сте избрали да работите."
     },
     {
+      "label": "Predefined goals",
+      "entity": "goal",
+      "description": "Optional predefined goals that the user can choose to use or delete.",
+      "field": {
+        "label": "Predefined goal"
+      }
+    },
+    {
       "label": "Задайте текста на връзката на цел",
       "description": "Текст, който ще се показва на бутона за добавяне на нова цел.",
       "default": "Добавяне на нова цел"

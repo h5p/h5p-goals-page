@@ -6,6 +6,14 @@
       "default": "Хамтран ажиллахаар сонгосон зорилгоо оруулна уу."
     },
     {
+      "label": "Predefined goals",
+      "entity": "goal",
+      "description": "Optional predefined goals that the user can choose to use or delete.",
+      "field": {
+        "label": "Predefined goal"
+      }
+    },
+    {
       "label": "Зорилго холбоосын текстийг тодорхойлох",
       "default": "Шинэ зорилго бий болго",
       "description": "Шинэ зорилго үүсгэх товчлуур дээр гарч ирэх текст."

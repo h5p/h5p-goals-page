@@ -6,6 +6,14 @@
       "default": "Ievietojiet mērķus, pie kuriem esat izvēlējies strādāt."
     },
     {
+      "label": "Predefined goals",
+      "entity": "goal",
+      "description": "Optional predefined goals that the user can choose to use or delete.",
+      "field": {
+        "label": "Predefined goal"
+      }
+    },
+    {
       "label": "Iestatiet mērķa saites tekstu",
       "default": "Izveidot jaunu mērķi",
       "description": "Teksts, kas tiks parādīts uz jauna mērķa izveides pogas."

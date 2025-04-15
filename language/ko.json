@@ -6,6 +6,14 @@
       "default": "설정한 목표를 삽입하십시오."
     },
     {
+      "label": "Predefined goals",
+      "entity": "goal",
+      "description": "Optional predefined goals that the user can choose to use or delete.",
+      "field": {
+        "label": "Predefined goal"
+      }
+    },
+    {
       "label": "목표 정의 링크 텍스트",
       "description": "새로운 목표를 만들기 위한 버튼에 표시될 텍스트.",
       "default": "새 목표 만들기"
