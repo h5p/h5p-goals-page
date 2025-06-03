@@ -130,17 +130,16 @@ H5P.GoalsPage = (function ($, EventDispatcher) {
       appendTo: self.$inner
     });
 
-    self.$createGoalButton = $('<div>', {
-      role: 'button',
-      tabindex: '0',
-      class: 'joubel-simple-rounded-button goals-create h5p-theme-primary-cta',
-      title: self.params.defineGoalText,
-      append: $('<span>', {
-        class: 'joubel-simple-rounded-button-text',
-        html: self.params.defineGoalText
-      }),
-      appendTo: $goalsDefine
+    this.createGoalButton = H5P.Components.Button({
+      label: this.params.defineGoalText,
+      icon: 'goals-create',
+      onClick: () => {
+        self.addGoal().find('.created-goal').focus();
+        self.trigger('resize');
+      }
     });
+
+    $goalsDefine[0].appendChild(this.createGoalButton);
 
     if (this.previousState && this.previousState.goals) {
       // Recreate goals
@@ -153,22 +152,6 @@ H5P.GoalsPage = (function ($, EventDispatcher) {
         self.goalList[index].setTextualAnswer(goal.textualAnswer);
       });
     }
-
-    // Attach button click event listener
-    self.initCreateGoalButton();
-  };
-
-  /**
-   * Create button for creating goals
-   */
-  GoalsPage.prototype.initCreateGoalButton = function () {
-    var self = this;
-
-    // Create new goal on click
-    H5P.DocumentationTool.handleButtonClick(self.$createGoalButton, function () {
-      self.addGoal().find('.created-goal').focus();
-      self.trigger('resize');
-    });
   };
 
   /**
@@ -319,7 +302,7 @@ H5P.GoalsPage = (function ($, EventDispatcher) {
         confirmationDialog.on('confirmed', function () {
           self.removeGoal($removeContainer);
           // Set focus to add new goal button
-          self.$createGoalButton.focus();
+          self.createGoalButton.focus();
         });
 
         confirmationDialog.appendTo(self.$inner.closest('.h5p-documentation-tool').get(0));
