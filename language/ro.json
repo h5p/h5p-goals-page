@@ -1,0 +1,67 @@
+{
+  "semantics": [
+    {
+      "label": "Descriere",
+      "description": "Descrierea paginii de obiective.",
+      "default": "Introduceți obiectivele pe care le-ați ales pentru a lucra cu ele."
+    },
+    {
+      "label": "Text link definire obiectiv",
+      "description": "Textul care va fi afișat pe butonul pentru crearea unui nou obiectiv.",
+      "default": "Creează un obiectiv nou"
+    },
+    {
+      "label": "Etichetă pentru un obiectiv definit de utilizator",
+      "description": "Textul care va fi afișat ca etichetă pe un obiectiv creat de utilizator.",
+      "default": "Obiectiv definit de utilizator"
+    },
+    {
+      "label": "Text substituent pentru definirea obiectivului",
+      "description": "Textul care va fi afișat ca substituent la crearea unui nou obiectiv.",
+      "default": "Scrie aici..."
+    },
+    {
+      "label": "Text care indică câte obiective au fost adăugate",
+      "default": "Obiective adăugate:",
+      "description": "Acest text va urma după numărul de obiective create în prezent, de exemplu: 'Obiective adăugate: 5', unde 'Obiective adăugate:' este acest text."
+    },
+    {
+      "label": "Text pentru butonul „Specifică obiectiv”",
+      "default": "Specificație"
+    },
+    {
+      "label": "Text pentru butonul „Elimină obiectiv”",
+      "default": "Elimină"
+    },
+    {
+      "label": "Etichetă pentru textul de ajutor",
+      "description": "Etichetă pentru afișarea de informații suplimentare utile utilizatorului.",
+      "default": "Mai multe informații"
+    },
+    {
+      "label": "Completați informații suplimentare de ajutor",
+      "description": "Aici puteți completa informații suplimentare utile pentru utilizator."
+    },
+    {
+      "label": "Localizare confirmare ștergere obiectiv",
+      "fields": [
+        {
+          "label": "Antet",
+          "default": "Confirmă ștergerea"
+        },
+        {
+          "label": "Mesaj",
+          "default": "Sunteți sigur că doriți să ștergeți acest obiectiv?"
+        },
+        {
+          "label": "Etichetă buton Anulează",
+          "default": "Anulează"
+        },
+        {
+          "label": "Etichetă buton Confirmă",
+          "default": "Confirmă"
+        }
+      ]
+    }
+  ]
+}
