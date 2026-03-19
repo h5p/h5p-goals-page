@@ -290,7 +290,7 @@ H5P.GoalsPage = (function ($, EventDispatcher) {
     const self = this;
     const $removeGoalButton = $('<button>', {
       class: 'h5p-created-goal-remove h5p-goals-button',
-      title: text,
+      'aria-label': text,
       click() {
         const confirmationDialog = new H5P.ConfirmationDialog({
           headerText: self.params.goalDeletionConfirmation.header,
@@ -305,12 +305,11 @@ H5P.GoalsPage = (function ($, EventDispatcher) {
           // Set focus to add new goal button
           self.createGoalButton.focus();
         });
-
         confirmationDialog.appendTo(self.$inner.closest('.h5p-documentation-tool').get(0));
         confirmationDialog.show();
       },
     });
-
+    H5P.Tooltip($removeGoalButton[0], { text });
     return $removeGoalButton;
   };
 
