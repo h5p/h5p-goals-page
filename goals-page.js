@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-var
-var H5P = H5P || {};
+var H5P = window.H5P = window.H5P || {};
 
 /**
  * Goals Page module
